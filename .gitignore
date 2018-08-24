@@ -1,0 +1,15 @@
+/node_modules
+/public/
+/private/
+npm-debug.log
+.DS_Store
+.eslintcache
+# IntelliJ
+*.iml
+*.swp
+/.idea
+.vscode
+/coverage
+/.env
+/docs
+/build
