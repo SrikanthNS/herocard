@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import _ from 'lodash';
 import { ActionChildComponent, DynamicComponent } from './dynamicComponent';
 
 const imageMap = {
@@ -176,35 +177,78 @@ export class BodyTripInfoPopOverComponent extends Component {
 export class ActionComponent extends Component {
 	constructor(props) {
 		super(props);
-		this.onKeyChange = this.onKeyChange.bind(this)
+    this.onKeyChange = this.onKeyChange.bind(this);
+    this.areMultipleEntries = this.areMultipleEntries.bind(this);
+    this.renderAction = this.renderAction.bind(this);
+    this.addClasses = this.addClasses.bind(this);
+    this.stringifyAction = this.stringifyAction.bind(this);
 	}
 
    onKeyChange(event) {
     console.log("Input Tag", event.target.value);
   }
 
-	render() {
-		console.log("Test", this.props);		
+  areMultipleEntries(userInput) {
+    if (userInput.length < 2) {
+      return "hccf-card-actions__add-input-single";
+    } else {
+      return "hccf-card-actions__add-input-multiple";
+    }
+  }
 
+  addClasses(items, curAction) {
+    let numActions = items.length,
+    classNames = '';
+    classNames += ' hccf-card-actions__item';
+
+    // mark an action as primary
+    if (curAction.primary || (numActions == 1)) {
+      classNames += ' hccf-card-actions__item--primary';
+    }
+
+    return classNames;
+  }
+
+  stringifyAction(action) {
+    if (!action) { return; }
+    return encodeURIComponent(JSON.stringify(action));
+  }
+
+  renderHiddenFields(value, key) {
+   return <input type="hidden" name={key} id={key} value={value} />
+  }
+
+  renderAction(action, index) {    
+   return  (
+    <div className= {this.addClasses(this.props.action, action)} id={action.id}>
+    <form id={`${this.props.name}${index}`} className="hccf-card-action-form" method={action.type} action={action.url.href} data-action-string={this.stringifyAction(action)}>
+     { _.map(action.request, this.renderHiddenFields)}
+     {
+       action.action_key === 'USER_INPUT' ? 
+          <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
+               {_.map(action.user_input, (userInput, index) => 	                    	
+                 <DynamicComponent key={index} obj={userInput} onChange={() => this.onKeyChange(event)} />                    	
+               )}	                    
+               <div className="hccf-card-actions__item">
+                 <a className="hccf-card-actions__item-link hccf-js-input-button-cancel">Cancel</a>
+                   <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
+                     <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit">Submit</a>
+                   </div>
+               </div>	                    
+           </div> 
+           : 
+           <ActionChildComponent key={index} action={action} />		
+      }	
+    </form>
+   </div>
+   );
+   
+  }
+  
+	render() {
 		return (
 			<div className="hccf-row hccf-card-actions">
-				{this.props.action.map((action, index) => {					
-					return action.action_key === 'USER_INPUT' ? 
-					<div key={index} className="hccf-js-input-add-section">
-	                    {action.user_input.map((userInput, index) => 	                    	
-	                    	<DynamicComponent key={index} obj={userInput} onChange={() => this.onKeyChange(event)} />                    	
-	                    )}	                    
-                    	<div className="hccf-card-actions__item">
-                    		<a className="hccf-card-actions__item-link hccf-js-input-button-cancel">Cancel</a>
-	                        <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
-	                          <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit">Submit</a>
-	                        </div>
-                    	</div>	                    
-	                </div> : 
-
-	                <ActionChildComponent key={index} action={action} />				    
-				})}
-                
+        {_.map(this.props.action, this.renderAction)}                
 			</div>  
 		)
 	}

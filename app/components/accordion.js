@@ -39,7 +39,7 @@ export default class Accordion extends Component {
 		  					<BodyTripInfoComponent key={index} comment={field}/>)) ;							  			
 				})			
 		  		: <span>'test'</span> }
-		  		<ActionComponent action={prop.actions} />
+		  		<ActionComponent action={prop.actions} name={prop.name} />
 		  	</div>;		  
 		  
 		  return {prop, inner};
