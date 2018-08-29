@@ -32,13 +32,13 @@ export default class Accordion extends Component {
 		  		{prop.body.description}
 				</div>
 		  		{ prop.body && prop.body.fields ? 
-		  			prop.body.fields.map((field, index) => {
+		  			prop.body.fields.splice(0, 4).map((field, index) => {
 		  			return field.type === 'GENERAL' ? <BodyGeneralComponent key={index} comment={field}/> : 
 		  				(field.type === 'COMMENT' ? <BodyCommentComponent key={index}  comment={field} /> : 
 		  				(field.type === 'ATTACHMENT' ? <BoydAttachmentComponent key={index} comment={field}/> : 
 		  					<BodyTripInfoComponent key={index} comment={field}/>)) ;							  			
 				})			
-		  		: <span>'test'</span> }
+		  		: null }
 		  		<ActionComponent action={prop.actions} name={prop.name} />
 		  	</div>;		  
 		  
