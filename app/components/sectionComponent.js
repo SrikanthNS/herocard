@@ -14,8 +14,8 @@ const imageMap = {
 
 export class Section extends Component {
     render() {
-          let imageSrc = (this.props.content.prop.name && imageMap[this.props.content.prop.name.toUpperCase()])
-       ? imageMap[this.props.content.prop.name.toUpperCase()]
+          let imageSrc = (this.props.content.name && imageMap[this.props.content.name.toUpperCase()])
+       ? imageMap[this.props.content.name.toUpperCase()]
        : require("../images/Generic@3x.png");
       return (     
               <div className={`hccf-hero-card ${this.props.active ? "open" : ""}`}
@@ -24,17 +24,17 @@ export class Section extends Component {
                       <div className="hccf-card-header__wrapper col-12 col-sm-12 col-md-12">
                           <div className="hccf-card-header__avatar">
                               <div>
-                              <span>{imageSrc[this.props.content.prop.name]}</span>
+                              <span>{imageSrc[this.props.content.name]}</span>
                  <img src={imageSrc} />
                               </div>
                           </div>
                           <div className="hccf-card-header__meta">      		      		
                               <div className="hccf-card-header__meta-title">
-                                {this.props.content.prop.header.title}
+                                {this.props.content.header.title}
                               </div>
   
                               <div className="hccf-card-header__meta-subtitle">
-                                {this.props.content.prop.header.subtitle}
+                                {this.props.content.header.subtitle}
                               </div>
                           </div>
                       </div>
@@ -42,12 +42,97 @@ export class Section extends Component {
                   <div
                       key="content"
                       className={`hccf-row hccf-card-body ${this.props.active ? "open" : ""}`}>
-                      {this.props.active ? this.props.content.inner : null}
+                      {this.props.active ? <CardHolder prop={this.props.content} /> : null}
                   </div>			    
               </div>		     
       );
     }
   }
+
+export class CardHolder extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      showHide: false,
+      showMore: true,
+      numOfRecToShow: this.props.prop.body.fields? this.props.prop.body.fields.length : 0,
+      minFieldsToShow: 4,
+      body: this.props.prop.body,
+      totalNumberOfFields: this.props.prop.body.fields? this.props.prop.body.fields.length : 0,
+    }
+    
+    this.showToggle = this.showToggle.bind(this);	
+  }
+
+  showToggle() {
+    const {minFieldsToShow, totalNumberOfFields } = this.state;
+    const numOfRecToShow = this.state.showMore? totalNumberOfFields: minFieldsToShow;
+    this.setState({numOfRecToShow, showMore: !this.state.showMore, })
+  }
+
+  componentWillMount() {
+     /*more_details logic*/
+    this.moreDetails();
+  }
+
+  moreDetails() {    
+    const visibleCardsCount = HeroCard.ResponseManager.getVisibleCardsCount();
+    if (visibleCardsCount > 1) {
+      // don't add show/hide if more than one cards present
+      this.setState({showHide: false});
+      return;
+    }
+    
+    let fieldsCount = null;
+    const body = this.props.prop.body;
+    if (body.fields) {
+        fieldsCount = body.fields.length; 
+    } else {
+      this.setState({showHide: false});
+      return
+    }
+    if ((fieldsCount > 4)
+      || ((fieldsCount == 4) && (body.comments && (body.comments.length > 0)))
+      || ((fieldsCount == 3) && (body.comments && (body.comments.length > 0)) && (body.attachments && (body.attachments.length > 0)))) {
+        this.setState({showHide: true, numOfRecToShow: this.state.minFieldsToShow, showMore: true});
+        return;
+    }
+  }
+
+  render() {
+    const prop = this.props.prop;
+    const {minFieldsToShow, totalNumberOfFields } = this.state;
+    let fields = Object.assign([], prop.body.fields);
+    return (
+      <div>	
+					<div className="col-12 col-sm-12 hccf-card-body__description">	  
+		  		{prop.body.description}
+				</div>
+          { prop.body && prop.body.fields ? 
+		  			_.map(fields.splice(0, this.state.numOfRecToShow), (field, index) => {
+		  			return field.type === 'GENERAL' ? <BodyGeneralComponent key={index} comment={field}/> : 
+		  				(field.type === 'COMMENT' ? <BodyCommentComponent key={index}  comment={field} /> : 
+		  				(field.type === 'ATTACHMENT' ? <BoydAttachmentComponent key={index} comment={field}/> : 
+		  					<BodyTripInfoComponent key={index} comment={field}/>)) ;							  			
+				})			
+          : null }
+          {this.state.showHide? 
+              <div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__view-details">
+                <a className="hccf-card-body__view-details--more" id="" onClick={this.showToggle} style={{display:  this.state.showMore ? 'block' : 'none'} }>
+                  View more <img width = "13" />
+                </a>
+                <a className="hccf-card-body__view-details--less" id="" onClick={this.showToggle}  style={{display:  this.state.showMore ? 'none' : 'block'} }>
+                  View less <img width = "13" />
+                </a> 
+              </div>
+              :
+              null
+          }
+		  		<ActionComponent action={prop.actions} name={prop.name} />
+		  	</div>
+    );
+  }
+}
 
 export class BodyGeneralComponent extends Component{
 	render() {
@@ -220,26 +305,26 @@ export class ActionComponent extends Component {
 
   renderAction(action, index) {    
    return  (
-    <div className= {this.addClasses(this.props.action, action)} id={action.id}>
-    <form id={`${this.props.name}${index}`} className="hccf-card-action-form" method={action.type} action={action.url.href} data-action-string={this.stringifyAction(action)}>
-     { _.map(action.request, this.renderHiddenFields)}
-     {
-       action.action_key === 'USER_INPUT' ? 
-          <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
-               {_.map(action.user_input, (userInput, index) => 	                    	
-                 <DynamicComponent key={index} obj={userInput} onChange={() => this.onKeyChange(event)} />                    	
-               )}	                    
-               <div className="hccf-card-actions__item">
-                 <a className="hccf-card-actions__item-link hccf-js-input-button-cancel">Cancel</a>
-                   <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
-                     <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit">Submit</a>
-                   </div>
-               </div>	                    
-           </div> 
-           : 
-           <ActionChildComponent key={index} action={action} />		
-      }	
-    </form>
+    <div key={action.id} className= {this.addClasses(this.props.action, action)} id={action.id}>
+      <form id={`${this.props.name}${index}`} className="hccf-card-action-form" method={action.type} action={action.url.href} data-action-string={this.stringifyAction(action)}>
+      { _.map(action.request, this.renderHiddenFields)}
+      {
+        action.action_key === 'USER_INPUT' ? 
+            <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
+                {_.map(action.user_input, (userInput, index) => 	                    	
+                  <DynamicComponent key={index} obj={userInput} onChange={() => this.onKeyChange(event)} />                    	
+                )}	                    
+                <div className="hccf-card-actions__item">
+                  <a className="hccf-card-actions__item-link hccf-js-input-button-cancel">Cancel</a>
+                    <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
+                      <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit">Submit</a>
+                    </div>
+                </div>	                    
+            </div> 
+            : 
+            <ActionChildComponent key={index} action={action} />		
+        }	
+      </form>
    </div>
    );
    
