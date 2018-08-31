@@ -17,11 +17,50 @@
 
   </div>
   <script src="../app/data/data.js"></script>
+  <script src="../app/utility/cardContent.js"></script>
   <script src="../app/utility/actions.js"></script>
   <script src="../app/utility/utility.js"></script>
   <script src="../app/utility/helper.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" nonce="iajdfiajsidjadfnj">
+    // adding 'HeroCard' namespace to window
+    window.HeroCard = window.HeroCard || {};
+    // adding 'HeroCardElement' to avoid problem for Boxer Android
+    window.HeroCardElement = 'hccf-hero-cards-holder';
+    
+    window.HeroCard.identityProvider = {
+      // Setting this to 'false' will cause an identity provider Auth Card to present.
+    hasAccessToken: true,
+      //hasAccessToken: false,
+      // If hasToken is false, but either name or id are missing, we will render original
+      // cardDataJSON since we were told that the token was missing but we also were not 
+      // given sufficient information to render an auth card with working buttons. 
+      name: "VMware Identity Manager",
+      id: "vIDM"
+    };
+    
+    // If identityProvider is not set, cardDataJSON data will be used to render cards.
+    //window.HeroCard.identityProvider = undefined;
+    
+    // Should name it connectors?
+    // Need to represent current status of connector credentials so I'm not rendering auth
+    // cards for connectors that have since been authenticated.
+    window.HeroCard.connectorInfo = {
+      "401_Connector": { // Connector ID
+        //Omitting the name will throw an error if this connectors has a 401 status, preventing cards from rendering.
+        "name": "Test JIRA",
+        "image": "./images/Jira@3x.png",
+        "hasCredentials": false // We will render an auth card here if BE status is 401
+      },
+      "Authenticated_Connector" : {
+        "name": "SHOULD NOT RENDER",
+        "image": "No Image",
+        "hasCredentials": true // We will not render an auth card because user has re-auth
+      }
+    };
+  </script>
+
 </body>
 
 </html>
