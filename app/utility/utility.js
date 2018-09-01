@@ -542,7 +542,7 @@
       return true;
     },
 
-    /**
+     /**
      * Function to store element id, event type and handler name
      * @param {string} elemID - element id
      * @param {string} eventName - event name

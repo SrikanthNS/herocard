@@ -558,7 +558,7 @@
 
 				var actionItem = HeroCard.Utility.getClosest(actionButton, '.hccf-card-actions__item'),
 					actionItemSiblings = actionItem.parentNode.children,
-					formSection = actionButton.parentNode.querySelector(sectionClass);
+					formSection = actionButton.parentNode.parentNode.querySelector(sectionClass);
 
 				// hide other buttons
 				for (var i = 0; i < actionItemSiblings.length; i++) {
@@ -590,7 +590,7 @@
 
 				var formSection = HeroCard.Utility.getClosest(cancelButton, sectionClass),
 					form = HeroCard.Utility.getClosest(cancelButton, 'form'),
-					actionButton = formSection.nextElementSibling,
+					actionButton = formSection.nextElementSibling || form.querySelector('.hccf-card-actions__item-link--hidden'),
 					actionItem = HeroCard.Utility.getClosest(actionButton, '.hccf-card-actions__item'),
 					actionItemSiblings = actionItem.parentNode.children;
 
