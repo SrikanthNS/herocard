@@ -9,9 +9,6 @@ export class DynamicComponent extends Component {
   
    createFormField() {
     const {formID, userInput, fieldOptions} = this.props;
-    console.log("formID", formID);
-    console.log("userInput", userInput);
-    console.log("formOptions", fieldOptions);
     if (!userInput) { return; }
 
     // console.log(userInput);
@@ -105,40 +102,9 @@ export class ActionChildComponent extends Component {
       completedClasses = 'hccf-card-actions__item-link',
       innerText = action.label;
 
-    switch (action.action_key) {
-      case 'VIEW_TRIP':
-        clickHandler = 'window.HeroCard.Actions.TripInfo.showConcurTripDetails(event, element)';
-        break;
-
-      case 'APPROVE':
-        clickHandler = 'window.HeroCard.Actions.Direct.openUrlLocation(element)';
-        break;
-
-      case 'VIEW_OPPORTUNITY':
-        clickHandler = 'window.HeroCard.Utility.viewSalesforceOpportunity(event, element)';
-        break;
-
-      case 'CREATE_OPPORTUNITY':
-        clickHandler = 'window.HeroCard.Utility.createSalesforceOpportunity(event, element)';
-        break;
-
+    switch (action.action_key) {      
       case 'USER_INPUT':
         clickHandler = 'window.HeroCard.Actions.UserInput.showInputForm(event, element)';
-        break;
-
-      case 'AUTH_DISMISS':
-        clickHandler = 'window.HeroCard.Actions.Auth.dismiss(event, element)';
-        break;
-
-      case 'AUTH_LOGIN':
-        clickHandler = 'window.HeroCard.Actions.Auth.login(element)';
-        break;
-
-      case 'DISMISS':
-      case 'DIRECT':
-      case 'OPEN_IN':
-      case 'INSTALL_APP':
-        clickHandler = 'window.HeroCard.Actions.Direct.openUrlLocation(element)';
         break;
 
       default:
