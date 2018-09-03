@@ -11,8 +11,15 @@ export default class Accordion extends Component {
     this.makeVisible = this.makeVisible.bind(this);
 	}	
   
+  componentDidMount() {
+    // Initialize custom event emitter object
+    window.HeroCard.initEventEmitter();
+  }
+
   makeVisible(event, current) {
-    if(_.includes(event.target.className, 'hccf-card-header__meta')) {
+    if(_.includes(event.target.className, 'hccf-card-header__meta') || 
+    _.includes(event.target.className, 'hccf-hero-card open') ||
+    _.includes(event.target.className, 'hccf-hero-card')) {
       const stateNum = this.state.active === current ? -1 : current;
       this.setState(() => ({ active: stateNum }));
     }

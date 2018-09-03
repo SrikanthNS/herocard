@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { ActionChildComponent, DynamicComponent } from './dynamicComponent';
 
 const imageMap = {
-    'BOOMI SFDC': require("../images/Boomi@3x.png"),
+  'BOOMI SFDC': require("../images/Boomi@3x.png"),
 	'SOCIALCAST': require("../images/Socialcast@3x.png"),
 	'SERVICENOW': require("../images/ServiceNow@3x.png"),
 	'SALESFORCE': require('../images/Salesforce@3x.png'),
@@ -98,6 +98,10 @@ export class CardHolder extends Component{
         return;
     }
   }
+  
+  componentDidMount() {
+    window.HeroCard.Utility.attachEventHandlers();
+  }
 
   render() {
     const prop = this.props.prop;
@@ -128,7 +132,7 @@ export class CardHolder extends Component{
               :
               null
           }
-		  		<ActionComponent action={prop.actions} name={prop.name} />
+		  		<ActionComponent action={prop.actions} name={prop.name}  id={prop.id} />
 		  	</div>
     );
   }
@@ -261,17 +265,12 @@ export class BodyTripInfoPopOverComponent extends Component {
 
 export class ActionComponent extends Component {
 	constructor(props) {
-		super(props);
-    this.onKeyChange = this.onKeyChange.bind(this);
+		super(props);    
     this.areMultipleEntries = this.areMultipleEntries.bind(this);
     this.renderAction = this.renderAction.bind(this);
     this.addClasses = this.addClasses.bind(this);
     this.stringifyAction = this.stringifyAction.bind(this);
 	}
-
-   onKeyChange(event) {
-    console.log("Input Tag", event.target.value);
-  }
 
   areMultipleEntries(userInput) {
     if (userInput.length < 2) {
@@ -298,7 +297,7 @@ export class ActionComponent extends Component {
     if (!action) { return; }
     return encodeURIComponent(JSON.stringify(action));
   }
-
+  
   renderHiddenFields(value, key) {
    return <input type="hidden" name={key} id={key} value={value} />
   }
@@ -310,20 +309,34 @@ export class ActionComponent extends Component {
       { _.map(action.request, this.renderHiddenFields)}
       {
         action.action_key === 'USER_INPUT' ? 
+            <div>
             <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
                 {_.map(action.user_input, (userInput, index) => 	                    	
-                  <DynamicComponent key={index} obj={userInput} onChange={() => this.onKeyChange(event)} />                    	
+                  <DynamicComponent 
+                  formID={action.id} 
+                  key={index} 
+                  fieldOptions={'{"keyup" : "window.HeroCard.Actions.UserInput.checkUserInput(event, this)"}'} 
+                  userInput={userInput} 
+                  onChange={(event, userInput) => this.onKeyChange(event, userInput)} />                    	
                 )}	                    
+              <div>
                 <div className="hccf-card-actions__item">
-                  <a className="hccf-card-actions__item-link hccf-js-input-button-cancel">Cancel</a>
-                    <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
-                      <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit">Submit</a>
-                    </div>
-                </div>	                    
+                  <a className="hccf-card-actions__item-link hccf-js-input-button-cancel" id={`${this.props.id}__${action.id}__cancel`} 
+                  onClick={(event) => window.HeroCard.Actions.UserInput.hideInputForm(event, event.target)}>Cancel</a>
+                  <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
+                    <a className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit"
+                    id={`${this.props.id}__${action.id}__submit`} 
+                    onClick={(event) => window.HeroCard.Actions.UserInput.submitInput(event, event.target)}>{action.label}</a>
+                  </div>
+                </div>
+              </div>	                    
             </div> 
+            
+          </div>	
             : 
-            <ActionChildComponent key={index} action={action} />		
+            null
         }	
+        <ActionChildComponent action={action} />	
       </form>
    </div>
    );
