@@ -1,0 +1,6 @@
+{
+    "extends": "./lint-config-react.json",
+    "rules": {
+      "import/prefer-default-export": "error"
+    }
+  }
