@@ -8,45 +8,40 @@
  * http://www.vmware.com/go/patents.
  */
 
-/***************************************************
+/** *************************************************
   Event Emitter
 ****************************************************/
 
-(function() {
+(function () {
+  // Access 'HeroCard' namespace or create one
+  window.HeroCard = window.HeroCard || {};
 
-    // Access 'HeroCard' namespace or create one
-    window.HeroCard = window.HeroCard || {};
-  
-    // Custom event emitter
-    HeroCard.initEventEmitter = function () {
+  // Custom event emitter
+  HeroCard.initEventEmitter = function () {
+    function Emitter() {
+      this.events = {};
+    }
 
-        function Emitter() {
-            this.events = {};
-        }
-        
-        Emitter.prototype.on = function(eventType, eventListener) {
-            this.events[eventType] = this.events[eventType] || [];
-            this.events[eventType].push(eventListener);
-        };
-        
-        Emitter.prototype.emit = function(eventType, eventInfo) {
-            eventInfo = (typeof eventInfo !== undefined) ?  eventInfo : {};
-
-            if(this.events[eventType]) {
-                this.events[eventType].forEach(function(eventListener) {
-                    eventListener(eventInfo);
-                });
-            }
-        };
-
-        function init() {
-            HeroCard.EventEmitter = HeroCard.EventEmitter || new Emitter();
-        }
-
-        init();
+    Emitter.prototype.on = function (eventType, eventListener) {
+      this.events[eventType] = this.events[eventType] || [];
+      this.events[eventType].push(eventListener);
     };
-   
-  })();
-  
 
+    Emitter.prototype.emit = function (eventType, eventInfo) {
+      eventInfo = (typeof eventInfo !== undefined) ? eventInfo : {};
+
+      if (this.events[eventType]) {
+        this.events[eventType].forEach((eventListener) => {
+          eventListener(eventInfo);
+        });
+      }
+    };
+
+    function init() {
+      HeroCard.EventEmitter = HeroCard.EventEmitter || new Emitter();
+    }
+
+    init();
+  };
+}());
 
