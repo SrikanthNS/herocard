@@ -112,21 +112,21 @@ export class CardHolder extends Component {
     return (
       <div>
         <div className="col-12 col-sm-12 hccf-card-body__description">
-          {prop.body.description}
+          {_.escape(prop.body.description)}
         </div>
-        { prop.body && prop.body.fields ?
-		  			_.map(fields.splice(0, this.state.numOfRecToShow), (field, index) => (field.type === 'GENERAL' ? <BodyGeneralComponent key={index} comment={field} /> :
-		  				(field.type === 'COMMENT' ? <BodyCommentComponent key={index} comment={field} /> :
-		  				(field.type === 'ATTACHMENT' ? <BoydAttachmentComponent key={index} comment={field} /> :
-		  					<BodyTripInfoComponent key={index} comment={field} />))))
-          : null }
+        {prop.body && prop.body.fields ?
+          _.map(fields.splice(0, this.state.numOfRecToShow), (field, index) => (field.type === 'GENERAL' ? <BodyGeneralComponent key={index} comment={field} /> :
+            (field.type === 'COMMENT' ? <BodyCommentComponent key={index} comment={field} /> :
+              (field.type === 'ATTACHMENT' ? <BoydAttachmentComponent key={index} comment={field} /> :
+                <BodyTripInfoComponent key={index} comment={field} />))))
+          : null}
         {this.state.showHide ?
           <div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__view-details">
             <a className="hccf-card-body__view-details--more" id="" onClick={this.showToggle} style={{ display: this.state.showMore ? 'block' : 'none' }}>
-                  View more <img width="13" />
+              View more <img width="13" />
             </a>
             <a className="hccf-card-body__view-details--less" id="" onClick={this.showToggle} style={{ display: this.state.showMore ? 'none' : 'block' }}>
-                  View less <img width="13" />
+              View less <img width="13" />
             </a>
           </div>
           :
@@ -147,7 +147,7 @@ export class BodyGeneralComponent extends Component {
             {this.props.comment.title}:
           </div>
           <div className="col-8 col-sm-9 col-md-9 col-lg-9 hccf-card-body__field-description">
-            {this.props.comment.description}
+            {_.escape(this.props.comment.description)}
           </div>
         </div>
       </div>
@@ -160,9 +160,11 @@ export class BodyCommentComponent extends Component {
     return (
       <div>
         <p className="hccf-card-body__comments-title">{this.props.comment.title}:</p>
-        <div className="hccf-card-body__comments-body">
-          {this.props.comment.text}
-        </div>
+        {this.props.comment.content.map((content, index) =>
+          <div className="hccf-card-body__comments-body" key={`comments-${index}`}>
+            {_.escape(content.text)}
+          </div>
+        )}
       </div>
     );
   }
@@ -210,7 +212,7 @@ export class BodyTripInfoComponent extends Component {
         {this.props.comment.content.map((content, index) =>
           (<div className="hccf-row" key={index}>
             <div className="col-3 col-sm-3 col-md-2 hccf-card-body__field-title" style={{ width: `${55}px` }}>
-              {content.image ? <img style={{ width: `${40}px` }} src={require(`../images/${content.image}`)} /> : content.title }
+              {content.image ? <img style={{ width: `${40}px` }} src={require(`../images/${content.image}`)} /> : content.title}
             </div>
             <div className="col-9 col-sm-9 col-md-10 hccf-card-body__field-description">
               {content.text}
@@ -228,13 +230,13 @@ export class BodyTripInfoPopOverComponent extends Component {
     return (
       <div className="hccf-card-body__tripinfo-preview hccf-animated">
         {this.props.tripInfo.summary &&
-        <div className="hccf-card-body__tripinfo-row hccf-card-body__tripinfo-summary">
-          <h3>{this.props.tripInfo.summary.event}</h3>
-          <p>{this.props.tripInfo.summary.date}</p>
-          {this.props.tripInfo.summary.others.map((other, index) =>
-            <p key={index}>{other}</p>
-					  )}
-        </div>
+          <div className="hccf-card-body__tripinfo-row hccf-card-body__tripinfo-summary">
+            <h3>{this.props.tripInfo.summary.event}</h3>
+            <p>{this.props.tripInfo.summary.date}</p>
+            {this.props.tripInfo.summary.others.map((other, index) =>
+              <p key={index}>{other}</p>
+            )}
+          </div>
         }
 
         {this.props.tripInfo.trips.map((trip, index) =>
@@ -251,8 +253,8 @@ export class BodyTripInfoPopOverComponent extends Component {
                 <h3>{trip.destination}</h3>
                 <p>{trip.flight}</p>
                 <p>
-                  <span>Terminal {trip.terminal ? trip.terminal : '--' }</span>
-                  <span>Gate {trip.gate ? trip.gate : '--' }</span>
+                  <span>Terminal {trip.terminal ? trip.terminal : '--'}</span>
+                  <span>Gate {trip.gate ? trip.gate : '--'}</span>
                 </p>
               </div>
             </div>
@@ -305,7 +307,7 @@ export class ActionComponent extends Component {
     return (
       <div key={action.id} className={this.addClasses(this.props.action, action)} id={action.id}>
         <form id={`${this.props.name}${index}`} className="hccf-card-action-form" method={action.type} action={action.url.href} data-action-string={this.stringifyAction(action)}>
-          { _.map(action.request, this.renderHiddenFields)}
+          {_.map(action.request, this.renderHiddenFields)}
           {
             action.action_key === 'USER_INPUT' ?
               <div>
