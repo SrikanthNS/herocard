@@ -182,11 +182,11 @@ export class BodyAttachmentPopOverComponent extends Component {
   render() {
     return (
       <div className="hccf-card-body__attachments-preview hccf-card-body__attachments-preview--visible">
-        <h3><Link to="/" className="hccf-card-body__attachments--close"><img alt="Close" src="../images/icon-back.png" /></Link> {this.props.location.state.comment.content.length} {this.props.location.state.comment.title}</h3>
+        <h3><Link to="/" className="hccf-card-body__attachments--close"><img alt="Close" src={window.HeroCard.Utility.imgPath('icon-back.png')} /></Link> {this.props.location.state.comment.content.length} {this.props.location.state.comment.title}</h3>
         {this.props.location.state.comment.content.map((content, index) =>
           (<div className="hccf-card-body__attachments-row" key={index}>
             <div>
-              <img src="{content.src}" width="30" alt="" title="" />
+              <img src={window.HeroCard.Utility.imgPath(content.src)} width="30" alt="" title="" />
             </div>
             <div>
               <h3>{content.title}</h3>
@@ -210,7 +210,7 @@ export class BodyTripInfoComponent extends Component {
         {this.props.comment.content.map((content, index) =>
           (<div className="hccf-row" key={index}>
             <div className="col-3 col-sm-3 col-md-2 hccf-card-body__field-title" style={{ width: `${55}px` }}>
-              {content.image ? <img style={{ width: `${40}px` }} src={require(`../images/${content.image}`)} /> : content.title }
+              {content.image ? <img style={{ width: `${40}px` }} src={HeroCard.Utility.imgPath(content.image)} /> : content.title}
             </div>
             <div className="col-9 col-sm-9 col-md-10 hccf-card-body__field-description">
               {content.text}
@@ -242,7 +242,7 @@ export class BodyTripInfoPopOverComponent extends Component {
             <h3>{trip.date}</h3>
             <div>
               <div>
-                <img src={require('../images/tripinfo-departure.png')} title="Departure" alt="Departure" width="30" />
+                <img src={HeroCard.Utility.imgPath('tripinfo-departure.png')} title="Departure" alt="Departure" width="30" />
               </div>
               <div>
                 <h3>{trip.time}</h3>
