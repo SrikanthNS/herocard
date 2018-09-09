@@ -704,6 +704,15 @@
       return el;
     },
 
+    convertTimestamp(isoDate){
+      if (!isoDate) { return; }
+
+      var convertedDate = HeroCard.Utility.convertISO8601toDate(isoDate);
+      var dateDiff = HeroCard.Utility.dateDifference(convertedDate, new Date());
+
+      return dateDiff;
+    }
+
   }; // END - Utility
 
   // adding back the 'HeroCard' to global namespace
