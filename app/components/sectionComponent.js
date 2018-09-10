@@ -19,7 +19,7 @@ export class Section extends Component {
       : require('../images/Generic@3x.png');
     return (
       <div
-        className={`hccf-hero-card ${this.props.active ? 'open' : ''}`}
+        className={`hccf-hero-card ${this.props.active ? 'open' : ''} ${HeroCard.Utility.callbackClasses(this.props.content)}`}
         onClick={this.props.handle}
       >
         <div className="hccf-card-header">
