@@ -732,6 +732,10 @@
       return classNames;
     }
 
+    imgPath(fileName){
+      return window.hsImgs + fileName;
+    }
+
   }; // END - Utility
 
   // adding back the 'HeroCard' to global namespace
