@@ -703,7 +703,16 @@
       while ((el = el.parentElement) && !el.classList.contains(cls)) { }
       return el;
     },
+    
+   convertTimestamp(isoDate) {
+      if (!isoDate) { return; }
 
+      var convertedDate = HeroCard.Utility.convertISO8601toDate(isoDate);
+      var dateDiff = HeroCard.Utility.dateDifference(convertedDate, new Date());
+
+      return dateDiff;
+    },
+  
     callbackClasses(card) {
       var card = card,
         classNames = '';

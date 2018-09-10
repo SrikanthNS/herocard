@@ -132,6 +132,13 @@ export class CardHolder extends Component {
           :
           null
         }
+        {prop.creation_date ?
+          (<div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__timestamp">
+            {HeroCard.Utility.convertTimestamp(prop.creation_date)}
+          </div>)
+          :
+          null
+        }
         <ActionComponent action={prop.actions} name={prop.name} id={prop.id} />
       </div>
     );
