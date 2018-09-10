@@ -703,6 +703,38 @@
       while ((el = el.parentElement) && !el.classList.contains(cls)) { }
       return el;
     },
+    
+   convertTimestamp(isoDate) {
+      if (!isoDate) { return; }
+
+      var convertedDate = HeroCard.Utility.convertISO8601toDate(isoDate);
+      var dateDiff = HeroCard.Utility.dateDifference(convertedDate, new Date());
+
+      return dateDiff;
+    },
+  
+    callbackClasses(card) {
+      var card = card,
+        classNames = '';
+
+      // Check if the card to be expanded
+      if (card.hasOwnProperty("expand") && card["expand"] === true) {
+        classNames += ' hccf-accordian-expanded';
+      }
+
+      // Hide card if its completed and 'remove card on completion' is present
+      // or if card is no more actionable
+      // or if card is expired
+      if (HeroCard.Utility.checkCardHidden(card)) {
+        classNames += ' hccf-hero-card--hidden';
+      }
+
+      return classNames;
+    }
+
+    imgPath(fileName){
+      return window.hsImgs + fileName;
+    }
 
   }; // END - Utility
 
