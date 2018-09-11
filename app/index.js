@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app.js';
 import { Switch, HashRouter, Route } from 'react-router-dom';
-import { BodyAttachmentPopOverComponent, BodyTripInfoPopOverComponent } from './components/sectionComponent';
+import BodyTripInfoPopOverComponent from './components/body-trip-info-popover';
+import BodyAttachmentPopOverComponent from './components/body-attachment-popover';
 import './scss/app.scss';
 
 ReactDOM.render(
