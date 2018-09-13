@@ -730,7 +730,7 @@
       }
 
       return classNames;
-    }
+    },
 
     imgPath(fileName){
       return window.hsImgs + fileName;
