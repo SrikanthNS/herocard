@@ -31,7 +31,7 @@
         let form = HeroCard.Utility.getClosest(elem, '.hccf-card-action-form'),
           card = HeroCard.Utility.getClosest(elem, '.hccf-hero-card'),
           formData = HeroCard.Actions.Common.getFormData(form),
-          callback = 'window.HeroCard.Actions.Auth.loginCallback';
+          callback = 'HeroCard.Actions.Auth.loginCallback';
 
         HeroCard.Actions.Common.disableActionButton(elem, 'In progress...');
         HeroCard.Actions.Common.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
@@ -88,7 +88,7 @@
         }
 
         let formData = HeroCard.Actions.Common.getFormData(form),
-          callback = 'window.HeroCard.Actions.UserInput.addInputCallback';
+          callback = 'HeroCard.Actions.UserInput.addInputCallback';
 
         HeroCard.Actions.Common.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
 
@@ -140,7 +140,7 @@
         let form = HeroCard.Utility.getClosest(elem, '.hccf-card-action-form'),
           card = HeroCard.Utility.getClosest(elem, '.hccf-hero-card'),
           formData = HeroCard.Actions.Common.getFormData(form),
-          callback = 'window.HeroCard.Actions.Direct.openUrlCallback';
+          callback = 'HeroCard.Actions.Direct.openUrlCallback';
 
         HeroCard.Actions.Common.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
 

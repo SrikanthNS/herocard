@@ -353,7 +353,7 @@
                   controlType == 'RADIO') {
           continue;
         }
-        window.HeroCard.Utility.registerEventHandler(controlID, x, funName);
+        HeroCard.Utility.registerEventHandler(controlID, x, funName);
       }
 
       switch (controlType) {
@@ -415,7 +415,7 @@
 
               for (x in handlers) {
                 var funName = handlers[x];
-                window.HeroCard.Utility.registerEventHandler(controlID, x, funName);
+                HeroCard.Utility.registerEventHandler(controlID, x, funName);
               }
 
               radioList += `<label for="${v}"><input type="radio"  name="${controlName}"${attrs} id="${controlID}" value="${v}" ${(field.selected && (field.selected === v)) ? 'checked' : ''}>${radioOptions[v]}</label><br/>`;
@@ -436,7 +436,7 @@
 
               for (x in handlers) {
                 var funName = handlers[x];
-                window.HeroCard.Utility.registerEventHandler(controlID, x, funName);
+                HeroCard.Utility.registerEventHandler(controlID, x, funName);
               }
 
               checkboxList += `<label for="${v}"><input type="checkbox"  name="${controlName}"${attrs}" id="${controlID}" value="${v}" ${(field.selected && (field.selected === v)) ? 'checked' : ''}>${checkboxOptions[v]}</label><br/>`;
@@ -615,50 +615,50 @@
      */
     listOfRegisteredActions(funName) {
       const listOfActions = {
-        'window.HeroCard.Actions.Auth.dismiss(event, element)':
-              function (element) { window.HeroCard.Actions.Auth.dismiss(event, element); },
-        'window.HeroCard.Actions.Auth.login(element)':
-              function (element) { window.HeroCard.Actions.Auth.login(element); },
-        'window.HeroCard.Actions.UserInput.hideInputForm(event, this)':
-              function (element) { window.HeroCard.Actions.UserInput.hideInputForm(event, element); },
-        'window.HeroCard.Actions.UserInput.submitInput(event, this)':
-              function (element) { window.HeroCard.Actions.UserInput.submitInput(event, element); },
-        'window.HeroCard.Actions.UserInput.checkUserInput(event, this)':
-              function (element) { window.HeroCard.Actions.UserInput.checkUserInput(event, element); },
-        'window.HeroCard.Actions.Common.validateFieldRules(event, element)':
-              function (element) { window.HeroCard.Actions.Common.validateFieldRules(event, element); },
-        'window.HeroCard.Actions.TripInfo.showConcurTripDetails(event, element)':
-              function (element) { window.HeroCard.Actions.TripInfo.showConcurTripDetails(event, element); },
-        'window.HeroCard.Utility.approveJiraTicket(event, element)':
-              function (element) { window.HeroCard.Utility.approveJiraTicket(event, element); },
-        'window.HeroCard.Utility.viewSalesforceOpportunity(event, element)':
-              function (element) { window.HeroCard.Utility.viewSalesforceOpportunity(event, element); },
-        'window.HeroCard.Utility.createSalesforceOpportunity(event, element)':
-              function (element) { window.HeroCard.Utility.createSalesforceOpportunity(event, element); },
-        'window.HeroCard.Actions.UserInput.showInputForm(event, element)':
-              function (element) { window.HeroCard.Actions.UserInput.showInputForm(event, element); },
-        'window.HeroCard.Actions.ViewAttachment.showCardAttachments(event, element)':
-              function (element) { window.HeroCard.Actions.ViewAttachment.showCardAttachments(event, element); },
-        'window.HeroCard.Actions.ViewAttachment.closeCardAttachments(event, element)':
-              function (element) { window.HeroCard.Actions.ViewAttachment.closeCardAttachments(event, element); },
-        'window.HeroCard.Actions.TripInfo.closeTripDetails(event, element)':
-              function (element) { window.HeroCard.Actions.TripInfo.closeTripDetails(event, element); },
-        'window.HeroCard.Actions.ToggleCardView.viewCardDetails(event, element)':
-              function (element) { window.HeroCard.Actions.ToggleCardView.viewCardDetails(event, element); },
-        'window.HeroCard.Actions.ToggleCardView.viewCardLess(event, element)':
-              function (element) { window.HeroCard.Actions.ToggleCardView.viewCardLess(event, element); },
-        // "window.HeroCard.Utility.openURLLocation(element)" :
-        //   function (element) { window.HeroCard.Utility.openURLLocation(element); },
-        'window.HeroCard.Actions.Direct.openUrlLocation(element)':
-            function (element) { window.HeroCard.Actions.Direct.openUrlLocation(element); },
-        'window.HeroCard.Utility.submitAction(event, element)':
-              function (element) { window.HeroCard.Utility.submitAction(event, element); },
-        'window.HeroCard.Utility.cardClickHandler(event)':
-              function (element) { window.HeroCard.Utility.cardClickHandler(event); },
-        'window.HeroCard.Utility.cardActionUndo()':
-              function (element) { window.HeroCard.Utility.cardActionUndo(); },
-        'window.HeroCard.Utility.cardActionRefresh':
-              function (element) { window.HeroCard.Utility.cardActionRefresh(); },
+        'HeroCard.Actions.Auth.dismiss(event, element)':
+              function (element) { HeroCard.Actions.Auth.dismiss(event, element); },
+        'HeroCard.Actions.Auth.login(element)':
+              function (element) { HeroCard.Actions.Auth.login(element); },
+        'HeroCard.Actions.UserInput.hideInputForm(event, this)':
+              function (element) { HeroCard.Actions.UserInput.hideInputForm(event, element); },
+        'HeroCard.Actions.UserInput.submitInput(event, this)':
+              function (element) { HeroCard.Actions.UserInput.submitInput(event, element); },
+        'HeroCard.Actions.UserInput.checkUserInput(event, this)':
+              function (element) { HeroCard.Actions.UserInput.checkUserInput(event, element); },
+        'HeroCard.Actions.Common.validateFieldRules(event, element)':
+              function (element) { HeroCard.Actions.Common.validateFieldRules(event, element); },
+        'HeroCard.Actions.TripInfo.showConcurTripDetails(event, element)':
+              function (element) { HeroCard.Actions.TripInfo.showConcurTripDetails(event, element); },
+        'HeroCard.Utility.approveJiraTicket(event, element)':
+              function (element) { HeroCard.Utility.approveJiraTicket(event, element); },
+        'HeroCard.Utility.viewSalesforceOpportunity(event, element)':
+              function (element) { HeroCard.Utility.viewSalesforceOpportunity(event, element); },
+        'HeroCard.Utility.createSalesforceOpportunity(event, element)':
+              function (element) { HeroCard.Utility.createSalesforceOpportunity(event, element); },
+        'HeroCard.Actions.UserInput.showInputForm(event, element)':
+              function (element) { HeroCard.Actions.UserInput.showInputForm(event, element); },
+        'HeroCard.Actions.ViewAttachment.showCardAttachments(event, element)':
+              function (element) { HeroCard.Actions.ViewAttachment.showCardAttachments(event, element); },
+        'HeroCard.Actions.ViewAttachment.closeCardAttachments(event, element)':
+              function (element) { HeroCard.Actions.ViewAttachment.closeCardAttachments(event, element); },
+        'HeroCard.Actions.TripInfo.closeTripDetails(event, element)':
+              function (element) { HeroCard.Actions.TripInfo.closeTripDetails(event, element); },
+        'HeroCard.Actions.ToggleCardView.viewCardDetails(event, element)':
+              function (element) { HeroCard.Actions.ToggleCardView.viewCardDetails(event, element); },
+        'HeroCard.Actions.ToggleCardView.viewCardLess(event, element)':
+              function (element) { HeroCard.Actions.ToggleCardView.viewCardLess(event, element); },
+        // "HeroCard.Utility.openURLLocation(element)" :
+        //   function (element) { HeroCard.Utility.openURLLocation(element); },
+        'HeroCard.Actions.Direct.openUrlLocation(element)':
+            function (element) { HeroCard.Actions.Direct.openUrlLocation(element); },
+        'HeroCard.Utility.submitAction(event, element)':
+              function (element) { HeroCard.Utility.submitAction(event, element); },
+        'HeroCard.Utility.cardClickHandler(event)':
+              function (element) { HeroCard.Utility.cardClickHandler(event); },
+        'HeroCard.Utility.cardActionUndo()':
+              function (element) { HeroCard.Utility.cardActionUndo(); },
+        'HeroCard.Utility.cardActionRefresh':
+              function (element) { HeroCard.Utility.cardActionRefresh(); },
         'javascript:void(0)':
               function () { void (0); },
       };
@@ -733,7 +733,7 @@
     },
 
     imgPath(fileName){
-      return window.hsImgs + fileName;
+      return hsImgs + fileName;
     }
 
   }; // END - Utility

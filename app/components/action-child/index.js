@@ -1,43 +1,36 @@
 import React, { Component } from 'react';
-
+/**
+ * ActionChildComponent
+ * method renderAction
+ * method render (React LifeCycle method)
+ */
 export default class ActionChildComponent extends Component {
   constructor(props) {
     super(props);
-
-    const actionKeyMap = {
-      VIEW_TRIP: '',
-      APPROVE: '',
-      VIEW_OPPORTUNITY: '',
-      CREATE_OPPORTUNITY: '',
-      USER_INPUT: '',
-      AUTH_DISMISS: '',
-      AUTH_LOGIN: '',
-      DISMISS: '',
-      DIRECT: '',
-      OPEN_IN: '',
-      INSTALL_APP: '',
-    };
-
     this.renderAction = this.renderAction.bind(this);
   }
-
+  /**
+   * renderAction
+   * prepare htmlStr for an action object dynamically
+   * @return HTML string
+   */
   renderAction() {
-    let action = this.props.action,
-      clickHandler = null,
-      completedClasses = 'hccf-card-actions__item-link',
-      innerText = action.label;
+    const action = this.props.action;
+    let clickHandler = null;
+    let completedClasses = 'hccf-card-actions__item-link';
+    let innerText = action.label;
 
     switch (action.action_key) {
       case 'USER_INPUT':
-        clickHandler = 'window.HeroCard.Actions.UserInput.showInputForm(event, element)';
+        clickHandler = 'HeroCard.Actions.UserInput.showInputForm(event, element)';
         break;
 
       default:
-        clickHandler = 'window.HeroCard.Utility.submitAction(event, element)';
+        clickHandler = 'HeroCard.Utility.submitAction(event, element)';
     }
 
     const elemID = `${action.id}__${completedClasses.replace(/\s+/g, '+')}`;
-    window.HeroCard.Utility.registerEventHandler(elemID, 'click', clickHandler);
+    HeroCard.Utility.registerEventHandler(elemID, 'click', clickHandler);
 
     // Check for primary action
     if (action.primary === true) {
@@ -65,7 +58,10 @@ export default class ActionChildComponent extends Component {
       innerText
       }</a>`;
   }
-
+  /**
+   * render React Life cycle method
+   * @returns {JSX}
+   */
   render() {
     const htmlStr = this.renderAction();
     return (

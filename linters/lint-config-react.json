@@ -61,6 +61,7 @@
       "exports": "always-multiline",
       "functions": "never"
     }],
+    "linebreak-style": ["error", "windows"],
     "consistent-return": "off",
     "curly": [
       "error",
