@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import Accordion from './accordion';
+
+/** *************************************************
+  App file (starting point)
+************************************************** **/
 
 export default class App extends Component {
   render() {
-    const cardData = HeroCard.cardDataJSON.results.reduce((arr, elem) => {
+    // access 'HeroCard' namespace and prepare an array cardData
+    const cardData = _.reduce(HeroCard.cardDataJSON.results, (arr, elem) => {
       if (elem.cards) {
         for (const c of elem.cards) {
           arr.push(c);
@@ -12,7 +18,7 @@ export default class App extends Component {
       return arr;
     }, []
     );
-
+    // render Accordion component and pass cardData/contents as property
     return (
       <div>
         <Accordion contents={cardData} />

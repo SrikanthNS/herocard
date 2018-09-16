@@ -20,7 +20,7 @@ export default class DynamicComponent extends Component {
     let controlAttrStr = ` data-field-label="${userInput.label}"`;
     let handlers = {};
 
-    const validationHandler = 'window.HeroCard.Actions.Common.validateFieldRules(event, element)';
+    const validationHandler = 'HeroCard.Actions.Common.validateFieldRules(event, element)';
 
     if (fieldOptions) {
       handlers = JSON.parse(fieldOptions);

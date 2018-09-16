@@ -8,9 +8,6 @@
  * http://www.vmware.com/go/patents.
  */
 
-@import '~bootstrap/scss/bootstrap';
-@import './accordion.scss';
-
 body {
   display: block;
   margin: 8px;
@@ -555,14 +552,6 @@ body {
 .hccf-card-body__view-details a {
   text-decoration: none;
   color: #6C747D;
-}
-
-a.hccf-card-body__view-details--more img {
-  content: url('../images/expand-show-more.png')
-}
-
-a.hccf-card-body__view-details--less img {
-  content: url('../images/expand-show-less.png')
 }
 
 .hccf-card-body__view-details a img {
