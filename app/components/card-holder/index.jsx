@@ -13,6 +13,7 @@ import ActionComponent from '../action';
  *method: render (React LifeCycle method)
  * @return {JSX} each card details will be returned
  */
+const minFieldsToShow = 4;
 export default class CardHolder extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +21,6 @@ export default class CardHolder extends Component {
       isViewMoreRequired: false,
       showMore: true,
       numOfFieldsToShow: this.props.cardContent.body.fields ? this.props.cardContent.body.fields.length : 0,
-      minFieldsToShow: 4,
       body: this.props.cardContent.body,
       totalNumberOfFields: this.props.cardContent.body.fields ? this.props.cardContent.body.fields.length : 0,
     };
@@ -51,7 +51,7 @@ export default class CardHolder extends Component {
    * in more mode: numOfFieldsToShow is set to totalNumberOfFields
    */
   showToggle() {
-    const { minFieldsToShow, totalNumberOfFields } = this.state;
+    const { totalNumberOfFields } = this.state;
     const numOfFieldsToShow = this.state.showMore ? totalNumberOfFields : minFieldsToShow;
     this.setState({ numOfFieldsToShow, showMore: !this.state.showMore });
   }
@@ -73,8 +73,8 @@ export default class CardHolder extends Component {
     fieldsCount += (body.fields || []).length;
     fieldsCount += (body.comments || []).length;
 
-    if (fieldsCount > 4) {
-      this.setState({ isViewMoreRequired: true, numOfFieldsToShow: this.state.minFieldsToShow, showMore: true });
+    if (fieldsCount > minFieldsToShow) {
+      this.setState({ isViewMoreRequired: true, numOfFieldsToShow: minFieldsToShow, showMore: true });
     } else {
       this.setState({ isViewMoreRequired: false });
     }

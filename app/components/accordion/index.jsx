@@ -6,7 +6,7 @@ import './styles.scss';
 /**
  * Accordion
  * method: componentDidMount (React LifeCycle method)
- * method: makeVisible (React LifeCycle method)
+ * method: selectCard (React LifeCycle method)
  * method: render
  */
 
@@ -14,9 +14,9 @@ export default class Accordion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCardExpanded: -1,
+      expandedCardIndex: -1,
     };
-    this.makeVisible = this.makeVisible.bind(this);
+    this.selectCard = this.selectCard.bind(this);
   }
 
   componentDidMount() {
@@ -25,17 +25,17 @@ export default class Accordion extends Component {
   }
 
   /**
-   * makeVisible function to expand/collapse card
+   * selectCard function to expand/collapse card
    * @param {object} - event body object
    * @return {number} - current is the index of the card
    */
 
-  makeVisible(event, current) {
+  selectCard(event, current) {
     if (_.includes(event.target.className, 'hccf-card-header__meta') ||
       _.includes(event.target.className, 'hccf-hero-card open') ||
       _.includes(event.target.className, 'hccf-hero-card')) {
-      const stateNum = this.state.isCardExpanded === current ? -1 : current;
-      this.setState(() => ({ isCardExpanded: stateNum }));
+      const stateNum = this.state.expandedCardIndex === current ? -1 : current;
+      this.setState(() => ({ expandedCardIndex: stateNum }));
     }
   }
 
@@ -52,8 +52,8 @@ export default class Accordion extends Component {
           <Section
             key={index}
             content={content}
-            handle={e => this.makeVisible(e, index)}
-            isCardExpanded={index === this.state.isCardExpanded}
+            selectCard={e => this.selectCard(e, index)}
+            isCardExpanded={index === this.state.expandedCardIndex}
           />
         ))}
       </div>
