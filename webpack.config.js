@@ -18,10 +18,17 @@ const ExtractTextPluginConfig = new ExtractTextPlugin({
 module.exports = {
   devtool: 'eval-source-map',
   entry: path.join(__dirname, '/app/index.js'),
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    modules: [
+      './node_modules',
+      path.resolve(__dirname, '/app/index.js'),
+    ],
+  },
   module: {
     rules: [
       {
-        test: /\.js$/, // Matches all the js file which needs to be transpiled by the loader
+        test: /\.(js|jsx)$/, // Matches all the js file which needs to be transpiled by the loader
         exclude: /node_modules/, // Needs to exclude all the node_modules files while the transpiling occurs
         loader: 'babel-loader', // The loader used to do the transpiling
       },
