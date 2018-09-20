@@ -10,7 +10,7 @@ import CardHolder from '../card-holder';
  * @return {JSX} - will have card image, description and cardHolder component
  */
 
-export default function Section({ content, handle, isCardExpanded }) {
+export default function Section({ content, selectCard, isCardExpanded }) {
   const imageMap = {
     'BOOMI SFDC': require('../../images/Boomi@3x.png'),
     SOCIALCAST: require('../../images/Socialcast@3x.png'),
@@ -27,7 +27,7 @@ export default function Section({ content, handle, isCardExpanded }) {
   return (
     <div
       className={`hccf-hero-card ${isCardExpanded ? 'open' : ''} ${HeroCard.Utility.callbackClasses(content)}`}
-      onClick={handle}
+      onClick={selectCard}
     >
       <div className="hccf-card-header">
         <div className="hccf-card-header__wrapper col-12 col-sm-12 col-md-12">
