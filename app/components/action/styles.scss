@@ -93,6 +93,7 @@
   transition: background 2s linear;
   border-radius: 4px;
   border: 1px solid #62717D;
+  cursor: pointer;
 }
 
 .hccf-card-actions__item-link--complete::before {
@@ -344,4 +345,9 @@
   float: left;
   color: #696969 !important;
   margin-top: 10px;
+  cursor: pointer;
+}
+
+.hccf-js-input-button-submit {
+  cursor: pointer;
 }
