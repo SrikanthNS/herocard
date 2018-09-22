@@ -1,0 +1,15 @@
+.hccf-card-body__comments-body {
+  line-height: 1.4;
+  margin-bottom: 4px;
+}
+
+.hccf-card-body__comments-title {
+  color: #6c747d;
+  text-align: left;
+  margin: 5px 0 0 0;
+}
+
+.hccf-card-body__comments-body:not(last-child) {
+  margin-bottom: 10px;
+}
+

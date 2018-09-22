@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import Section from '../section';
 
-import './styles.scss';
 /**
  * Accordion
  * method: componentDidMount (React LifeCycle method)

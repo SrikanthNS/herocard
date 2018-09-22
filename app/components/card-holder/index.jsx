@@ -3,6 +3,7 @@ import _ from 'lodash';
 import BodyGeneralComponent from '../body-general';
 import BodyCommentComponent from '../body-comment';
 import ActionComponent from '../action';
+import './styles.scss';
 
 /**
  *carHoder component
