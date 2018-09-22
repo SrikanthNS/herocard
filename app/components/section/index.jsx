@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import CardHolder from '../card-holder';
+import styles from './styles.scss';
 
 /**
  * Section Pure component 
