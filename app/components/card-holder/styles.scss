@@ -1,0 +1,93 @@
+.hccf-card-body {
+  padding: 5px;
+  font-size: 1.3rem;
+  line-height: 1.5;
+}
+
+.hccf-card-body__view-details {
+  color: #6C747D;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.hccf-card-body__view-details a {
+  text-decoration: none;
+  color: #6C747D;
+}
+
+.hccf-card-body__view-details a img {
+  margin-left: 5px;
+}
+
+.hccf-hero-card--action-complete .hccf-card-body__description {
+  display: none;
+}
+
+.hccf-card-body__description {
+line-height: 1.3;
+padding-top: 0;
+}
+
+.hccf-card-body__timestamp {
+  font-size: 92%;
+  text-align: left;
+  color: #9da2a8;
+  padding-top: 0;
+}
+
+/* relative font-sizes */
+.hccf-card-header__meta {
+  padding-left: 10px;
+}
+
+.hccf-card-header__meta-title {
+    font-size: 110%;
+    line-height: 1.3;
+}
+
+.hccf-card-header__meta-subtitle {
+    font-size: 90%;
+    line-height: 1.45;
+    color: #565656;
+}
+
+.hccf-card-body {
+    font-size: 85%;
+    line-height: 2;
+}
+
+.hccf-card-body--hidden {
+  display: none !important;
+} 
+
+.hccf-card-body__field {
+  padding: 0;
+  font-size: 96%;
+  line-height: 1.5;
+}
+
+.hccf-card-body__field-title,
+.hccf-card-body__field-description {
+  padding: 0 10px;
+  text-align: left;
+}
+
+.hccf-card-body__field-title {
+    color: #565656;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.hccf-card-body__field--hidden {
+  display: none;
+}
+
+.hccf-card-body__field--visible {
+  display: block !important;
+}
+
+.hccf-card-body__field--clutter {
+  margin-top: 15px;
+}

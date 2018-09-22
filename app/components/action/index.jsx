@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import DynamicComponent from '../dynamic';
 import ActionChildComponent from '../action-child';
+import './styles.scss';
 
 /**
  * ActionComponent
