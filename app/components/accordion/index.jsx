@@ -4,38 +4,27 @@ import Section from '../section';
 
 /**
  * Accordion
- * method: componentDidMount (React LifeCycle method)
- * method: selectCard (React LifeCycle method)
  * method: render
  */
 
 export default class Accordion extends Component {
+
   constructor(props) {
     super(props);
-    this.state = {
-      expandedCardIndex: -1,
-    };
-    this.selectCard = this.selectCard.bind(this);
+    this.state = { expandedCardIndex: -1 };
+    this.setExpandedCardIndex = this.setExpandedCardIndex.bind(this);
   }
-
   componentDidMount() {
     // Initialize custom event emitter object
     HeroCard.initEventEmitter();
   }
 
-  /**
-   * selectCard function to expand/collapse card
-   * @param {object} - event body object
-   * @return {number} - current is the index of the card
-   */
+  setExpandedCardIndex(cardIndex) {
+    this.setState({ expandedCardIndex: cardIndex });
+  }
 
-  selectCard(event, current) {
-    if (_.includes(event.target.className, 'hccf-card-header__meta') ||
-      _.includes(event.target.className, 'hccf-hero-card open') ||
-      _.includes(event.target.className, 'hccf-hero-card')) {
-      const stateNum = this.state.expandedCardIndex === current ? -1 : current;
-      this.setState(() => ({ expandedCardIndex: stateNum }));
-    }
+  expandedSection() {
+
   }
 
   /**
@@ -45,14 +34,16 @@ export default class Accordion extends Component {
    */
 
   render() {
+    const { expandedCardIndex } = this.state;
     return (
       <div>
         {_.map(this.props.contents, (content, index) => (
           <Section
-            key={index}
+            cardIndex={index}
             content={content}
-            selectCard={e => this.selectCard(e, index)}
-            isCardExpanded={index === this.state.expandedCardIndex}
+            key={index}
+            expandedCardIndex={expandedCardIndex}
+            setExpandedCardIndex={this.setExpandedCardIndex}
           />
         ))}
       </div>

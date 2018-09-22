@@ -61,6 +61,7 @@
   box-sizing: border-box;
   border-bottom: 1px solid rgb(234, 235, 236);
   overflow: hidden;
+  outline: none;
 }
 
 .hccf-hero-card--hidden {
@@ -80,6 +81,8 @@
 .hccf-card-header__wrapper{
   display: table;
   table-layout: fixed;
+  cursor: pointer;
+  outline: none;
 }
 
 .hccf-card-header__avatar {

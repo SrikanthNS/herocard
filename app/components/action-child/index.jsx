@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './styles.scss';
-
 /**
  * ActionChildComponent
  * method renderAction
