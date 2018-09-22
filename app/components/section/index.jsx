@@ -14,10 +14,12 @@ const imageMap = {
 
 /**
  * Section Pure component
- * @param {object} - content
- * @param {function} - handle is a function passed from parent component is a onclock handelr
- * @param {number} - isCardExpanded is the index of the card if card is expanded else -1
- * @return {JSX} - will have card image, description and cardHolder component
+ * @prop {method} setExpandedCardIndex
+ * @prop {number} expandedCardIndex
+ * @private {boolean} open
+ * @private {method} handleclick
+ * @private {method} render (React LifeCycle method)
+ * @private {method} componentWillReceiveProps (React LifeCycle method)
  */
 
 export default class Accordion extends Component {
@@ -26,6 +28,14 @@ export default class Accordion extends Component {
     this.state = { open: false };
     this.handleClick = this.handleClick.bind(this);
   }
+
+  /**
+   * whenever expandedCardIndex is changed and
+   * expandedCardIndex is not equal to old expandedCardIndex
+   * if new expandedCardIndex is equal to current section then set state 'open
+   * to true or set state 'open' to false
+  */
+
 
   componentWillReceiveProps(newProps) {
     if (newProps.expandedCardIndex !== this.props.expandedCardIndex) {
@@ -56,8 +66,7 @@ export default class Accordion extends Component {
 
     return (
       <div
-        className={`hccf-hero-card ${open ?
-          'open' : ''} ${HeroCard.Utility.callbackClasses(content)}`}
+        className={`hccf-hero-card ${open ? 'open' : ''} ${HeroCard.Utility.callbackClasses(content)}`}
         onClick={e => this.handleClick(e, cardIndex)}
       >
         <div className="hccf-card-header">

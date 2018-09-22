@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import './styles.scss';
 
 export default class FormFieldsComponent extends Component {
@@ -7,6 +8,7 @@ export default class FormFieldsComponent extends Component {
     this.createFormField = this.createFormField.bind(this);
   }
 
+  // create form field
   createFormField() {
     const { formID, userInput, fieldOptions } = this.props;
     if (!userInput) { return; }
@@ -14,10 +16,9 @@ export default class FormFieldsComponent extends Component {
     // console.log(userInput);
     const fieldLabel = userInput.label ? (`<label>${userInput.label}: </label>`) : '';
     const isFormatPresent = userInput.format || 'TEXT';
-    const fieldType = isFormatPresent.toUpperCase();
+    const fieldType = _.toUpper(isFormatPresent);
     let fieldClass = `hccf-form-field hccf-form-field--${userInput.format}`;
     let control = '';
-    const controlName = userInput.id;
     let controlAttrStr = ` data-field-label="${userInput.label}"`;
     let handlers = {};
 
@@ -28,7 +29,7 @@ export default class FormFieldsComponent extends Component {
     }
 
     if (userInput.validation !== undefined) {
-      controlAttrStr += `${' ' + 'data-validation="'}${userInput.validation.join()}" `;
+      controlAttrStr += `${' data-validation="'}${userInput.validation.join()}" `;
       fieldClass += ' hccf-form-field--required';
 
       switch (fieldType) {
@@ -60,9 +61,9 @@ export default class FormFieldsComponent extends Component {
 
     const retStr = `<div class="${fieldClass}"> ${
       fieldLabel
-      }<span>${control}</span>${
+    }<span>${control}</span>${
       validationMessage
-      }</div>`;
+    }</div>`;
     return retStr;
   }
 

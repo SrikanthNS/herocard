@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import DynamicComponent from '../dynamic';
+import FormFieldsComponent from '../form-fields';
 import ActionChildComponent from '../action-child';
 import './styles.scss';
 
@@ -88,7 +88,7 @@ export default class ActionComponent extends Component {
               <div>
                 <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
                   {_.map(action.user_input, (userInput, index) =>
-                    (<DynamicComponent
+                    (<FormFieldsComponent
                       formID={action.id}
                       key={index}
                       fieldOptions={'{"keyup" : "HeroCard.Actions.UserInput.checkUserInput(event, this)"}'}
