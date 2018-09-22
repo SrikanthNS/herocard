@@ -49,14 +49,14 @@ export default class Accordion extends Component {
 
   render() {
     const { open } = this.state;
-    const { content, cardIndex, expandedCardIndex } = this.props;
+    const { content, cardIndex } = this.props;
     const imageSrc = (content.name && imageMap[_.toUpper(content.name)])
       ? imageMap[_.toUpper(content.name)]
       : require('../../images/Generic@3x.png');
 
     return (
       <div
-        className={`hccf-hero-card ${open && expandedCardIndex === cardIndex ?
+        className={`hccf-hero-card ${open ?
           'open' : ''} ${HeroCard.Utility.callbackClasses(content)}`}
         onClick={e => this.handleClick(e, cardIndex)}
       >
@@ -80,9 +80,9 @@ export default class Accordion extends Component {
         </div>
         <div
           key="content"
-          className={`hccf-row hccf-card-body ${open && expandedCardIndex === cardIndex ? 'open' : ''}`}
+          className={`hccf-row hccf-card-body ${open ? 'open' : ''}`}
         >
-          {open && expandedCardIndex === cardIndex ? <CardHolder cardContent={content} /> : null}
+          {open ? <CardHolder cardContent={content} /> : null}
         </div>
       </div>
     );

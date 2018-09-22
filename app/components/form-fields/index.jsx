@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './styles.scss';
 
-export default class DynamicComponent extends Component {
+export default class FormFieldsComponent extends Component {
   constructor(props) {
     super(props);
     this.createFormField = this.createFormField.bind(this);
