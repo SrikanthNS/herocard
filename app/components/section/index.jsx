@@ -22,7 +22,7 @@ const imageMap = {
  * @private {method} componentWillReceiveProps (React LifeCycle method)
  */
 
-export default class Accordion extends Component {
+export default class Section extends Component {
   constructor(props) {
     super(props);
     this.state = { open: false };
@@ -35,8 +35,6 @@ export default class Accordion extends Component {
    * if new expandedCardIndex is equal to current section then set state 'open'
    * to true or set state 'open' to false
   */
-
-
   componentWillReceiveProps(newProps) {
     if (newProps.expandedCardIndex !== this.props.expandedCardIndex) {
       if (newProps.expandedCardIndex === this.props.cardIndex) {
