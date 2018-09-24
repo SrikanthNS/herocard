@@ -2,75 +2,87 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import './styles.scss';
 
+import InputComponent from './input-component';
+import TextAreaComponent from './textarea-component';
+import SelectComponent from './select-component';
+
 export default class FormFieldsComponent extends Component {
   constructor(props) {
     super(props);
-    this.createFormField = this.createFormField.bind(this);
+    this.getFormField = this.getFormField.bind(this);
+    this.getFieldElement = this.getFieldElement.bind(this);
   }
 
-  // create form field
-  createFormField() {
-    const { formID, userInput, fieldOptions } = this.props;
-    if (!userInput) { return; }
-
-    // console.log(userInput);
-    const fieldLabel = userInput.label ? (`<label>${userInput.label}: </label>`) : '';
+  getFieldElement(formID, userInput) {
     const isFormatPresent = userInput.format || 'TEXT';
     const fieldType = _.toUpper(isFormatPresent);
+    switch (fieldType) {
+      case 'SELECT':
+        return (<SelectComponent
+          name={userInput.id}
+          id={`${formID}__${userInput.id}`}
+          options={userInput.options}
+          selected={userInput.selected}
+          dataFieldLabel={userInput.label}
+          dataValidation={userInput.validation ? userInput.validation.join() : undefined}
+          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+          onChange={HeroCard.Actions.Common.validateFieldRules}
+        />);
+      case 'TEXTAREA':
+        return (<TextAreaComponent
+          name={userInput.id}
+          id={`${formID}__${userInput.id}`}
+          placeholder={userInput.label}
+          dataFieldLabel={userInput.label}
+          dataValidation={userInput.validation ? userInput.validation.join() : undefined}
+          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+        />);
+      case 'TEXT':
+        return (<InputComponent
+          type={userInput.format}
+          name={userInput.id}
+          id={`${formID}__${userInput.id}`}
+          dataFieldLabel={userInput.label}
+          dataValidation={userInput.validation ? userInput.validation.join() : undefined}
+          onBlur={HeroCard.Actions.Common.validateFieldRules}
+          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+        />);
+    }
+  }
+
+  getFormField({ formID, userInput }) {
     let fieldClass = `hccf-form-field hccf-form-field--${userInput.format}`;
-    let control = '';
-    let controlAttrStr = ` data-field-label="${userInput.label}"`;
-    let handlers = {};
-
-    const validationHandler = 'HeroCard.Actions.Common.validateFieldRules(event, element)';
-
-    if (fieldOptions) {
-      handlers = JSON.parse(fieldOptions);
-    }
-
-    if (userInput.validation !== undefined) {
-      controlAttrStr += `${' data-validation="'}${userInput.validation.join()}" `;
+    if (!_.isUndefined(userInput.validation)) {
       fieldClass += ' hccf-form-field--required';
-
-      switch (fieldType) {
-        case 'SELECT':
-          handlers.change = validationHandler;
-          break;
-
-        case 'RADIO':
-        case 'CHECKBOX':
-          handlers.click = validationHandler;
-          break;
-        case 'TEXTAREA':
-          controlAttrStr += `${' ' + 'placeholder="'}${userInput.label}" `;
-          break;
-        case 'DATE':
-        case 'EMAIL':
-        case 'TEL':
-        case 'NUMBER':
-        case 'TEXT':
-          handlers.blur = validationHandler;
-      }
     }
 
-    control = HeroCard.Utility.createFormField(userInput.format, userInput, controlAttrStr, handlers, formID);
-
-    const validationMessage = '<div class="hccf-form-field__validation-message">'
-      + '<span>error message</span>'
-      + '</div>';
-
-    const retStr = `<div class="${fieldClass}"> ${
-      fieldLabel
-    }<span>${control}</span>${
-      validationMessage
-    }</div>`;
-    return retStr;
+    return (
+      <div className={fieldClass}>
+        {userInput.label ?
+          <label>
+            {`${userInput.label}: `}
+          </label> :
+          ''
+        }
+        <span>
+          {this.getFieldElement(formID, userInput)}
+        </span>
+        <div className="hccf-form-field__validation-message">
+          <span>error message</span>
+        </div>
+      </div>
+    );
   }
 
   render() {
-    const htmlStr = this.createFormField();
+    const { userInput } = this.props;
     return (
-      <div dangerouslySetInnerHTML={{ __html: htmlStr }} />
+      <div>
+        {userInput ?
+          this.getFormField(this.props) :
+          null
+        }
+      </div>
     );
   }
 }
