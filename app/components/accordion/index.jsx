@@ -14,6 +14,7 @@ export default class Accordion extends Component {
     this.state = { expandedCardIndex: -1 };
     this.setExpandedCardIndex = this.setExpandedCardIndex.bind(this);
   }
+
   componentDidMount() {
     // Initialize custom event emitter object
     HeroCard.initEventEmitter();
@@ -21,10 +22,6 @@ export default class Accordion extends Component {
 
   setExpandedCardIndex(cardIndex) {
     this.setState({ expandedCardIndex: cardIndex });
-  }
-
-  expandedSection() {
-
   }
 
   /**

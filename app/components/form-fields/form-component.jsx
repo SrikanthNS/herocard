@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import _ from 'lodash';
 import './styles.scss';
 
-import TextComponent from './text-component';
+import InputComponent from './input-component';
 import TextAreaComponent from './textarea-component';
 import SelectComponent from './select-component';
 
@@ -13,7 +13,7 @@ export default class FormFieldsComponent extends Component {
     this.getFieldElement = this.getFieldElement.bind(this);
   }
 
-  getFieldElement(formID, userInput, fieldOptions) {
+  getFieldElement(formID, userInput) {
     const isFormatPresent = userInput.format || 'TEXT';
     const fieldType = _.toUpper(isFormatPresent);
     switch (fieldType) {
@@ -26,6 +26,7 @@ export default class FormFieldsComponent extends Component {
           dataFieldLabel={userInput.label}
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
           onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+          onChange={HeroCard.Actions.Common.validateFieldRules}
         />);
       case 'TEXTAREA':
         return (<TextAreaComponent
@@ -37,7 +38,7 @@ export default class FormFieldsComponent extends Component {
           onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
         />);
       case 'TEXT':
-        return (<TextComponent
+        return (<InputComponent
           type={userInput.format}
           name={userInput.id}
           id={`${formID}__${userInput.id}`}
@@ -45,13 +46,13 @@ export default class FormFieldsComponent extends Component {
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
           onBlur={HeroCard.Actions.Common.validateFieldRules}
           onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
-        />)
+        />);
     }
   }
 
-  getFormField({ formID, userInput, fieldOptions }) {
+  getFormField({ formID, userInput }) {
     let fieldClass = `hccf-form-field hccf-form-field--${userInput.format}`;
-    if (userInput.validation !== undefined) {
+    if (!_.isUndefined(userInput.validation)) {
       fieldClass += ' hccf-form-field--required';
     }
 
@@ -64,7 +65,7 @@ export default class FormFieldsComponent extends Component {
           ''
         }
         <span>
-          {this.getFieldElement(formID, userInput, fieldOptions)}
+          {this.getFieldElement(formID, userInput)}
         </span>
         <div className="hccf-form-field__validation-message">
           <span>error message</span>

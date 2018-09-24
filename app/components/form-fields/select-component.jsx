@@ -34,6 +34,7 @@ class SelectComponent extends React.Component {
       data-validation={this.props.dataValidation ? this.props.dataValidation : undefined}
       onKeyUp={(event) => this.props.onKeyUp(event, event.currentTarget)}
       defaultValue={this.props.selected}
+      onChange={(event) => this.props.onChange(event, event.currentTarget)}
     >
       {this.generateSelectOptions(this.props.options)}
     </select>
