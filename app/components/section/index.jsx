@@ -32,7 +32,7 @@ export default class Accordion extends Component {
   /**
    * whenever expandedCardIndex is changed and
    * expandedCardIndex is not equal to old expandedCardIndex
-   * if new expandedCardIndex is equal to current section then set state 'open
+   * if new expandedCardIndex is equal to current section then set state 'open'
    * to true or set state 'open' to false
   */
 

@@ -48,10 +48,6 @@
   Will be removed once we rename all HeroCard classes differently.
 */
 
-.hero-card .card-actions {
-  margin: 8px -8px -8px -8px !important;
-}
-
 .convo-header div,
 .convo-carousel div,
 .card-header div,
@@ -60,30 +56,6 @@
 .card-actions div {
   padding: 0 !important;
   margin: 0 !important;
-}
-
-.hccf-hero-cards-accordian .hccf-card-header__accordian-more,
-.hccf-hero-cards-accordian .hccf-card-header__accordian-less {
-    display: block;
-    position: absolute;
-    top:0;
-    bottom: 0;
-    right:15px;
-    text-align: center;
-}
-
-.hccf-hero-cards-accordian .hccf-card-header__accordian-more::before,
-.hccf-hero-cards-accordian .hccf-card-header__accordian-less::before {
-  content: ' ';
-  display: inline-block;
-  vertical-align: middle;
-  height: 100%;
-}
-
-.hccf-hero-cards-accordian .hccf-card-header__accordian-more img,
-.hccf-hero-cards-accordian .hccf-card-header__accordian-less img {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .hccf-hero-cards-accordian .hccf-card-header__accordian-less,
@@ -97,13 +69,6 @@
 }
 
 .open .hccf-row {
-    display: block;
-}
-
-.hccf-accordian-expanded .hccf-card-header__accordian-more {
-    display: none;
-}
-.hccf-accordian-expanded .hccf-card-header__accordian-less {
     display: block;
 }
 
@@ -125,13 +90,6 @@
     color: #fff;
     border: 1px solid #fff;
 }
-
-/* .hccf-hero-card__action-complete-message {
-  position: absolute;
-  left: 0;
-  bottom: 0px;
-  padding: 22px 0 22px 10px;
-} */
 
 .hccf-hero-card__action-complete-message img {
     padding: 0 10px 0;
