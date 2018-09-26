@@ -15,7 +15,7 @@ const ExtractTextPluginConfig = new ExtractTextPlugin({
   filename: 'app.bundle.css',
 });
 
-module.Exports= {
+module.exports = {
   devtool: 'eval-source-map',
   entry: path.join(__dirname, '/app/index.js'),
   resolve: {
