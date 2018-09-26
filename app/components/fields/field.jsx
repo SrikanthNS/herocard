@@ -1,6 +1,6 @@
 import React from 'react';
-import BodyGeneralComponent from '../body-general';
-import BodyCommentComponent from '../body-comment';
+import { BodyGeneralComponent } from '../body-general';
+import { BodyCommentComponent } from '../body-comment';
 
 /**
  * FieldComponent

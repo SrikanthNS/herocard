@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import Section from '../section';
+import { CardComponent } from '../card';
 
 /**
  * Accordion
@@ -26,7 +26,7 @@ export default class Accordion extends Component {
 
   /**
    * React lifecycle method render() method
-   * Iterates over property: contents and pass each content to Section component as property
+   * Iterates over property: contents and pass each content to Card component as property
    * @return {JSX}
    */
 
@@ -35,7 +35,7 @@ export default class Accordion extends Component {
     return (
       <div>
         {_.map(this.props.contents, (content, index) => (
-          <Section
+          <CardComponent
             cardIndex={index}
             content={content}
             key={index}

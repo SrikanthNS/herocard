@@ -4,6 +4,6 @@
 import BodyDescriptionComponent from './body-description.jsx';
 
 /**
- * Exports 
+ * Exports
  */
 export { BodyDescriptionComponent }

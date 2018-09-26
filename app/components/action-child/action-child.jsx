@@ -53,10 +53,10 @@ export default class ActionChildComponent extends Component {
     }
 
     return `<a class="${completedClasses
-      }" data-actionkey="${action.action_key
-      }" id="${elemID}">${
+    }" data-actionkey="${action.action_key
+    }" id="${elemID}">${
       innerText
-      }</a>`;
+    }</a>`;
   }
   /**
    * render React Life cycle method
