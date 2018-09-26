@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import FormFieldsComponent from '../form-fields';
-// import FormFieldsComponent from '../form-fields';
 import ActionChildComponent from '../action-child';
 import './styles.scss';
 

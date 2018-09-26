@@ -48,6 +48,10 @@
   Will be removed once we rename all HeroCard classes differently.
 */
 
+.hero-card .card-actions {
+  margin: 8px -8px -8px -8px !important;
+}
+
 .convo-header div,
 .convo-carousel div,
 .card-header div,
@@ -58,125 +62,9 @@
   margin: 0 !important;
 }
 
-.hccf-hero-cards-accordian .hccf-card-header__accordian-less,
-.hccf-hero-cards-accordian .hccf-card-actions,
-.hccf-hero-cards-accordian .hccf-card-body {
-    display: none;
-}
-
-.hccf-hero-cards-accordian .hccf-card-header {
-    position: relative;
-}
-
-.open .hccf-row {
-    display: block;
-}
-
-.hccf-hero-card--action-complete {
-    background: #1270cd;
-    color: #fff;
-}
-
-.hccf-hero-card--action-complete .hccf-card-header__meta-title,
-.hccf-hero-card--action-complete .hccf-card-header__meta-subtitle {
-    color: #fff;
-}
-
-.hccf-hero-card--action-complete .hccf-card-actions div:not(:last-child){
-    display: none;
-}
-
-.hccf-hero-card--action-complete .hccf-card-actions__item-link {
-    color: #fff;
-    border: 1px solid #fff;
-}
-
-.hccf-hero-card__action-complete-message img {
-    padding: 0 10px 0;
-    vertical-align: text-top;
-}
-
 /*
  END- Boxer Styles
 */
-
-@-webkit-keyframes fade {
-  from {opacity: .2}
-  to {opacity: 1}
-}
-
-@keyframes fade {
-  from {opacity: .2}
-  to {opacity: 1}
-}
-
-
-@-webkit-keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-.fadeInLeft {
-  -webkit-animation-name: fadeInLeft;
-  animation-name: fadeInLeft;
-}
-
-@-webkit-keyframes slideOutRight {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    visibility: hidden;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-  }
-}
-
-@keyframes slideOutRight {
-  from {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    visibility: hidden;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-  }
-}
-
-.slideOutRight {
-  -webkit-animation-name: slideOutRight;
-  animation-name: slideOutRight;
-}
-
-/* end- slideshow styles */
-
 
 /* @media queries */
 

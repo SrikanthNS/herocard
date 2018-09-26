@@ -703,22 +703,22 @@
       while ((el = el.parentElement) && !el.classList.contains(cls)) { }
       return el;
     },
-
-    convertTimestamp(isoDate) {
+    
+   convertTimestamp(isoDate) {
       if (!isoDate) { return; }
 
-      const convertedDate = HeroCard.Utility.convertISO8601toDate(isoDate);
-      const dateDiff = HeroCard.Utility.dateDifference(convertedDate, new Date());
+      var convertedDate = HeroCard.Utility.convertISO8601toDate(isoDate);
+      var dateDiff = HeroCard.Utility.dateDifference(convertedDate, new Date());
 
       return dateDiff;
     },
-
+  
     callbackClasses(card) {
       var card = card,
         classNames = '';
 
       // Check if the card to be expanded
-      if (card.hasOwnProperty('expand') && card.expand === true) {
+      if (card.hasOwnProperty("expand") && card["expand"] === true) {
         classNames += ' hccf-accordian-expanded';
       }
 
@@ -732,9 +732,9 @@
       return classNames;
     },
 
-    imgPath(fileName) {
+    imgPath(fileName){
       return hsImgs + fileName;
-    },
+    }
 
   }; // END - Utility
 

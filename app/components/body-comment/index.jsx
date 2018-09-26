@@ -4,14 +4,14 @@ import './styles.scss';
 
 /**
  *BodyCommentComponent
- * @param {object} comment
+ * @param {object} field
  * @returns {JSX}
  */
-export default function BodyCommentComponent({ comment }) {
+export default function BodyCommentComponent({ field }) {
   return (
     <div>
-      <p className="hccf-card-body__comments-title">{comment.title}:</p>
-      {_.map(comment.content, (content, index) => (
+      <p className="hccf-card-body__comments-title">{field.title}:</p>
+      {_.map(field.content, (content, index) => (
         <div className="hccf-card-body__comments-body" key={`comments-${index}`}>
           {_.escape(content.text)}
         </div>

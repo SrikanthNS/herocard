@@ -4,6 +4,7 @@ import Section from '../section';
 
 /**
  * Accordion
+ * method: componentDidMount (React LifeCycle method)
  * method: render
  */
 
@@ -14,7 +15,6 @@ export default class Accordion extends Component {
     this.state = { expandedCardIndex: -1 };
     this.setExpandedCardIndex = this.setExpandedCardIndex.bind(this);
   }
-
   componentDidMount() {
     // Initialize custom event emitter object
     HeroCard.initEventEmitter();
