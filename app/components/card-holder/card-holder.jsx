@@ -5,7 +5,8 @@ import { FieldsComponent } from '../fields';
 import { ToggleComponent } from '../toggle';
 import { CardTimestampComponent } from '../card-timestamp';
 import { BodyDescriptionComponent } from '../body-description';
-import ActionComponent from '../action';
+import { ActionComponent } from '../action';
+
 const MIN_FIELDS_TO_SHOW = 4;
 
 /**
@@ -89,32 +90,34 @@ export default class CardHolder extends Component {
    */
 
   render() {
-    const cardContent = this.props.cardContent;
+    const { cardContent, isExpanded } = this.props;
     const { numOfFieldsToShow } = this.state;
     const fields = _.assign([], cardContent.body.fields);
     return (
-      <div>
+      <div
+        className={`hccf-row hccf-card-body ${isExpanded ? 'open' : ''}`}
+      >
         {/* Shows card description */}
-        { cardContent.body.description
+        {cardContent.body.description
           ? <BodyDescriptionComponent description={cardContent.body.description} />
           : null
         }
 
         {/* Shows body fields */}
-        <FieldsComponent fields={fields} numOfFieldsToShow={numOfFieldsToShow} />  
-        
+        <FieldsComponent fields={fields} numOfFieldsToShow={numOfFieldsToShow} />
+
         {/* Shows View more/less links */}
-        { this.state.isViewMoreRequired 
-          ? <ToggleComponent  onClick ={this.showToggle} showMore={this.state.showMore} />
+        {this.state.isViewMoreRequired
+          ? <ToggleComponent onClick={this.showToggle} showMore={this.state.showMore} />
           : null
         }
 
         {/* Shows card creation time */}
-        { cardContent.creation_date 
+        {cardContent.creation_date
           ? <CardTimestampComponent creationDate={cardContent.creation_date} />
           : null
         }
-        <ActionComponent actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
+        <ActionComponent key={`actions_${cardContent.id}`} actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
       </div>
     );
   }

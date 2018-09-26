@@ -4,6 +4,6 @@
 import CardTimestampComponent from './card-timestamp.jsx';
 
 /**
- * Exports 
+ * Exports
  */
 export { CardTimestampComponent }

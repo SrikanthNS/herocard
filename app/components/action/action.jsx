@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import FormFieldsComponent from '../form-fields';
-import ActionChildComponent from '../action-child';
+import { FormFieldsComponent } from '../form-fields';
+import { ActionChildComponent } from '../action-child';
 import './styles.scss';
 
 /**
@@ -64,7 +64,7 @@ export default class ActionComponent extends Component {
    * @param {string} key 
    */
   renderHiddenFields(value, key) {
-    return <input type="hidden" name={key} id={key} value={value} />;
+    return <input key={`hidden_key_${key}`} type="hidden" name={key} id={key} value={value} />;
   }
   /**
    *renderAction
@@ -74,7 +74,7 @@ export default class ActionComponent extends Component {
    */
   renderAction(action, index) {
     return (
-      <div key={action.id} className={this.addClasses(this.props.actions, action)} id={action.id}>
+      <div key={`action_${action.id}`} className={this.addClasses(this.props.actions, action)} id={action.id}>
         <form
           id={`${this.props.name}${index}`}
           className="hccf-card-action-form"
@@ -86,11 +86,11 @@ export default class ActionComponent extends Component {
           {
             action.action_key === 'USER_INPUT' ?
               <div>
-                <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
+                <div key={`user_inputs_${index}`} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
                   {_.map(action.user_input, (userInput, index) =>
                     (<FormFieldsComponent
                       formID={action.id}
-                      key={index}
+                      key={`user_input_${index}`}
                       fieldOptions={'{"keyup" : "HeroCard.Actions.UserInput.checkUserInput(event, this)"}'}
                       userInput={userInput}
                     />)

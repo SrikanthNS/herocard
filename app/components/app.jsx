@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import Accordion from './accordion';
+import { Accordion } from './accordion';
 
 /** *************************************************
   App file (starting point)

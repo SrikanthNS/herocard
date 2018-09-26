@@ -61,7 +61,9 @@
       "exports": "always-multiline",
       "functions": "never"
     }],
-    "linebreak-style": ["error", "windows"],
+    "linebreak-style": [
+      "error", "windows"
+    ],
     "consistent-return": "off",
     "curly": [
       "error",
@@ -131,6 +133,7 @@
       }
     ],
     "react/forbid-prop-types": "off",
+    "react/prefer-stateless-function": [0, { "ignorePureComponents": true }],
     "react/jsx-filename-extension": "off",
     "react/no-unescaped-entities": "off",
     "react/react-in-jsx-scope": "error",
