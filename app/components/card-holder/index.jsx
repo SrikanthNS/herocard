@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import BodyGeneralComponent from '../body-general';
-import BodyCommentComponent from '../body-comment';
-import ActionComponent from '../action';
 import './styles.scss';
+import { FieldsComponent } from '../fields';
+import { ToggleComponent } from '../toggle';
+import { CardTimestampComponent } from '../card-timestamp';
+import { BodyDescriptionComponent } from '../body-description';
+import ActionComponent from '../action';
+const MIN_FIELDS_TO_SHOW = 4;
 
 /**
  *carHoder component
@@ -14,7 +17,6 @@ import './styles.scss';
  *method: render (React LifeCycle method)
  * @return {JSX} each card details will be returned
  */
-const minFieldsToShow = 4;
 export default class CardHolder extends Component {
   constructor(props) {
     super(props);
@@ -48,12 +50,12 @@ export default class CardHolder extends Component {
   /**
    * showToggle
    * toggles view more/less
-   * in less mode: numOfFieldsToShow is set to  minFieldsToShow
+   * in less mode: numOfFieldsToShow is set to  MIN_FIELDS_TO_SHOW
    * in more mode: numOfFieldsToShow is set to totalNumberOfFields
    */
   showToggle() {
     const { totalNumberOfFields } = this.state;
-    const numOfFieldsToShow = this.state.showMore ? totalNumberOfFields : minFieldsToShow;
+    const numOfFieldsToShow = this.state.showMore ? totalNumberOfFields : MIN_FIELDS_TO_SHOW;
     this.setState({ numOfFieldsToShow, showMore: !this.state.showMore });
   }
 
@@ -74,8 +76,8 @@ export default class CardHolder extends Component {
     fieldsCount += (body.fields || []).length;
     fieldsCount += (body.comments || []).length;
 
-    if (fieldsCount > minFieldsToShow) {
-      this.setState({ isViewMoreRequired: true, numOfFieldsToShow: minFieldsToShow, showMore: true });
+    if (fieldsCount > MIN_FIELDS_TO_SHOW) {
+      this.setState({ isViewMoreRequired: true, numOfFieldsToShow: MIN_FIELDS_TO_SHOW, showMore: true });
     } else {
       this.setState({ isViewMoreRequired: false });
     }
@@ -92,44 +94,25 @@ export default class CardHolder extends Component {
     const fields = _.assign([], cardContent.body.fields);
     return (
       <div>
-        <div className="col-12 col-sm-12 hccf-card-body__description">
-          {_.escape(cardContent.body.description)}
-        </div>
-        {cardContent.body && cardContent.body.fields ?
-          _.map(fields.splice(0, numOfFieldsToShow), (field, index) => (
-            field.type === 'GENERAL' ?
-              <BodyGeneralComponent key={index} comment={field} />
-              :
-              <BodyCommentComponent key={index} comment={field} />))
-          : null}
-        {this.state.isViewMoreRequired ?
-          <div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__view-details">
-            <a
-              className="hccf-card-body__view-details--more"
-              id=""
-              onClick={this.showToggle}
-              style={{ display: this.state.showMore ? 'block' : 'none' }}
-            >
-              View more <img src={HeroCard.Utility.imgPath('expand-show-more.png')} alt="view-more" width="13" />
-            </a>
-            <a
-              className="hccf-card-body__view-details--less"
-              id=""
-              onClick={this.showToggle}
-              style={{ display: this.state.showMore ? 'none' : 'block' }}
-            >
-              View less <img src={HeroCard.Utility.imgPath('expand-show-less.png')} alt="view-less" width="13" />
-            </a>
-          </div>
-          :
-          null
+        {/* Shows card description */}
+        { cardContent.body.description
+          ? <BodyDescriptionComponent description={cardContent.body.description} />
+          : null
         }
-        {cardContent.creation_date ?
-          (<div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__timestamp">
-            {HeroCard.Utility.convertTimestamp(cardContent.creation_date)}
-          </div>)
-          :
-          null
+
+        {/* Shows body fields */}
+        <FieldsComponent fields={fields} numOfFieldsToShow={numOfFieldsToShow} />  
+        
+        {/* Shows View more/less links */}
+        { this.state.isViewMoreRequired 
+          ? <ToggleComponent  onClick ={this.showToggle} showMore={this.state.showMore} />
+          : null
+        }
+
+        {/* Shows card creation time */}
+        { cardContent.creation_date 
+          ? <CardTimestampComponent creationDate={cardContent.creation_date} />
+          : null
         }
         <ActionComponent actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
       </div>
