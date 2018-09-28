@@ -7,4 +7,4 @@ import FieldComponent from './field';
 /**
  * Exports
  */
-export { FieldsComponent, FieldComponent }
+export { FieldsComponent, FieldComponent };
