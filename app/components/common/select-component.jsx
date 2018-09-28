@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 
 /**
@@ -12,13 +13,13 @@ class SelectComponent extends React.Component {
 
   generateSelectOptions(selectOptions) {
     const optionsList = [];
-    optionsList.push(<option key="select" value="">Select</option>)
+    optionsList.push(<option key="select" value="">Select</option>);
     if (selectOptions) {
-      for (let optionValue in selectOptions) {
-        optionsList.push(<option key={optionValue} value={optionValue}>
-          {selectOptions[optionValue]}
-        </option>)
-      }
+      _.map(selectOptions, (key, value) => {
+        optionsList.push(<option key={value} value={value}>
+          {key}
+        </option>);
+      });
     }
     return optionsList;
   }
@@ -32,9 +33,9 @@ class SelectComponent extends React.Component {
       id={this.props.id}
       data-field-label={this.props.dataFieldLabel}
       data-validation={this.props.dataValidation ? this.props.dataValidation : undefined}
-      onKeyUp={(event) => this.props.onKeyUp(event, event.currentTarget)}
+      onKeyUp={event => this.props.onKeyUp(event, event.currentTarget)}
       defaultValue={this.props.selected}
-      onChange={(event) => this.props.onChange(event, event.currentTarget)}
+      onChange={event => this.props.onChange(event, event.currentTarget)}
     >
       {this.generateSelectOptions(this.props.options)}
     </select>
@@ -63,9 +64,7 @@ SelectComponent.defaultProps = {
   placeholder: '',
   dataFieldLabel: '',
   dataValidation: '',
-  onKeyUp: function (e) {
-    return e;
-  },
+  onKeyUp: () => {},
   selected: '',
 };
 
