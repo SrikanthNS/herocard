@@ -32,9 +32,9 @@ class SelectComponent extends React.Component {
       id={this.props.id}
       data-field-label={this.props.dataFieldLabel}
       data-validation={this.props.dataValidation ? this.props.dataValidation : undefined}
-      onKeyUp={(event) => this.props.onKeyUp(event, event.currentTarget)}
+      onKeyUp={event => this.props.onKeyUp(event, event.currentTarget)}
       defaultValue={this.props.selected}
-      onChange={(event) => this.props.onChange(event, event.currentTarget)}
+      onChange={event => this.props.onChange(event, event.currentTarget)}
     >
       {this.generateSelectOptions(this.props.options)}
     </select>
@@ -52,6 +52,7 @@ SelectComponent.propTypes = {
   dataValidation: PropTypes.string,
   onKeyUp: PropTypes.func,
   selected: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 /**
@@ -63,9 +64,8 @@ SelectComponent.defaultProps = {
   placeholder: '',
   dataFieldLabel: '',
   dataValidation: '',
-  onKeyUp: function (e) {
-    return e;
-  },
+  onKeyUp() {},
+  onChange() {},
   selected: '',
 };
 

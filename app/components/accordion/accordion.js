@@ -9,7 +9,6 @@ import { CardComponent } from '../card';
  */
 
 export default class Accordion extends Component {
-
   constructor(props) {
     super(props);
     this.state = { expandedCardIndex: -1 };

@@ -6,4 +6,4 @@ import BodyCommentComponent from './body-comment';
 /**
  * Exports
  */
-export { BodyCommentComponent }
+export { BodyCommentComponent };

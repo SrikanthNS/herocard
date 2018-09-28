@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * TextArea Component
@@ -12,9 +13,25 @@ function TextAreaComponent(props) {
       placeholder={props.placeholder}
       data-field-label={props.dataFieldLabel}
       data-validation={props.dataValidation ? props.dataValidation : undefined}
-      onKeyUp={(event) => props.onKeyUp(event, event.currentTarget)}
+      onKeyUp={event => props.onKeyUp(event, event.currentTarget)}
     />
   );
 }
+
+TextAreaComponent.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  dataFieldLabel: PropTypes.string,
+  dataValidation: PropTypes.string,
+  onKeyUp: PropTypes.func,
+};
+
+TextAreaComponent.defaultProps = {
+  name: '',
+  id: '',
+  dataFieldLabel: '',
+  dataValidation: '',
+  onKeyUp() {},
+};
 
 export default TextAreaComponent;
