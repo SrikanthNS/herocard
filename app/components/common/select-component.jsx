@@ -53,6 +53,7 @@ SelectComponent.propTypes = {
   dataValidation: PropTypes.string,
   onKeyUp: PropTypes.func,
   selected: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 /**
@@ -64,7 +65,8 @@ SelectComponent.defaultProps = {
   placeholder: '',
   dataFieldLabel: '',
   dataValidation: '',
-  onKeyUp: () => {},
+  onKeyUp() {},
+  onChange() {},
   selected: '',
 };
 
