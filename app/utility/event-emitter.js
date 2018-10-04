@@ -17,6 +17,7 @@
  * @method on - Attach an event
  * @method emit - Handle an emitted event
  */
+const HeroCard = window.HeroCard || {};
 function EventEmitter() {
     this.events = {};
     

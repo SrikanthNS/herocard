@@ -38,6 +38,7 @@ export default class CardComponent extends Component {
           cardIndex={cardIndex}
           handleClick={this.handleClick}
           content={content}
+          isExpanded={isExpanded}
         />
         {isExpanded ? <CardHolder cardContent={content} /> : null}
       </div>
