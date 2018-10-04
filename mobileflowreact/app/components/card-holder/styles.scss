@@ -1,0 +1,37 @@
+.hccf-card-body {
+  padding: 5px;
+  font-size: 85%;
+  line-height: 2;
+}
+
+.hccf-card-body__field {
+  padding: 0;
+  font-size: 96%;
+  line-height: 1.5;
+}
+
+.hccf-card-body__field-title,
+.hccf-card-body__field-description {
+  padding: 0 10px;
+  text-align: left;
+}
+
+.hccf-card-body__field-title {
+    color: #565656;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.hccf-card-body__field--hidden {
+  display: none;
+}
+
+.hccf-card-body__field--visible {
+  display: block !important;
+}
+
+.hccf-card-body__field--clutter {
+  margin-top: 15px;
+}

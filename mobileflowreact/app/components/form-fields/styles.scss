@@ -1,0 +1,137 @@
+.hccf-form-field {
+    margin-bottom: 10px;
+  }
+  
+  /*.hccf-form-field--required > label::after {
+    content: '*';
+    color: #ff0000;
+  }*/
+  
+  .hccf-form-field > label {
+    font-size: 82%;
+    color: #6C747D;
+    display: inline-block;
+    width: 25%;
+    max-width: 120px;
+    text-align: left;
+    margin-right: 4px;
+    vertical-align: text-top;
+  }
+  
+  .hccf-form-field > span,
+  .hccf-form-field__validation-message {
+    font-size: 82%;
+    position: relative;
+  }
+  
+  .hccf-form-field > span > label {
+    vertical-align: middle;
+  }
+  
+  .hccf-form-field__validation-message {
+    display: none;
+    text-align: left;
+  }
+  
+  .hccf-form-field__validation-message::before {
+      content: ' ';
+      display: inline-block;
+      width: 25%;
+      max-width: 120px;
+  }
+  
+  .hccf-form-field__validation-message > span {
+      padding-left: 4px;
+      color: #d72e2e;
+  }
+  
+  .hccf-form-field > span > input.hccf-form-field__validation-error {
+      border: 1px solid #d72e2e !important;
+  }
+  
+  .hccf-form-field > span.hccf-form-field__validation-error-dot::before {
+      position: absolute;
+      content: '';
+      background-color: #d72e2e;
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      top: 3px;
+      right: 20px;
+  }
+  
+  .hccf-form-field--textarea > label,
+  .hccf-form-field--radio > label,
+  .hccf-form-field--checkbox > label {
+    vertical-align: top;
+  }
+  
+  .hccf-form-field--radio > span,
+  .hccf-form-field--checkbox > span {
+    display: inline-block;
+  }
+  
+  .hccf-form-field--radio > span > label > input[type="radio"],
+  .hccf-form-field--checkbox > span > label > input[type="checkbox"] {
+    margin-left: 0;
+    vertical-align:top;
+  }
+  
+  .hccf-form-field--select > span > select {
+      width: 73%;
+      color: #414b57;
+      padding: 10px;
+      border: 1px solid #EAEBEC;
+      line-height: 2.2;
+  }
+  
+  .hccf-form-field > span > input[type="range"] {
+      width: 67%;
+  }
+  
+  .hccf-form-field > span > input[type="text"],
+  .hccf-form-field > span > input[type="textarea"],
+  .hccf-form-field > span > input[type="number"],
+  .hccf-form-field > span > input[type="email"],
+  .hccf-form-field > span > input[type="date"],
+  .hccf-form-field > span > input[type="tel"],
+  .hccf-form-field > span > input[type="undefined"]
+   {
+      width: 73%;
+      background: transparent;
+      color: #515A64;
+      outline: none;
+      padding: 0 10px;
+      border-radius: 2px;
+      -webkit-appearance: none;
+      -webkit-border-radius:2px;
+      border: 1px solid #D7D7D7;
+      margin-left: 0;
+      height: 34px;
+      font-size: 117%;
+      font-weight: 600;
+      font-family: -apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  
+  .hccf-form-field--range__min {
+      position: absolute;
+      left: 0;
+      top: 3px;
+  }
+  
+  .hccf-form-field--range__max {
+      position: absolute;
+      right: 0;
+      top: 3px;
+  }
+  
+  .hccf-form-field--textarea textarea {
+    width: 73%;
+    min-height: 75px;
+    resize: none;
+    font-family: inherit;
+    color: #414b57;
+    border: 1px solid #EAEBEC;
+    border-radius: 3px;
+    outline: none;
+  }
