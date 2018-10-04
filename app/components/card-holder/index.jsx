@@ -5,7 +5,13 @@ import { FieldsComponent } from '../fields';
 import { ToggleComponent } from '../toggle';
 import { CardTimestampComponent } from '../card-timestamp';
 import { BodyDescriptionComponent } from '../body-description';
-import { ActionComponent } from '../action';
+import ActionComponent from '../action';
+import HeroCardUtility from '../../utility/utility';
+import HeroCardResponseManager from '../../utility/response-manager';
+import HeroCardEventEmitter from '../../utility/event-emitter';
+
+HeroCardEventEmitter().initEventEmitter();
+const EventEmitter = HeroCardEventEmitter().EventEmitter();
 
 const MIN_FIELDS_TO_SHOW = 4;
 
@@ -45,7 +51,7 @@ export default class CardHolder extends Component {
    * attach even handlers after rendering all cards
    */
   componentDidMount() {
-    HeroCard.Utility.attachEventHandlers();
+    HeroCardUtility.attachEventHandlers();
   }
 
   /**
@@ -58,6 +64,7 @@ export default class CardHolder extends Component {
     const { totalNumberOfFields } = this.state;
     const numOfFieldsToShow = this.state.showMore ? totalNumberOfFields : MIN_FIELDS_TO_SHOW;
     this.setState({ numOfFieldsToShow, showMore: !this.state.showMore });
+    EventEmitter.emit('CARDRESIZED');
   }
 
   /**
@@ -65,9 +72,10 @@ export default class CardHolder extends Component {
    * logic to determine whether viewMore option is required or not
    */
   moreDetails() {
-    const visibleCardsCount = HeroCard.ResponseManager.getVisibleCardsCount();
+    const visibleCardsCount = HeroCardResponseManager.getVisibleCardsCount();
+
+    // don't add show/hide if more than one cards present
     if (visibleCardsCount > 1) {
-      // don't add show/hide if more than one cards present
       this.setState({ isViewMoreRequired: false });
       return;
     }
@@ -90,34 +98,32 @@ export default class CardHolder extends Component {
    */
 
   render() {
-    const { cardContent, isExpanded } = this.props;
+    const cardContent = this.props.cardContent;
     const { numOfFieldsToShow } = this.state;
     const fields = _.assign([], cardContent.body.fields);
     return (
-      <div
-        className={`hccf-row hccf-card-body ${isExpanded ? 'open' : ''}`}
-      >
+      <div  className="hccf-row hccf-card-body">
         {/* Shows card description */}
-        {cardContent.body.description
+        { cardContent.body.description
           ? <BodyDescriptionComponent description={cardContent.body.description} />
           : null
         }
 
         {/* Shows body fields */}
-        <FieldsComponent fields={fields} numOfFieldsToShow={numOfFieldsToShow} />
-
+        <FieldsComponent fields={fields} numOfFieldsToShow={numOfFieldsToShow} />  
+        
         {/* Shows View more/less links */}
-        {this.state.isViewMoreRequired
-          ? <ToggleComponent onClick={this.showToggle} showMore={this.state.showMore} />
+        { this.state.isViewMoreRequired 
+          ? <ToggleComponent  onClick ={this.showToggle} showMore={this.state.showMore} />
           : null
         }
 
         {/* Shows card creation time */}
-        {cardContent.creation_date
+        { cardContent.creation_date 
           ? <CardTimestampComponent creationDate={cardContent.creation_date} />
           : null
         }
-        <ActionComponent key={`actions_${cardContent.id}`} actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
+        <ActionComponent actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
       </div>
     );
   }

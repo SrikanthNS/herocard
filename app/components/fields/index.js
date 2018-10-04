@@ -1,10 +1,10 @@
 /**
  * Imports
  */
-import FieldsComponent from './fields';
-import FieldComponent from './field';
+import FieldsComponent from './fields.jsx';
+import FieldComponent from './field.jsx';
 
 /**
- * Exports
+ * Exports 
  */
-export { FieldsComponent, FieldComponent };
+export { FieldsComponent, FieldComponent }

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { FormFieldsComponent } from '../form-fields';
-import { ActionChildComponent } from '../action-child';
+import ActionChildComponent from '../action-child';
+import HeroCardActions from '../../utility/actions';
 import './styles.scss';
 
 /**
@@ -23,7 +24,7 @@ export default class ActionComponent extends Component {
   }
   /**
  * areMultipleEntries
- * @param {array} userInput 
+ * @param {array} userInput
  * return class names depending on userInput array length
  */
   areMultipleEntries(userInput) {
@@ -35,8 +36,8 @@ export default class ActionComponent extends Component {
 
   /**
    *
-   * @param {array} items 
-   * @param {object} curAction 
+   * @param {array} items
+   * @param {object} curAction
    */
   addClasses(items, curAction) {
     const numActions = items.length;
@@ -52,7 +53,7 @@ export default class ActionComponent extends Component {
   }
   /**
    *
-   * @param {object} action 
+   * @param {object} action
    */
   stringifyAction(action) {
     if (!action) { return; }
@@ -60,21 +61,21 @@ export default class ActionComponent extends Component {
   }
   /**
    *
-   * @param {string} value 
-   * @param {string} key 
+   * @param {string} value
+   * @param {string} key
    */
   renderHiddenFields(value, key) {
-    return <input key={`hidden_key_${key}`} type="hidden" name={key} id={key} value={value} />;
+    return <input type="hidden" name={key} id={key} key={key} value={value} />;
   }
   /**
    *renderAction
-   * @param {object} action 
-   * @param {number} index 
+   * @param {object} action
+   * @param {number} index
    * render JSX for each action
    */
   renderAction(action, index) {
     return (
-      <div key={`action_${action.id}`} className={this.addClasses(this.props.actions, action)} id={action.id}>
+      <div key={action.id} className={this.addClasses(this.props.actions, action)} id={action.id}>
         <form
           id={`${this.props.name}${index}`}
           className="hccf-card-action-form"
@@ -86,12 +87,12 @@ export default class ActionComponent extends Component {
           {
             action.action_key === 'USER_INPUT' ?
               <div>
-                <div key={`user_inputs_${index}`} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
+                <div key={index} className={`hccf-js-input-add-section ${this.areMultipleEntries(action.user_input)}`} >
                   {_.map(action.user_input, (userInput, index) =>
                     (<FormFieldsComponent
                       formID={action.id}
-                      key={`user_input_${index}`}
-                      fieldOptions={'{"keyup" : "HeroCard.Actions.UserInput.checkUserInput(event, this)"}'}
+                      key={index}
+                      fieldOptions={'{"keyup" : "HeroCardActions.UserInput.checkUserInput(event, this)"}'}
                       userInput={userInput}
                     />)
                   )}
@@ -100,13 +101,13 @@ export default class ActionComponent extends Component {
                       <a
                         className="hccf-card-actions__item-link hccf-js-input-button-cancel"
                         id={`${this.props.id}__${action.id}__cancel`}
-                        onClick={event => HeroCard.Actions.UserInput.hideInputForm(event, event.target)}
+                        onClick={event => HeroCardActions.UserInput.hideInputForm(event, event.target)}
                       >Cancel</a>
                       <div className="hccf-card-actions__item hccf-card-actions__item hccf-card-actions__item--primary">
                         <a
                           className="hccf-card-actions__item-link hccf-card-actions__item-link--disabled hccf-js-input-button-submit"
                           id={`${this.props.id}__${action.id}__submit`}
-                          onClick={event => HeroCard.Actions.UserInput.submitInput(event, event.target)}
+                          onClick={event => HeroCardActions.UserInput.submitInput(event, event.target)}
                         >{action.label}</a>
                       </div>
                     </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { CardComponent } from '../card';
+import HeroCardEventEmitter from '../../utility/event-emitter';
 
 /**
  * Accordion
@@ -9,6 +10,7 @@ import { CardComponent } from '../card';
  */
 
 export default class Accordion extends Component {
+
   constructor(props) {
     super(props);
     this.state = { expandedCardIndex: -1 };
@@ -16,11 +18,11 @@ export default class Accordion extends Component {
   }
   componentDidMount() {
     // Initialize custom event emitter object
-    HeroCard.initEventEmitter();
+    HeroCardEventEmitter().initEventEmitter();
   }
 
   setExpandedCardIndex(cardIndex) {
-    this.setState({ expandedCardIndex: cardIndex });
+    this.setState({ expandedCardIndex: cardIndex === this.state.expandedCardIndex ? -1 : cardIndex });
   }
 
   /**
@@ -35,9 +37,9 @@ export default class Accordion extends Component {
       <div>
         {_.map(this.props.contents, (content, index) => (
           <CardComponent
+            key={index}
             cardIndex={index}
             content={content}
-            key={index}
             expandedCardIndex={expandedCardIndex}
             setExpandedCardIndex={this.setExpandedCardIndex}
           />

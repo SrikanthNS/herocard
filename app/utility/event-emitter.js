@@ -8,26 +8,24 @@
  * http://www.vmware.com/go/patents.
  */
 
-/** *************************************************
-  Event Emitter
-****************************************************/
 
-(function () {
-  // Access 'HeroCard' namespace or create one
-  window.HeroCard = window.HeroCard || {};
-
-  // Custom event emitter
-  HeroCard.initEventEmitter = function () {
-    function Emitter() {
-      this.events = {};
-    }
-
-    Emitter.prototype.on = function (eventType, eventListener) {
+/**
+ * EventEmitter
+ * Function constructor for attaching and emitting custom events
+ * 
+ * @member events - Events list
+ * @method on - Attach an event
+ * @method emit - Handle an emitted event
+ */
+function EventEmitter() {
+    this.events = {};
+    
+    this.on = function (eventType, eventListener) {
       this.events[eventType] = this.events[eventType] || [];
       this.events[eventType].push(eventListener);
     };
 
-    Emitter.prototype.emit = function (eventType, eventInfo) {
+    this.emit = function (eventType, eventInfo) {
       eventInfo = (typeof eventInfo !== undefined) ? eventInfo : {};
 
       if (this.events[eventType]) {
@@ -36,12 +34,31 @@
         });
       }
     };
-
+}
+  
+/**
+ * HeroCardEventEmitter
+ * Initialize and/or return EventEmitter
+ */
+function HeroCardEventEmitter() {
     function init() {
-      HeroCard.EventEmitter = HeroCard.EventEmitter || new Emitter();
+        HeroCard.EventEmitter = HeroCard.EventEmitter || new EventEmitter();
     }
+  
+    return {
+        initEventEmitter: init,
+        EventEmitter: function() {
+            if (HeroCard.EventEmitter) {
+                return HeroCard.EventEmitter;
+            } else {
+                console.error('EventEmitter is not initialized!');
+            }
+        }
+    };
+}
 
-    init();
-  };
-}());
-
+/**
+ * Exports
+ */
+export default HeroCardEventEmitter;
+  

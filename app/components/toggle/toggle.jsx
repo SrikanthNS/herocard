@@ -1,4 +1,5 @@
 import React from 'react';
+import HeroCardUtility from '../../utility/utility';
 import './styles.scss';
 
 /**
@@ -21,14 +22,14 @@ import './styles.scss';
                     onClick={onClick}
                     style={{ display: showMore ? 'block' : 'none' }}
                 >
-                    View more <img src={HeroCard.Utility.imgPath('expand-show-more.png')} alt="view-more" width="13" />
+                    View more <img src={HeroCardUtility.imgPath('expand-show-more.png')} alt="view-more" width="13" />
                 </a>
                 <a
                     className="hccf-card-body__view-details--less"
                     onClick={onClick}
                     style={{ display: showMore ? 'none' : 'block' }}
                 >
-                    View less <img src={HeroCard.Utility.imgPath('expand-show-less.png')} alt="view-less" width="13" />
+                    View less <img src={HeroCardUtility.imgPath('expand-show-less.png')} alt="view-less" width="13" />
                 </a>
           </div>
         );

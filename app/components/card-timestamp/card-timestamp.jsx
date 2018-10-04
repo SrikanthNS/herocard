@@ -1,4 +1,5 @@
 import React from 'react';
+import HeroCardUtility from '../../utility/utility';
 import './styles.scss';
 
 /**
@@ -15,7 +16,7 @@ import './styles.scss';
     render() {
         return (
             <div className="hccf-col-xs-12 hccf-col-sm-12 hccf-card-body__timestamp">
-                {HeroCard.Utility.convertTimestamp(this.props.creationDate)}
+                {HeroCardUtility.convertTimestamp(this.props.creationDate)}
             </div>       
         );
     }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import FieldElelmentComponent from './form-element';
+import FieldElementComponent from './form-element';
 
 export default class FieldComponent extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class FieldComponent extends Component {
           ''
         }
         <span>
-          <FieldElelmentComponent userInput={userInput} formID={formID} />
+          <FieldElementComponent userInput={userInput} formID={formID} />
         </span>
         <div className="hccf-form-field__validation-message">
           <span>error message</span>

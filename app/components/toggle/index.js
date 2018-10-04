@@ -1,9 +1,9 @@
 /**
  * Imports
  */
-import ToggleComponent from './toggle';
+import ToggleComponent from './toggle.jsx';
 
 /**
- * Exports
+ * Exports 
  */
-export { ToggleComponent };
+export { ToggleComponent }

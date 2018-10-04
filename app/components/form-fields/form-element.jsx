@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
-import { InputComponent, TextAreaComponent, SelectComponent } from '../common';
+import { InputComponent, TextAreaComponent, SelectComponent } from '../form-controls';
+import HeroCardActions from '../../utility/actions';
 
 const FIELD_TYPES = {
   SELECT: 'SELECT',
@@ -8,7 +9,7 @@ const FIELD_TYPES = {
   TEXT: 'TEXT',
 };
 
-export default class FieldElelmentComponent extends Component {
+export default class FieldElementComponent extends Component {
   render() {
     const { userInput, formID } = this.props;
     const isFormatPresent = userInput.format || FIELD_TYPES.TEXT;
@@ -22,8 +23,8 @@ export default class FieldElelmentComponent extends Component {
           selected={userInput.selected}
           dataFieldLabel={userInput.label}
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
-          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
-          onChange={HeroCard.Actions.Common.validateFieldRules}
+          onKeyUp={HeroCardActions.UserInput.checkUserInput}
+          onChange={HeroCardActions.Common.validateFieldRules}
         />);
       case FIELD_TYPES.TEXTAREA:
         return (<TextAreaComponent
@@ -32,7 +33,7 @@ export default class FieldElelmentComponent extends Component {
           placeholder={userInput.label}
           dataFieldLabel={userInput.label}
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
-          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+          onKeyUp={HeroCardActions.UserInput.checkUserInput}
         />);
       case FIELD_TYPES.TEXT:
         return (<InputComponent
@@ -41,8 +42,8 @@ export default class FieldElelmentComponent extends Component {
           id={`${formID}__${userInput.id}`}
           dataFieldLabel={userInput.label}
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
-          onBlur={HeroCard.Actions.Common.validateFieldRules}
-          onKeyUp={HeroCard.Actions.UserInput.checkUserInput}
+          onBlur={HeroCardActions.Common.validateFieldRules}
+          onKeyUp={HeroCardActions.UserInput.checkUserInput}
         />);
       default: return null;
     }

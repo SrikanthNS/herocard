@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import HeroCardUtility from '../../utility/utility';
+
 /**
  * ActionChildComponent
  * method renderAction
@@ -22,15 +24,15 @@ export default class ActionChildComponent extends Component {
 
     switch (action.action_key) {
       case 'USER_INPUT':
-        clickHandler = 'HeroCard.Actions.UserInput.showInputForm(event, element)';
+        clickHandler = 'HeroCardActions.UserInput.showInputForm(event, element)';
         break;
 
       default:
-        clickHandler = 'HeroCard.Utility.submitAction(event, element)';
+        clickHandler = 'alert("Error: Click handler not found!")';
     }
 
     const elemID = `${action.id}__${completedClasses.replace(/\s+/g, '+')}`;
-    HeroCard.Utility.registerEventHandler(elemID, 'click', clickHandler);
+    HeroCardUtility.registerEventHandler(elemID, 'click', clickHandler);
 
     // Check for primary action
     if (action.primary === true) {
@@ -53,10 +55,10 @@ export default class ActionChildComponent extends Component {
     }
 
     return `<a class="${completedClasses
-    }" data-actionkey="${action.action_key
-    }" id="${elemID}">${
+      }" data-actionkey="${action.action_key
+      }" id="${elemID}">${
       innerText
-    }</a>`;
+      }</a>`;
   }
   /**
    * render React Life cycle method
