@@ -5,10 +5,10 @@ import { FieldsComponent } from '../fields';
 import { ToggleComponent } from '../toggle';
 import { CardTimestampComponent } from '../card-timestamp';
 import { BodyDescriptionComponent } from '../body-description';
-import ActionComponent from '../action';
 import HeroCardUtility from '../../utility/utility';
 import HeroCardResponseManager from '../../utility/response-manager';
 import HeroCardEventEmitter from '../../utility/event-emitter';
+import CardActionsComponent from '../card-actions';
 
 HeroCardEventEmitter().initEventEmitter();
 const EventEmitter = HeroCardEventEmitter().EventEmitter();
@@ -101,6 +101,7 @@ export default class CardHolder extends Component {
     const cardContent = this.props.cardContent;
     const { numOfFieldsToShow } = this.state;
     const fields = _.assign([], cardContent.body.fields);
+    
     return (
       <div  className="hccf-row hccf-card-body">
         {/* Shows card description */}
@@ -123,7 +124,9 @@ export default class CardHolder extends Component {
           ? <CardTimestampComponent creationDate={cardContent.creation_date} />
           : null
         }
-        <ActionComponent actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
+
+        {/* Shows card actions */}
+        <CardActionsComponent actions={cardContent.actions} name={cardContent.name} id={cardContent.id} />
       </div>
     );
   }

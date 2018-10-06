@@ -50,35 +50,6 @@
   border-bottom-right-radius:8px;
 }
 
-.hccf-card-header {
-  &:after {
-	  height: 59px;
-	  width: 13px; 
-	  content: "";
-	  background: url('../../images/expand-show-more.png') no-repeat;
-	  background-size: 14px 9px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 15px;
-    background-position: center;
-    cursor: pointer;
-	} 
-
-	&.open {
-	  &:after {        
-	    background: url('../../images/expand-show-less.png') no-repeat;	
-      background-size: 14px 9px;  
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      right: 15px;
-      background-position: center;
-      cursor: pointer;
-	  }
-	}
-}
-
 .hccf-card-header__wrapper{
   display: table;
   table-layout: fixed;

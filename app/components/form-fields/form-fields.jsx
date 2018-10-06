@@ -5,9 +5,17 @@ import './styles.scss';
 
 export default class FormFieldsComponent extends Component {
   render() {
-    const { userInput, formID } = this.props;
+    const fields = this.props.fields || [];
+    const formID = this.props.formID;
+
     return (
-      <div>{userInput ? <FieldComponent userInput={userInput} formID={formID} /> : null }</div>
+      <div>
+        {
+          fields.map((field, index) => {
+            return <FieldComponent key={index} userInput={field} formID={formID} />;
+          })
+        }
+      </div>
     );
   }
 }

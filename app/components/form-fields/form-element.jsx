@@ -9,14 +9,19 @@ const FIELD_TYPES = {
   TEXT: 'TEXT',
 };
 
+/**
+ * Doc
+ */
 export default class FieldElementComponent extends Component {
   render() {
     const { userInput, formID } = this.props;
     const isFormatPresent = userInput.format || FIELD_TYPES.TEXT;
     const fieldType = _.toUpper(isFormatPresent);
+    let element = null;
+    
     switch (fieldType) {
       case FIELD_TYPES.SELECT:
-        return (<SelectComponent
+        element = (<SelectComponent
           name={userInput.id}
           id={`${formID}__${userInput.id}`}
           options={userInput.options}
@@ -26,8 +31,10 @@ export default class FieldElementComponent extends Component {
           onKeyUp={HeroCardActions.UserInput.checkUserInput}
           onChange={HeroCardActions.Common.validateFieldRules}
         />);
+        break;
+
       case FIELD_TYPES.TEXTAREA:
-        return (<TextAreaComponent
+        element = (<TextAreaComponent
           name={userInput.id}
           id={`${formID}__${userInput.id}`}
           placeholder={userInput.label}
@@ -35,8 +42,10 @@ export default class FieldElementComponent extends Component {
           dataValidation={userInput.validation ? userInput.validation.join() : undefined}
           onKeyUp={HeroCardActions.UserInput.checkUserInput}
         />);
+        break;
+
       case FIELD_TYPES.TEXT:
-        return (<InputComponent
+        element =  (<InputComponent
           type={userInput.format}
           name={userInput.id}
           id={`${formID}__${userInput.id}`}
@@ -45,7 +54,11 @@ export default class FieldElementComponent extends Component {
           onBlur={HeroCardActions.Common.validateFieldRules}
           onKeyUp={HeroCardActions.UserInput.checkUserInput}
         />);
-      default: return null;
+        break;
     }
+
+    return (
+      <span>{element}</span>  
+    )
   }
 }

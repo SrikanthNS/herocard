@@ -53,21 +53,13 @@ const UserInputActions = {
         let formData = CommonActions.getFormData(form),
             callback = 'HeroCard.UserInputActions.addInputCallback';
 
-        console.log('--form data--');
-        console.log(formData);   
-        
         CommonActions.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
-
 
         // Disable submit button and change label to "In progress..."
         CommonActions.disableActionButton(button, 'In progress...');
-
-        // setTimeout(function(){
-        //     HeroCard.UserInputActions.addInputCallback(urlStr, true);
-        // }, 2000);
-
         return true;
     },
+
     addInputCallback: function(urlStr, result) {
         const _self = this;
         const info = CommonActions.decodeRoswellActionURL(urlStr, '.hccf-js-input-add-section');
