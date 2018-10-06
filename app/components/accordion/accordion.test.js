@@ -7,17 +7,22 @@ import cardData from '../../mocks/mock-data';
 
 configure({ adapter: new Adapter() });
 
-describe('Accordion component', () => {
-  const props = {
-    contents: cardData,
-    setExpandedCardIndex: jasmine.createSpy(),
-  };
-  const state = {
-    expandedCardIndex: -1,
-  };
-  const component = shallow(<Accordion {...props} {...state} />);
+describe('Accordion', () => {
+  let props;
+  let state;
+  let component;
+  beforeEach(() => {
+    props = {
+      contents: cardData,
+      setExpandedCardIndex: jasmine.createSpy(),
+    };
+    state = {
+      expandedCardIndex: -1,
+    };
+    component = shallow(<Accordion {...props} {...state} />);
+  });
 
-  describe('render', () => {
+  describe('Component Render', () => {
     it('should contain div with text', () => {
       const div = component.find('div');
 
@@ -31,14 +36,14 @@ describe('Accordion component', () => {
     });
   });
 
-  describe('component instance method setExpandedCardIndex', () => {
-    it('should set component state expandedCardIndex to some number', () => {
+  describe('Component instance method setExpandedCardIndex', () => {
+    it('should set component state expandedCardIndex from index -1 to index 2', () => {
       component.instance().setExpandedCardIndex(2);
 
       expect(component.state().expandedCardIndex).toBe(2);
     });
 
-    it('should set component state expandedCardIndex to some number', () => {
+    it('should set component state expandedCardIndex from index 2 to index -1', () => {
       component.setState({
         expandedCardIndex: 2,
       });

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import CardHolder from '../card-holder';
 import { CardHeaderComponent } from '../card-header';
 import HeroCardUtility from '../../utility/utility';
@@ -45,3 +46,10 @@ export default class CardComponent extends Component {
     );
   }
 }
+
+CardComponent.propTypes = {
+  content: PropTypes.object.isRequired,
+  cardIndex: PropTypes.number.isRequired,
+  expandedCardIndex: PropTypes.number.isRequired,
+  setExpandedCardIndex: PropTypes.func.isRequired,
+};

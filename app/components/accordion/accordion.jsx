@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import _ from 'lodash';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { CardComponent } from '../card';
 import HeroCardEventEmitter from '../../utility/event-emitter';
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import HeroCardUtility from '../../utility/utility';
 import './styles.scss';
@@ -10,7 +11,7 @@ import './styles.scss';
  * @method render (React LifeCycle method)
  */
 
-const IMAGE_MAP = {
+export const IMAGE_MAP = {
   'BOOMI SFDC': 'Boomi@3x.png',
   SOCIALCAST: 'Socialcast@3x.png',
   SERVICENOW: 'ServiceNow@3x.png',
@@ -19,7 +20,7 @@ const IMAGE_MAP = {
   CONCUR: 'Concur@3x.png',
 };
 
-export default class CardHeaderComponent extends React.Component {
+export class CardHeaderComponent extends React.Component {
   /**
    * @method render (React LifeCycle method)
    * Return card header content   */
@@ -49,3 +50,12 @@ export default class CardHeaderComponent extends React.Component {
     );
   }
 }
+
+CardHeaderComponent.propTypes = {
+  isExpanded: PropTypes.bool.isRequired,
+  cardIndex: PropTypes.number.isRequired,
+  content: PropTypes.object.isRequired,
+  handleClick: PropTypes.func.isRequired,
+};
+
+export default CardHeaderComponent;
