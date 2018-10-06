@@ -31,14 +31,11 @@ export default class CardComponent extends Component {
     const isExpanded = expandedCardIndex === cardIndex;
 
     return (
-      <div
-        className={`hccf-hero-card ${isExpanded ? 'open' : ''} ${HeroCardUtility.callbackClasses(content)}`}
-      >
+      <div className={`hccf-hero-card ${isExpanded ? 'open' : ''} ${HeroCardUtility.callbackClasses(content)}`}>
         <CardHeaderComponent
           cardIndex={cardIndex}
           handleClick={this.handleClick}
           content={content}
-          isExpanded={isExpanded}
         />
         {isExpanded ? <CardHolder cardContent={content} /> : null}
       </div>
