@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import { CardComponent } from '../card';
 import HeroCardEventEmitter from '../../utility/event-emitter';
 
@@ -9,8 +10,7 @@ import HeroCardEventEmitter from '../../utility/event-emitter';
  * method: render
  */
 
-export default class Accordion extends Component {
-
+export class Accordion extends Component {
   constructor(props) {
     super(props);
     this.state = { expandedCardIndex: -1 };
@@ -48,3 +48,9 @@ export default class Accordion extends Component {
     );
   }
 }
+
+Accordion.propTypes = {
+  contents: PropTypes.array.isRequired,
+};
+
+export default Accordion;
