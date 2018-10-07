@@ -32,7 +32,7 @@ describe('Accordion', () => {
     it('should render Card Component', () => {
       const cardComponent = component.find(CardComponent);
 
-      expect(cardComponent.length).toBe(4);
+      expect(cardComponent.length).toBe(5);
     });
   });
 

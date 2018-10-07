@@ -32,11 +32,11 @@ export class CardHolder extends Component {
       isViewMoreRequired: false,
       showMore: true,
       numOfFieldsToShow: this.props.cardContent.body.fields ? this.props.cardContent.body.fields.length : 0,
-      body: this.props.cardContent.body,
       totalNumberOfFields: this.props.cardContent.body.fields ? this.props.cardContent.body.fields.length : 0,
     };
 
     this.showToggle = this.showToggle.bind(this);
+    this.moreDetails = this.moreDetails.bind(this);
   }
 
   /**
