@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import  CardHolder  from '../card-holder';
+import PropTypes from 'prop-types';
+import CardHolder from '../card-holder';
 import { CardHeaderComponent } from '../card-header';
 import HeroCardUtility from '../../utility/utility';
 import './styles.scss';
@@ -31,14 +32,24 @@ export default class CardComponent extends Component {
     const isExpanded = expandedCardIndex === cardIndex;
 
     return (
-      <div className={`hccf-hero-card ${isExpanded ? 'open' : ''} ${HeroCardUtility.callbackClasses(content)}`}>
+      <div
+        className={`hccf-hero-card ${isExpanded ? 'open' : ''} ${HeroCardUtility.callbackClasses(content)}`}
+      >
         <CardHeaderComponent
           cardIndex={cardIndex}
           handleClick={this.handleClick}
           content={content}
+          isExpanded={isExpanded}
         />
         {isExpanded ? <CardHolder cardContent={content} /> : null}
       </div>
     );
   }
 }
+
+CardComponent.propTypes = {
+  content: PropTypes.object.isRequired,
+  cardIndex: PropTypes.number.isRequired,
+  expandedCardIndex: PropTypes.number.isRequired,
+  setExpandedCardIndex: PropTypes.func.isRequired,
+};
