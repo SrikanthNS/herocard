@@ -338,6 +338,73 @@ const cardData = [
     }],
   },
   {
+    id: 'BITBUCKET02-639e-42a8-a9b6-a66aa62d8a9asss',
+    creation_date: '1970-01-01T00:00:00Z',
+    header: {
+      title: 'BitBucket Server PR - APF-27-Test commit for stash connector./Sudharsan Sathiamoorthy',
+      subtitle: 'Description Please do not merge this branch.',
+    },
+    body: {
+      description: 'Please do not merge this branch.',
+      fields: [],
+    },
+    actions: [
+      {
+        id: 'BITBUCKET02-639e-42a8-a9b6-COMMENT',
+        label: 'Comment',
+        url: {
+          href: 'https://hero/connectors/stash/api/v1/UFO/app-platform-server/246/comments',
+        },
+        type: 'POST',
+        action_key: 'USER_INPUT',
+        request: {},
+        user_input: [
+          {
+            id: 'Comment',
+            label: 'Comment',
+            min_length: 1,
+          },
+        ],
+        completed_label: 'Comment',
+      },
+      {
+        id: 'BITBUCKET02-639e-42a8-a9b6-APPROVE',
+        mutually_exclusive_set_id: 'bitbucket-approval-flow',
+        action_key: 'DIRECT',
+        label: 'Approve',
+        type: 'POST',
+        url: {
+          href: 'https://hero/connectors/stash/api/v1/UFO/app-platform-server/246/approve',
+        },
+        request: {},
+        user_input: [],
+        completed_label: 'Approve',
+      },
+      {
+        id: 'BITBUCKET02-639e-42a8-a9b6-DECLINE',
+        mutually_exclusive_set_id: 'bitbucket-approval-flow',
+        label: 'Decline',
+        action_key: 'DIRECT',
+        type: 'POST',
+        url: {
+          href: 'https://hero/connectors/stash/api/v1/UFO/app-platform-server/246/decline',
+        },
+        request: {},
+        user_input: [],
+        completed_label: 'Decline',
+      },
+      {
+        id: 'BITBUCKET02-639e-42a8-a9b6-MERGE',
+        label: 'Merge',
+        type: 'POST',
+        action_key: 'https://hero/connectors/stash/api/v1/UFO/app-platform-server/246/merge',
+        request: {},
+        user_input: [],
+        completed_label: 'Merge',
+      },
+    ],
+  },
+  {
     id: 'BITBUCKET02-639e-42a8-a9b6-a66aa62d8a9a',
     creation_date: '1970-01-01T00:00:00Z',
     header: {
@@ -444,4 +511,15 @@ const cardData = [
   },
 ];
 
-export default cardData;
+const commentField = {
+  type: 'COMMENT',
+  title: 'Comments',
+  content: [
+    { text: 'This is the last (most recent) comment' },
+    { text: 'This is the 2nd last comment' },
+  ],
+};
+export {
+  cardData,
+  commentField,
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CardComponent from './card-component';
-import cardData from '../../mocks/mock-data';
+import { cardData } from '../../mocks/mock-data';
 import { CardHeaderComponent } from '../card-header';
 import CardHolder from '../card-holder';
 
