@@ -1,5 +1,5 @@
 import React from 'react';
-import BodyGeneralComponent from '../body-general';
+import { BodyGeneralComponent } from '../body-general';
 import { BodyCommentComponent } from '../body-comment';
 
 /**
