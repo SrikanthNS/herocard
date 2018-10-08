@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { CardHolder } from './card-holder';
-import cardData from '../../mocks/mock-data';
+import { cardData } from '../../mocks/mock-data';
 import HeroCardUtility from '../../utility/utility';
 import HeroCardResponseManager from '../../utility/response-manager';
 import { FieldsComponent } from '../fields';
@@ -75,13 +75,13 @@ describe('CardHolderComponent', () => {
       expect(toggleComponent.length).toBe(1);
     });
 
-    it('should not render CardTimestampComponent when card content does not have create daet', () => {
+    it('should not render CardTimestampComponent when card content does not have create date', () => {
       const cardTimestampComponent = component.find(CardTimestampComponent);
 
       expect(cardTimestampComponent.length).toBe(0);
     });
 
-    it('should not render CardTimestampComponent when card content does not have create daet', () => {
+    it('should not render CardTimestampComponent when card content have create daet', () => {
       component.setProps({
         cardContent: cardData[4],
       });
@@ -89,7 +89,7 @@ describe('CardHolderComponent', () => {
 
       expect(cardTimestampComponent.length).toBe(1);
     });
-  });  
+  });
 });
 
 describe('component state properties', () => {
@@ -97,13 +97,9 @@ describe('component state properties', () => {
   let props;
   let state;
 
-  beforeEach(() => {
-    
-  });
-
-  it('check isViewMoreRequired is set to true if fields cpount is greater than 4', () => {
+  it('check isViewMoreRequired is set to true if fields count is greater than 4', () => {
     props = {
-      cardContent: cardData[4],
+      cardContent: cardData[5],
       showToggle: jasmine.createSpy(),
       moreDetails: jasmine.createSpy(),
     };
@@ -121,7 +117,7 @@ describe('component state properties', () => {
     expect(component.instance().state.isViewMoreRequired).toBe(true);
   });
 
-  it('check isViewMoreRequired is set to false if fields count is greater less than 1', () => {
+  it('check isViewMoreRequired is set to false if fields count is less than 4', () => {
     props = {
       cardContent: cardData[2],
       showToggle: jasmine.createSpy(),

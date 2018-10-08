@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { CardHeaderComponent } from './card-header';
-import cardData from '../../mocks/mock-data';
+import { cardData } from '../../mocks/mock-data';
 import HeroCardUtility from '../../utility/utility';
 
 describe('CardHeaderComponent', () => {

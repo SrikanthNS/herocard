@@ -3,7 +3,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { shallow, configure } from 'enzyme';
 import Accordion from './accordion';
 import { CardComponent } from '../card';
-import cardData from '../../mocks/mock-data';
+import { cardData } from '../../mocks/mock-data';
 
 configure({ adapter: new Adapter() });
 
@@ -32,7 +32,7 @@ describe('Accordion', () => {
     it('should render Card Component', () => {
       const cardComponent = component.find(CardComponent);
 
-      expect(cardComponent.length).toBe(5);
+      expect(cardComponent.length).toBe(6);
     });
   });
 
