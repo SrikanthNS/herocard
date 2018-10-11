@@ -3,16 +3,13 @@ import React from 'react';
 /**
  * Doc
  */
-const fieldValidation = (props) => {
-    return (
-        <div className="hccf-form-field__validation-message">
-            <span></span>
-        </div>    
-    )
-}
+const FieldValidation = () => (
+  <div className="hccf-form-field__validation-message">
+    <span />
+  </div>
+);
 
 /**
  * Exports
  */
-export default fieldValidation;
-
+export default FieldValidation;

@@ -1,9 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const hiddenField= (props) => {
-    return (
-        <input type="hidden" name={props.name} id={props.name} value={props.value} />
-    ) ;
+const HiddenField = props => (
+  <input type="hidden" name={props.name} id={props.name} value={props.value} />
+);
+
+HiddenField.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
-export default hiddenField;
+export default HiddenField;

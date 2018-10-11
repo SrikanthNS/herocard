@@ -134,7 +134,7 @@ export class CardHolder extends Component {
 }
 
 
-CardHolder.propTypes = { 
+CardHolder.propTypes = {
   cardContent: PropTypes.object.isRequired,
 };
 

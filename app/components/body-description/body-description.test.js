@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { commentField } from '../../mocks/mock-data';
 import { BodyDescriptionComponent } from './body-description';
 
 describe('BodyDescriptionComponent', () => {

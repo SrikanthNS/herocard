@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { InputComponent, TextAreaComponent, SelectComponent } from '../form-controls';
 import HeroCardActions from '../../utility/actions';
@@ -12,7 +13,7 @@ const FIELD_TYPES = {
 /**
  * Doc
  */
-export default class FieldElementComponent extends Component {
+export class FieldElementComponent extends Component {
   render() {
     const { userInput, formID } = this.props;
     const isFormatPresent = userInput.format || FIELD_TYPES.TEXT;
@@ -62,3 +63,10 @@ export default class FieldElementComponent extends Component {
     )
   }
 }
+
+FieldElementComponent.propTypes = {
+  userInput: PropTypes.object.isRequired,
+  formID: PropTypes.string.isRequired,
+};
+
+export default FieldElementComponent;

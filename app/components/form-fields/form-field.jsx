@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import FieldElementComponent from './form-element';
 import FieldLabel from './field-label';
 import FieldValidation from './field-validation';
 
-export default class FieldComponent extends Component {
+export class FieldComponent extends Component {
   render() {
     const { userInput, formID } = this.props;
     let fieldClass = `hccf-form-field hccf-form-field--${userInput.format}`;
@@ -30,3 +31,10 @@ export default class FieldComponent extends Component {
     );
   }
 }
+
+FieldComponent.propTypes = {
+  userInput: PropTypes.object.isRequired,
+  formID: PropTypes.string.isRequired,
+};
+
+export default FieldComponent;

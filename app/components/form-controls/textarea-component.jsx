@@ -23,6 +23,7 @@ TextAreaComponent.propTypes = {
   id: PropTypes.string,
   dataFieldLabel: PropTypes.string,
   dataValidation: PropTypes.string,
+  placeholder: PropTypes.string,
   onKeyUp: PropTypes.func,
 };
 
@@ -32,6 +33,7 @@ TextAreaComponent.defaultProps = {
   dataFieldLabel: '',
   dataValidation: '',
   onKeyUp() {},
+  placeholder: '',
 };
 
 export default TextAreaComponent;
