@@ -81,7 +81,7 @@ describe('CardHolderComponent', () => {
       expect(cardTimestampComponent.length).toBe(0);
     });
 
-    it('should not render CardTimestampComponent when card content have create daet', () => {
+    it('should render CardTimestampComponent when card content have create date', () => {
       component.setProps({
         cardContent: cardData[4],
       });
@@ -89,7 +89,7 @@ describe('CardHolderComponent', () => {
 
       expect(cardTimestampComponent.length).toBe(1);
     });
-  });
+  });  
 });
 
 describe('component state properties', () => {

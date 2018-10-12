@@ -1,3 +1,5 @@
+@import '../../scss/required.scss';
+
 .section_content {
 	display: none;
 	max-height: 0;
@@ -29,10 +31,10 @@
 .hccf-hero-card {
   height: auto;
   padding: 0;
-  color: #414B57;
+  color: $dark-grey-1;
   position: relative;
   box-sizing: border-box;
-  border-bottom: 1px solid rgb(234, 235, 236);
+  border-bottom: 1px solid $light-grey-2;
   overflow: hidden;
   outline: none;
 }
@@ -116,14 +118,14 @@
 .hccf-card-header__meta-title {
   font-size: 1.6rem;
   line-height: 1.4;
-  color: #000;
+  color: $black;
   font-weight: 600;
 }
 
 .hccf-card-header__meta-subtitle {
   font-size: 1.4rem;
   line-height: 1.5;
-  color: #157DB9;
+  color: $blue-1;
 }
 
 .hccf-card-header__meta {
@@ -138,5 +140,5 @@
 .hccf-card-header__meta-subtitle {
     font-size: 90%;
     line-height: 1.45;
-    color: #565656;
+    color: $dark-grey-2;
 }

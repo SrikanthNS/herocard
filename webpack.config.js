@@ -60,6 +60,6 @@ module.exports = {
       { from: 'app/images', to: 'images' },
     ])],
   devServer: {
-    port: 3000,
+    port: 3002,
   },
 };

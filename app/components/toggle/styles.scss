@@ -1,18 +1,14 @@
+@import '../../scss/required.scss';
+
 .hccf-card-body__view-details {
-    color: #6C747D;
+    color: $medium-grey-4;
     text-align: right;
     padding-right: 10px;
-
     a {
         text-decoration: none;
-        color: #6C747D;
-
+        color: $medium-grey-4;
         img {
             margin-left: 5px;
         }
     }
-  }
-  
-
-  
-  
+}

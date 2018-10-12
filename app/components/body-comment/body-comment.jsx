@@ -20,7 +20,7 @@ export class BodyCommentComponent extends React.Component {
             {_.escape(content.text)}
           </div>
         ))}
-    </div>
+      </div>
     );
   }
 }

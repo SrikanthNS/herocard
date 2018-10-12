@@ -1,7 +1,10 @@
+
+@import '../../scss/required.scss';
+
 .hccf-card-body__timestamp {
     font-size: 92%;
     text-align: left;
-    color: #9da2a8;
+    color: $light-grey-3;
     padding-top: 0;
 }
   

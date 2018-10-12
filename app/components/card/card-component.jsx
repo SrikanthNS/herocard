@@ -30,11 +30,17 @@ export default class CardComponent extends Component {
   render() {
     const { content, cardIndex, expandedCardIndex } = this.props;
     const isExpanded = expandedCardIndex === cardIndex;
+    const { id, connector_id } = content;
+    let cardClasses = 'hccf-hero-card';
+    cardClasses += isExpanded ? ' open ' : ' ';
+    cardClasses += HeroCardUtility.callbackClasses(content);
 
     return (
-      <div
-        className={`hccf-hero-card ${isExpanded ? 'open' : ''} ${HeroCardUtility.callbackClasses(content)}`}
-      >
+      <div className={cardClasses}
+           id={`${id}__${id}__card`}
+           data-card-id={id}
+           data-card-connector={connector_id}>
+
         <CardHeaderComponent
           cardIndex={cardIndex}
           handleClick={this.handleClick}

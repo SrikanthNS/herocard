@@ -1,3 +1,6 @@
+
+@import '../../scss/required.scss';
+
 .hccf-card-body__field {
   padding: 0;
   font-size: 96%;
@@ -11,14 +14,14 @@
 }
 
 .hccf-card-body__field-title {
-    color: #565656;
+    color: $dark-grey-2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
 .hccf-card-body__field-description {
-  color: #000;
+  color: $black;
   font-weight: 600;
   font-size: 107%;
   -webkit-line-clamp:2;
