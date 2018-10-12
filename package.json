@@ -10,7 +10,9 @@
     "deploy": "npm run build",
     "build": "webpack",
     "start": "webpack-dev-server --hot",
-    "eslint": "eslint --fix app/ --ext .js --color"
+    "eslint": "eslint --fix app/ --ext .js --color",
+    "validate": "npm run eslint && npm run test",
+    "precommit": "npm run validate"
   },
   "author": "",
   "license": "ISC",

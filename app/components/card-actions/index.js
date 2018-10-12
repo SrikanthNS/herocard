@@ -1,9 +1,9 @@
 /**
  * Imports
  */
-import ActionsComponent from './card-actions';
+import CardActionsComponent from './card-actions';
 
 /**
- * Exports 
+ * Exports
  */
-export default ActionsComponent;
+export default CardActionsComponent;

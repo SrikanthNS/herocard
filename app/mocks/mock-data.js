@@ -54,22 +54,43 @@ const cardData = [
       },
       type: 'POST',
       completed: false,
+      user_input: [
+        {
+          id: 'first_name',
+          label: 'First name',
+          format: 'text',
+          validation: ['required'],
+        },
+        {
+          id: 'comment_body',
+          label: 'Comment',
+          format: 'textarea',
+          validation: ['required'],
+        },
+        {
+          id: 'favorite_color',
+          label: 'Favorite Color',
+          format: 'select',
+          options: { red: 'Red', green: 'Green', blue: 'Blue', orange: 'Orange' },
+          selected: 'orange',
+          validation: ['required'],
+        }],
+    }, {
+      id: 'HCA_View_Opportunity_Salesforce_2',
+      primary: true,
+      label: 'View',
+      action_key: 'USER_INPUT',
+      url: {
+        href: 'https://hero.card.server/connector/salesforce/view',
+      },
+      type: 'WEB',
+      completed: false,
       user_input: [{
         id: 'comment_body',
         label: 'Comment',
         format: 'textarea',
         validation: ['required'],
       }],
-    }, {
-      id: 'HCA_View_Opportunity_Salesforce_2',
-      primary: true,
-      label: 'View',
-      action_key: 'VIEW_OPPORTUNITY',
-      url: {
-        href: 'https://hero.card.server/connector/salesforce/view',
-      },
-      type: 'WEB',
-      completed: false,
       request: {
         name: 'John Smith',
         email: 'john.smith@bigdeal.com',
@@ -107,7 +128,7 @@ const cardData = [
       }, {
         type: 'GENERAL',
         title: 'Field 5',
-        description: 'It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+        description: 'It has survived not only five centuries, but also the leap into electronic typesetting.',
       }, {
         type: 'GENERAL',
         title: 'Field 6',
@@ -115,7 +136,7 @@ const cardData = [
       }, {
         type: 'GENERAL',
         title: 'Field 7',
-        description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.',
+        description: 'Contrary to popular belief, Lorem Ipsum is not simply random text.',
       }, {
         type: 'GENERAL',
         title: 'Field 8',
@@ -132,9 +153,9 @@ const cardData = [
         type: 'COMMENT',
         title: 'Comments',
         content: [{
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin ligula a tincidunt cursus. Pellentesque urna massa, tincidunt et pulvinar quis, maximus vel dolor. Nunc lobortis nulla enim, a porta.',
+          text: 'Lorem ipsum dolor sit amet.',
         }, {
-          text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sollicitudin ligula a tincidunt cursus. Pellentesque urna massa, tincidunt et pulvinar quis, maximus vel dolor. Nunc lobortis nulla enim, a porta.',
+          text: 'Lorem ipsum dolor sit amet.',
         }],
       }, {
         type: 'ATTACHMENT',
@@ -519,7 +540,33 @@ const commentField = {
     { text: 'This is the 2nd last comment' },
   ],
 };
+
+const userInput = [
+  {
+    id: 'first_name',
+    label: 'First name',
+    format: 'text',
+    validation: ['required'],
+  },
+  {
+    id: 'comment_body',
+    label: 'Comment',
+    format: 'textarea',
+    validation: ['required'],
+  },
+  {
+    id: 'favorite_color',
+    label: 'Favorite Color',
+    format: 'select',
+    options: { red: 'Red', green: 'Green', blue: 'Blue', orange: 'Orange' },
+    selected: 'orange',
+    validation: ['required'],
+  },
+];
+
+
 export {
   cardData,
   commentField,
+  userInput,
 };

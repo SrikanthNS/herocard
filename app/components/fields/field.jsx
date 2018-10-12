@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { BodyGeneralComponent } from '../body-general';
 import { BodyCommentComponent } from '../body-comment';
 
@@ -9,7 +10,7 @@ import { BodyCommentComponent } from '../body-comment';
  * @method render  (React LifeCycle method)
  * @method renderField - Return card field components
  */
-export default class FieldComponent extends React.Component {
+export class FieldComponent extends React.Component {
   /**
    * @constructor
    * @param props - Properties object
@@ -51,3 +52,14 @@ export default class FieldComponent extends React.Component {
     );
   }
 }
+
+FieldComponent.propTypes = {
+  index: PropTypes.string,
+  field: PropTypes.object.isRequired,
+};
+
+FieldComponent.defaultProps = {
+  index: null,
+};
+
+export default FieldComponent;

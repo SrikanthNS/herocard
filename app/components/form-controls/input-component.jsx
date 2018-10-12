@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-/**
- * Text Component
- */
+/*
+* Text Component
+*/
 
 function InputComponent(props) {
   return (<input

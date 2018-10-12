@@ -1,16 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * Doc
  */
-const fieldLabel = (props) => {
-    return (
-        <label>{props.labelText}</label>
-    )
-}
+const FieldLabel = props => (
+  <label>{props.labelText}</label>
+);
 
+
+FieldLabel.propTypes = {
+  labelText: PropTypes.string.isRequired,
+};
 /**
  * Exports
  */
-export default fieldLabel;
+export default FieldLabel;
 

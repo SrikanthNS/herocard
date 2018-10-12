@@ -15,7 +15,7 @@ export default class ActionButtonComponent extends Component {
   }
 
   /**
-   * Get action handlers 
+   * Get action handlers
    */
   getActionHandler(actionKey) {
     let actionHandler = null;
