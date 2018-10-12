@@ -1,3 +1,6 @@
+
+@import '../../scss/required.scss';
+
 .hccf-form-field {
     margin-bottom: 10px;
   }
@@ -9,7 +12,7 @@
   
   .hccf-form-field > label {
     font-size: 82%;
-    color: #6C747D;
+    color: $medium-grey-4;
     display: inline-block;
     width: 25%;
     max-width: 120px;
@@ -42,17 +45,17 @@
   
   .hccf-form-field__validation-message > span {
       padding-left: 4px;
-      color: #d72e2e;
+      color: $red;
   }
   
   .hccf-form-field > span > input.hccf-form-field__validation-error {
-      border: 1px solid #d72e2e !important;
+      border: 1px solid $red !important;
   }
   
   .hccf-form-field > span.hccf-form-field__validation-error-dot::before {
       position: absolute;
       content: '';
-      background-color: #d72e2e;
+      background-color: $red;
       border-radius: 50%;
       width: 6px;
       height: 6px;
@@ -79,9 +82,9 @@
   
   .hccf-form-field--select > span > select {
       width: 73%;
-      color: #414b57;
+      color: $dark-grey-1;
       padding: 10px;
-      border: 1px solid #EAEBEC;
+      border: 1px solid $light-grey-2;
       line-height: 2.2;
   }
   
@@ -99,13 +102,13 @@
    {
       width: 73%;
       background: transparent;
-      color: #515A64;
+      color: $dark-grey-3;
       outline: none;
       padding: 0 10px;
       border-radius: 2px;
       -webkit-appearance: none;
       -webkit-border-radius:2px;
-      border: 1px solid #D7D7D7;
+      border: 1px solid $light-grey-4;
       margin-left: 0;
       height: 34px;
       font-size: 117%;
@@ -130,8 +133,8 @@
     min-height: 75px;
     resize: none;
     font-family: inherit;
-    color: #414b57;
-    border: 1px solid #EAEBEC;
+    color: $dark-grey-1;
+    border: 1px solid $light-grey-2;
     border-radius: 3px;
     outline: none;
   }

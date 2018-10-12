@@ -280,7 +280,7 @@
                 "id": "HCA_View_Opportunity_Salesforce_2",
                 "primary": true,
                 "label": "View",
-                "action_key": "VIEW_OPPORTUNITY",
+                "action_key": "OPEN_IN",
                 "url": {
                   "href": "https://hero.card.server/connector/salesforce/view"
                 },
@@ -413,7 +413,7 @@
             "actions": [
               {
                 "id": "HCA_Create_Opportunity_Salesforce_4",
-                "action_key": "CREATE_OPPORTUNITY",
+                "action_key": "DIRECT",
                 "label": "Create Opportunity",
                 "url": { "href": "https://hero.card.server/connector/salesforce/createOpportunity" },
                 "completed": false,
@@ -496,7 +496,7 @@
                 "id": "HCA_View_Trip_Concur_0",
                 "primary": true,
                 "label": "View Trip",
-                "action_key": "VIEW_TRIP",
+                "action_key": "OPEN_IN",
                 "url": {
                   "href": "https://hero.card.server/connector/salesforce/view"
                 },

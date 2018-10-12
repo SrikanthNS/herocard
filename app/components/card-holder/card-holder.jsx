@@ -48,14 +48,6 @@ export class CardHolder extends Component {
   }
 
   /**
-   * componentDidMount
-   * attach even handlers after rendering all cards
-   */
-  componentDidMount() {
-    HeroCardUtility.attachEventHandlers();
-  }
-
-  /**
    * showToggle
    * toggles view more/less
    * in less mode: numOfFieldsToShow is set to  MIN_FIELDS_TO_SHOW

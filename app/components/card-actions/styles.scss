@@ -1,3 +1,6 @@
+
+@import '../../scss/required.scss';
+
 .hccf-card-actions__item--primary {
   float: right;
 }
@@ -67,8 +70,8 @@
     display: none;
 }
 .hccf-card-actions__add-input-single .hccf-form-field--textarea .hccf-form-field__validation-error {
-    border-top: 1px solid #d72e2e;
-    border-bottom: 1px solid #d72e2e;
+    border-top: 1px solid $red;
+    border-bottom: 1px solid $red;
 }
 
 .hccf-card-actions__add-input-single textarea
@@ -85,14 +88,14 @@
   font-size: 1.4rem;
   line-height: 1.2;
   background: none;
-  color: #696969;
+  color: $medium-grey-1;
   padding: 10px 15px;
   display: block;
   text-decoration: none;
   position: relative;
   transition: background 2s linear;
   border-radius: 4px;
-  border: 1px solid #62717D;
+  border: 1px solid $medium-grey-2;
   cursor: pointer;
 }
 
@@ -112,7 +115,7 @@
 .hccf-card-actions__add-input-single .hccf-card-actions__item-link,
 .hccf-card-actions__add-input-multiple .hccf-card-actions__item-link
 {
-  color: #697886;
+  color: $medium-grey-3;
 }
 
 .hccf-card-actions__add-input-multiple
@@ -127,17 +130,17 @@
 .hccf-card-actions__item .hccf-card-actions__item-link__mutex-action-complete {
   opacity: 0.5;
   background: transparent;
-  color: #414b57;
-  border: 1px solid #62717d;
+  color: $dark-grey-1;
+  border: 1px solid $medium-grey-2;
 }
 
 .hccf-card-actions__item-link {
-  color: #414b57;
+  color: $dark-grey-1;
 }
 
 .hccf-card-actions__message-container {
   padding: 15px 0;
-  color: #fff;
+  color: $white;
   font-size: 14px;
   line-height: 18px;
 }
@@ -163,7 +166,7 @@
 }
 
 .hccf-card-actions__message-container > div > span:last-child a {
-  color: #fff;
+  color: $white;
   text-decoration: none;
 }
 
@@ -182,9 +185,9 @@
 }
 
 .hccf-card-actions__item-link--primary {
-   color: #fff;
-   background: #157DB9;
-   border: 1px solid #157DB9;
+   color: $white;
+   background: $blue-1;
+   border: 1px solid $blue-1;
 }
 
 .hccf-hero-card--action-complete .hccf-card-actions div:not(:last-child){
@@ -192,26 +195,26 @@
 }
 
 .hccf-hero-card--action-complete .hccf-card-actions__item-link {
-  color: #fff;
-  border: 1px solid #fff;
+  color: $white;
+  border: 1px solid $white;
 }
 
 .hccf-js-input-button-cancel
 {
   float: left;
-  color: #696969 !important;
+  color: $medium-grey-1 !important;
   margin-top: 10px;
   cursor: pointer;
 }
 
 .hccf-hero-card--action-complete {
-  background: #1270cd;
-  color: #fff;
+  background: $blue-2;
+  color: $white;
 }
 
 .hccf-hero-card--action-complete .hccf-card-header__meta-title,
 .hccf-hero-card--action-complete .hccf-card-header__meta-subtitle {
-  color: #fff;
+  color: $white;
 }
 
 .hccf-hero-card--action-complete .hccf-card-actions div:not(:last-child){
@@ -219,8 +222,8 @@
 }
 
 .hccf-hero-card--action-complete .hccf-card-actions__item-link {
-  color: #fff;
-  border: 1px solid #fff;
+  color: $white;
+  border: 1px solid $white;
 }
 
 /* .hccf-hero-card__action-complete-message {
