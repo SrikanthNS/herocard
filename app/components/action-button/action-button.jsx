@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import _ from 'lodash';
 import HeroCardActions from '../../utility/actions';
 
 /**
@@ -6,17 +8,17 @@ import HeroCardActions from '../../utility/actions';
  * method renderAction
  * method render (React LifeCycle method)
  */
-export default class ActionButtonComponent extends Component {
+export class ActionButtonComponent extends Component {
   constructor(props) {
     super(props);
 
-    //bind methods
+    // bind methods
     this.getActionHandler = this.getActionHandler.bind(this);
     this.getButtonClasses = this.getButtonClasses.bind(this);
   }
 
   /**
-   * Get action handlers 
+   * Get action handlers
    */
   getActionHandler(actionKey) {
     let actionHandler = null;
@@ -56,7 +58,7 @@ export default class ActionButtonComponent extends Component {
    */
   getButtonClasses(action) {
     let buttonClasses = 'hccf-card-actions__item-link';
-    
+
     // Check for primary action
     if (action.primary === true) {
       buttonClasses += ' hccf-card-actions__item-link--primary';
@@ -65,7 +67,7 @@ export default class ActionButtonComponent extends Component {
     // Check for non-repeatable action
     if ((action.completed === true) && (action.allow_repeated === undefined || action.allow_repeated === false)) {
       buttonClasses += ' hccf-card-actions__item-link--complete hccf-card-actions__item-link--disabled';
-      buttonClasses = buttonClasses.replace('hccf-card-actions__item-link--primary', '')
+      buttonClasses = _.replace(buttonClasses, 'hccf-card-actions__item-link--primary', '');
     }
 
     return buttonClasses;
@@ -76,9 +78,9 @@ export default class ActionButtonComponent extends Component {
    * @returns {JSX}
    */
   render() {
-    const {cardID, action} = this.props;
+    const { cardID, action } = this.props;
     const buttonClasses = this.getButtonClasses(action);
-    const elemID = cardID + "__" + action.id;
+    const elemID = `${cardID }__${action.id}`;
     let actionHandler = this.getActionHandler(action.action_key);
     let innerText = action.label;
 
@@ -89,18 +91,27 @@ export default class ActionButtonComponent extends Component {
         actionHandler = 'javascript:void(0)';
         // Remove once the server is aware of this tag.
         if (action.completed_label != null) {
-          innerText = action["completed_label"];
+          innerText = action.completed_label;
         }
       }
     }
 
     return (
-        <a id={elemID} 
-           className={buttonClasses}
-           onClick={(e) => actionHandler(e, e.target)} 
-           data-actionkey={action.action_key}>
-            {innerText}
-          </a>
+      <a
+        id={elemID}
+        className={buttonClasses}
+        onClick={e => actionHandler(e, e.target)}
+        data-actionkey={action.action_key}
+      >
+        {innerText}
+      </a>
     );
   }
 }
+
+ActionButtonComponent.propTypes = {
+  cardID: PropTypes.string.isRequired,
+  action: PropTypes.object.isRequired,
+};
+
+export default ActionButtonComponent;
