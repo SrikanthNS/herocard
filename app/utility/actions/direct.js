@@ -21,7 +21,7 @@ import ActionCompletionActions from './action-completion';
  * @method openUrlCallback
  */
 const DirectActions = {
-    openUrlLocation: function(elem) {
+    openUrlLocation: function(event, elem) {
         // return if action button marked as complete/disabled
         if (HeroCardUtility.hasClass(elem, 'hccf-card-actions__item-link--complete')
             || HeroCardUtility.hasClass(elem, 'hccf-card-actions__item-link--disabled')) {

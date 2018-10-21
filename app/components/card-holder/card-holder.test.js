@@ -14,6 +14,7 @@ describe('CardHolderComponent', () => {
   let component;
   let props;
   let state;
+  const localGetVisibleCardsCount = HeroCardResponseManager.getVisibleCardsCount;
 
   beforeEach(() => {
     HeroCardUtility.attachEventHandlers = jasmine.createSpy();
@@ -30,6 +31,10 @@ describe('CardHolderComponent', () => {
     };
     HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(2);
     component = shallow(<CardHolder {...props} {...state} />);
+  });
+
+  afterAll(() => {
+    HeroCardResponseManager.getVisibleCardsCount = localGetVisibleCardsCount;
   });
 
   describe('Render', () => {
@@ -89,13 +94,18 @@ describe('CardHolderComponent', () => {
 
       expect(cardTimestampComponent.length).toBe(1);
     });
-  });  
+  });
 });
 
 describe('component state properties', () => {
   let component;
   let props;
   let state;
+  const localGetVisibleCardsCount = HeroCardResponseManager.getVisibleCardsCount;
+
+  afterAll(() => {
+    HeroCardResponseManager.getVisibleCardsCount = localGetVisibleCardsCount;
+  });
 
   it('check isViewMoreRequired is set to true if fields count is greater than 4', () => {
     props = {
@@ -109,6 +119,7 @@ describe('component state properties', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
+
     HeroCardUtility.attachEventHandlers = jasmine.createSpy();
 
     HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(1);

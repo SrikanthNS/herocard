@@ -27,7 +27,7 @@ function EventEmitter() {
   };
 
   this.emit = function (eventType, eventInfo) {
-    eventInfo = (typeof eventInfo !== undefined) ? eventInfo : {};
+    eventInfo = (typeof eventInfo !== 'undefined') ? eventInfo : {};
 
     if (this.events[eventType]) {
       this.events[eventType].forEach((eventListener) => {
