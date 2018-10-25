@@ -21,10 +21,10 @@ describe('Action Button', () => {
       onClick: jasmine.createSpy(),
     };
 
-    HeroCardActions.Direct.openUrlLocation = jasmine.createSpy();
-    HeroCardActions.UserInput.showInputForm = jasmine.createSpy();
-    HeroCardActions.Auth.dismiss = jasmine.createSpy();
-    HeroCardActions.Auth.login = jasmine.createSpy();
+    spyOn(HeroCardActions.Direct, 'openUrlLocation');
+    spyOn(HeroCardActions.UserInput, 'showInputForm');
+    spyOn(HeroCardActions.Auth, 'dismiss');
+    spyOn(HeroCardActions.Auth, 'login');
 
     component = shallow(<ActionButtonComponent {...props} />);
   });

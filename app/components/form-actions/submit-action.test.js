@@ -9,7 +9,7 @@ describe('SubmitAction', () => {
   let props;
 
   beforeEach(() => {
-    HeroCardActions.UserInput.submitInput = jasmine.createSpy();
+    spyOn(HeroCardActions.UserInput, 'submitInput');
     props = {
       cardID: '4947dff0-45c7-4c16-8582-2297e4e28b81',
       action: {

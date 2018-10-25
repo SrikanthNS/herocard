@@ -16,7 +16,8 @@ describe('CardHolderComponent', () => {
   let state;
 
   beforeEach(() => {
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
+    spyOn(HeroCardUtility, 'attachEventHandlers');
+    spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(2);
     props = {
       cardContent: cardData[3],
       showToggle: jasmine.createSpy(),
@@ -28,7 +29,6 @@ describe('CardHolderComponent', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(2);
     component = shallow(<CardHolder {...props} {...state} />);
   });
 
@@ -89,13 +89,18 @@ describe('CardHolderComponent', () => {
 
       expect(cardTimestampComponent.length).toBe(1);
     });
-  });  
+  });
 });
 
 describe('component state properties', () => {
   let component;
   let props;
   let state;
+
+  beforeAll(() => {
+    spyOn(HeroCardUtility, 'attachEventHandlers');
+    spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(1);
+  });
 
   it('check isViewMoreRequired is set to true if fields count is greater than 4', () => {
     props = {
@@ -109,9 +114,6 @@ describe('component state properties', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
-
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(1);
     component = shallow(<CardHolder {...props} {...state} />);
 
     expect(component.instance().state.isViewMoreRequired).toBe(true);
@@ -129,9 +131,6 @@ describe('component state properties', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
-
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(1);
     component = shallow(<CardHolder {...props} {...state} />);
 
     expect(component.instance().state.isViewMoreRequired).toBe(false);
