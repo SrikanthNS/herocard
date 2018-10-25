@@ -13,11 +13,6 @@
 *****************************************/
 
 /**
- * Imports
- */
-import HeroCardActions from './actions';
-
-/**
  * Utility Functions
  * @method convertISO8601toDate
  * @method dateDifference
@@ -40,10 +35,6 @@ import HeroCardActions from './actions';
  * @method checkForPhoneNumber
  * @method checkForEmail
  * @method checkForDate
- * @method registerEventHandler
- * @method attachEventHandlers
- * @method getEventHandlerByElementId
- * @method listOfRegisteredActions
  * @method hashcode
  * @method createElement
  * @method findAncestor
@@ -461,7 +452,7 @@ const HeroCardUtility = {
   // function to check radio(s)/checkbox(s) fild value is set or not
   // if set return the first set value or return false
   checkRadioCheckboxValue(field) {
-    if ((typeof field.length === 'undefined') && (field.type == 'radio')) {
+    if ((_.isUndefined(field.length)) && (field.type === 'radio')) {
       if (field.checked) {
         return field.value;
       }
@@ -529,120 +520,14 @@ const HeroCardUtility = {
       return false;
     }
     const composedDate = new Date(matches[1], (matches[2] - 1), matches[3]);
-    const isDate = ((composedDate.getMonth() == (matches[2] - 1)) && (composedDate.getDate() == matches[3]) && (composedDate.getFullYear() == matches[1]));
+    const isDate = ((composedDate.getMonth() === (matches[2] - 1)) && (composedDate.getDate() === matches[3]) 
+    && (composedDate.getFullYear() === matches[1]));
     if (!isDate) {
       return false;
     }
 
 
     return true;
-  },
-
-  /**
-     * Function to store element id, event type and handler name
-     * @param {string} elemID - element id
-     * @param {string} eventName - event name
-     * @param {string} handlerName - event handler
-     */
-  registerEventHandler(elemID, eventName, handlerName) {
-    if (HeroCard.actionableUIElements == null) {
-      HeroCard.actionableUIElements = [];
-    }
-
-    const obj = {
-      elemID,
-      eventName,
-      handlerName };
-
-    HeroCard.actionableUIElements.push(obj);
-  },
-
-  /**
-     * Function to add event listers to the respective elements
-     */
-  attachEventHandlers() {
-    if (HeroCard.actionableUIElements === undefined || !HeroCard.actionableUIElements.length) {
-      return;
-    }
-
-    HeroCard.actionableUIElements.forEach((item) => {
-      const element = document.getElementById(item.elemID);
-      if (element == null) {
-        console.log(`Element not found: ${element}`);
-        return;
-      }
-
-      const handler = HeroCardUtility.listOfRegisteredActions(item.handlerName);
-      if (handler == null) {
-        console.log(`Handler not found${item.handlerName}`);
-        return;
-      }
-
-      element.addEventListener(item.eventName, () => {
-        handler(element);
-      });
-    });
-  },
-
-  /**
-     * Function to get stored event handler
-     * @param {string} elemID - element id
-     * @return {object} - object containing element id, event type and event handler
-     */
-  getEventHandlerByElementId(elemID) {
-    let eventHandlers = HeroCard.actionableUIElements,
-      eventObj;
-
-    for (let i = 0; i < eventHandlers.length; i++) {
-      if (eventHandlers[i].elemID === elemID) {
-        const handler = HeroCardUtility.listOfRegisteredActions(eventHandlers[i].handlerName);
-        if (handler !== null) {
-          eventObj = {
-            elemID: eventHandlers[i].elemID,
-            eventName: eventHandlers[i].eventName,
-            handlerName: handler,
-          };
-          break;
-        }
-      }
-    }
-
-    return eventObj;
-  },
-
-  /**
-     * Function to get registered event handlers
-     * @param {string} funName - event handler name
-     */
-  listOfRegisteredActions(funName) {
-    const listOfActions = {
-      'HeroCardActions.Auth.dismiss(event, element)':
-                function (element) { HeroCardActions.Auth.dismiss(event, element); },
-      'HeroCardActions.Auth.login(element)':
-                function (element) { HeroCardActions.Auth.login(element); },
-      'HeroCardActions.UserInput.hideInputForm(event, this)':
-                function (element) { HeroCardActions.UserInput.hideInputForm(event, element); },
-      'HeroCardActions.UserInput.submitInput(event, this)':
-                function (element) { HeroCardActions.UserInput.submitInput(event, element); },
-      'HeroCardActions.UserInput.checkUserInput(event, this)':
-                function (element) { HeroCardActions.UserInput.checkUserInput(event, element); },
-      'HeroCardActions.Common.validateFieldRules(event, element)':
-                function (element) { HeroCardActions.Common.validateFieldRules(event, element); },
-      'HeroCardUtility.approveJiraTicket(event, element)':
-                function (element) { window.HeroCard.Utility.approveJiraTicket(event, element); },
-      'HeroCardActions.UserInput.showInputForm(event, element)':
-                function (element) { HeroCardActions.UserInput.showInputForm(event, element); },
-      'HeroCardActions.ToggleCardView.viewCardDetails(event, element)':
-                function (element) { HeroCardActions.ToggleCardView.viewCardDetails(event, element); },
-      'HeroCardActions.ToggleCardView.viewCardLess(event, element)':
-                function (element) { HeroCardActions.ToggleCardView.viewCardLess(event, element); },
-      'HeroCardActions.Direct.openUrlLocation(element)':
-                function (element) { HeroCardActions.Direct.openUrlLocation(element); },
-      'javascript:void(0)':
-                function () { void (0); },
-    };
-
-    return listOfActions[funName];
   },
 
   hashcode(obj) {
@@ -659,8 +544,7 @@ const HeroCardUtility = {
   createElement(type, attr, text, parent) {
     attr = attr || {};
     text = text || '';
-    let element = document.createElement(type),
-      l = attr.length;
+    const element = document.createElement(type);
 
     for (const key in attr) {
       element.setAttribute(key, attr[key]);

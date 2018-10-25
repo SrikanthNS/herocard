@@ -50,7 +50,7 @@ describe('Utility functions', () => {
       const dateStr = '1970-01-01T00:00:00Z';
       const convertedDate = HeroCardUtility.convertISO8601toDate(dateStr);
       const expectedResult = '17825 days ago';
-      const result = HeroCardUtility.dateDifference(convertedDate, new Date());
+      const result = HeroCardUtility.dateDifference(convertedDate, new Date('2018-10-21'));
 
       expect(result).toEqual(expectedResult);
     });
@@ -200,6 +200,80 @@ describe('Utility functions', () => {
       HeroCardUtility.removeClass(div, className);
 
       expect(div.classList.contains('hccf-card-actions__item-link--complete')).toEqual(false);
+    });
+  });
+
+  describe('getClosest', () => {
+    let div = null;
+    let form = null;
+    it('Return null if closest element not present', () => {
+      const selector = '.hccf-card-action-form';
+      div = document.createElement('div');
+      div.classList.add('hccf-card-actions__item-link');
+      div.classList.add('hccf-card-actions__item-link--complete');
+      const returnedEle = HeroCardUtility.getClosest(div, selector);
+
+      expect(returnedEle).toEqual(null);
+    });
+
+    it('Return null if closest element not present', () => {
+      const selector = '.hccf-card-action-form';
+      form = document.createElement('form');
+      form.classList.add('hccf-card-action-form');
+      div = document.createElement('div');
+      div.classList.add('hccf-card-actions__item-link');
+      form.appendChild(div);
+      const returnedEle = HeroCardUtility.getClosest(div, selector);
+
+      expect(returnedEle).toEqual(form);
+    });
+  });
+
+  describe('addEllipsis', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('parseURL', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('checkActionShouldHideCard', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('checkCardHiddenForCompletion', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('checkCardExpiry', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('checkCardHidden', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('removeCard', () => {
+    it('', () => {
+
+    });
+  });
+
+  describe('removeCardData', () => {
+    it('', () => {
+
     });
   });
 });
