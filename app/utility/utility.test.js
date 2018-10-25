@@ -50,7 +50,7 @@ describe('Utility functions', () => {
       const dateStr = '1970-01-01T00:00:00Z';
       const convertedDate = HeroCardUtility.convertISO8601toDate(dateStr);
       const expectedResult = '17825 days ago';
-      const result = HeroCardUtility.dateDifference(convertedDate, new Date());
+      const result = HeroCardUtility.dateDifference(convertedDate, new Date('2018-10-21'));
 
       expect(result).toEqual(expectedResult);
     });

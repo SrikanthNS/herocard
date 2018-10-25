@@ -90,14 +90,7 @@ const API = {
      * @return {boolean} - true if any cards expired; false otherwise
      */
   checkForExpiredCard() {
-    let expired = false;
-    const ids = API.getExpiredCardIds();
-
-    if (ids.length > 0) {
-      expired = true;
-    }
-
-    return expired;
+    return API.getExpiredCardIds().length > 0;
   },
 
   /**
