@@ -149,11 +149,7 @@ const HeroCardUtility = {
 
   // function to check if a css class is present in an html node element
   hasClass(elem, className) {
-    if (elem.classList.length) {
-      return elem.classList.contains(className);
-    }
-
-    return !!elem.className.match(new RegExp(`(\\s|^)${className}(\\s|$)`));
+    return elem.classList.contains(className);
   },
 
   // add css class(s) to an html node element

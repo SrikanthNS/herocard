@@ -14,10 +14,10 @@ describe('CardHolderComponent', () => {
   let component;
   let props;
   let state;
-  const localGetVisibleCardsCount = HeroCardResponseManager.getVisibleCardsCount;
 
   beforeEach(() => {
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
+    spyOn(HeroCardUtility, 'attachEventHandlers');
+    spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(2);
     props = {
       cardContent: cardData[3],
       showToggle: jasmine.createSpy(),
@@ -29,12 +29,7 @@ describe('CardHolderComponent', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(2);
     component = shallow(<CardHolder {...props} {...state} />);
-  });
-
-  afterAll(() => {
-    HeroCardResponseManager.getVisibleCardsCount = localGetVisibleCardsCount;
   });
 
   describe('Render', () => {
@@ -101,10 +96,10 @@ describe('component state properties', () => {
   let component;
   let props;
   let state;
-  const localGetVisibleCardsCount = HeroCardResponseManager.getVisibleCardsCount;
 
-  afterAll(() => {
-    HeroCardResponseManager.getVisibleCardsCount = localGetVisibleCardsCount;
+  beforeAll(() => {
+    spyOn(HeroCardUtility, 'attachEventHandlers');
+    spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(1);
   });
 
   it('check isViewMoreRequired is set to true if fields count is greater than 4', () => {
@@ -119,10 +114,6 @@ describe('component state properties', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
-
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(1);
     component = shallow(<CardHolder {...props} {...state} />);
 
     expect(component.instance().state.isViewMoreRequired).toBe(true);
@@ -140,9 +131,6 @@ describe('component state properties', () => {
       numOfFieldsToShow: 0,
       totalNumberOfFields: 0,
     };
-    HeroCardUtility.attachEventHandlers = jasmine.createSpy();
-
-    HeroCardResponseManager.getVisibleCardsCount = jasmine.createSpy().and.returnValues(1);
     component = shallow(<CardHolder {...props} {...state} />);
 
     expect(component.instance().state.isViewMoreRequired).toBe(false);

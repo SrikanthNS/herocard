@@ -9,7 +9,7 @@ describe('SubmitAction', () => {
   let props;
 
   beforeEach(() => {
-    HeroCardActions.UserInput.hideInputForm = jasmine.createSpy();
+    spyOn(HeroCardActions.UserInput, 'hideInputForm');
     props = {
       cardID: '4947dff0-45c7-4c16-8582-2297e4e28b81',
       action: {
@@ -21,7 +21,6 @@ describe('SubmitAction', () => {
   });
 
   describe('Render', () => {
-
     it('should render hyper text elements with class name', () => {
       const anchoreEle = component.find('a.hccf-js-input-button-cancel');
 
