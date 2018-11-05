@@ -16,7 +16,6 @@ describe('CardHolderComponent', () => {
   let state;
 
   beforeEach(() => {
-    spyOn(HeroCardUtility, 'attachEventHandlers');
     spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(2);
     props = {
       cardContent: cardData[3],
@@ -98,7 +97,6 @@ describe('component state properties', () => {
   let state;
 
   beforeAll(() => {
-    spyOn(HeroCardUtility, 'attachEventHandlers');
     spyOn(HeroCardResponseManager, 'getVisibleCardsCount').and.returnValue(1);
   });
 
