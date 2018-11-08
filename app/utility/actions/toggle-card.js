@@ -24,47 +24,47 @@ const EventEmitter = HeroCardEventEmitter().EventEmitter();
  * @method toggleView
  */
 const ToggleCardViewActions = {
-    viewCardDetails: function(e, elem) {
-        const _self = this;
-        _self.toggleView(elem, 'SHOW');
-    },
+  viewCardDetails(e, elem) {
+    const self = this;
+    self.toggleView(elem, 'SHOW');
+  },
 
-    // collapse card details
-    viewCardLess: function(e, elem) {
-        const _self = this;
-       _self.toggleView(elem, 'HIDE');
-    },
+  // collapse card details
+  viewCardLess(e, elem) {
+    const self = this;
+    self.toggleView(elem, 'HIDE');
+  },
 
-    // show/hide card view
-    toggleView: function(elem, visibility) {
-        let cardBody = HeroCardUtility.getClosest(elem, '.hccf-card-body'),
-        cardBodyFields = cardBody.getElementsByClassName('hccf-card-body__field--hidden');
+  // show/hide card view
+  toggleView(elem, visibility) {
+    const cardBody = HeroCardUtility.getClosest(elem, '.hccf-card-body');
+    const cardBodyFields = cardBody.getElementsByClassName('hccf-card-body__field--hidden');
 
-        Array.prototype.forEach.call(cardBodyFields, (field, i) => {
-        if (visibility == 'SHOW') {
-            field.classList.add('hccf-card-body__field--visible');
+    Array.prototype.forEach.call(cardBodyFields, (field, i) => {
+      if (visibility === 'SHOW') {
+        field.classList.add('hccf-card-body__field--visible');
 
-            // add ellipsis to field description
-            const description = field.getElementsByClassName('hccf-card-body__field-description');
-            if (description.length) {
-                HeroCardUtility.addEllipsis(description[0], 26, 'hccf-card-body__field-description--truncated');
-            }
-        } else {
-            field.classList.remove('hccf-card-body__field--visible');
+        // add ellipsis to field description
+        const description = field.getElementsByClassName('hccf-card-body__field-description');
+        if (description.length) {
+          HeroCardUtility.addEllipsis(description[0], 26, 'hccf-card-body__field-description--truncated');
         }
-        });
+      } else {
+        field.classList.remove('hccf-card-body__field--visible');
+      }
+    });
 
-        elem.style.display = 'none';
+    elem.style.display = 'none';
 
-        if (visibility == 'SHOW') {
-        elem.nextElementSibling.style.display = 'block';
-        } else {
-        elem.previousElementSibling.style.display = 'block';
-        }
+    if (visibility === 'SHOW') {
+      elem.nextElementSibling.style.display = 'block';
+    } else {
+      elem.previousElementSibling.style.display = 'block';
+    }
 
-        // Emit card rezized event
-        EventEmitter.emit('CARDRESIZED');
-    },
+    // Emit card rezized event
+    EventEmitter.emit('CARDRESIZED');
+  },
 };
 
 // Add 'ToggleCardViewActions' to 'HeroCard' namespace for native layer to callback

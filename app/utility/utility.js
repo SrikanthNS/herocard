@@ -13,11 +13,6 @@
 *****************************************/
 
 /**
- * Imports
- */
-import HeroCardActions from './actions';
-
-/**
  * Utility Functions
  * @method convertISO8601toDate
  * @method dateDifference
@@ -40,10 +35,6 @@ import HeroCardActions from './actions';
  * @method checkForPhoneNumber
  * @method checkForEmail
  * @method checkForDate
- * @method registerEventHandler
- * @method attachEventHandlers
- * @method getEventHandlerByElementId
- * @method listOfRegisteredActions
  * @method hashcode
  * @method createElement
  * @method findAncestor
@@ -51,18 +42,22 @@ import HeroCardActions from './actions';
  * @method callbackClasses
  * @method imgPath
  */
+
+import _ from 'lodash';
+
 const HeroCardUtility = {
 
   // function to convert ISO 8601
-  convertISO8601toDate(dtstr) {
+  convertISO8601toDate(dtstrparam) {
+    let dtstr = dtstrparam;
     // replace anything but numbers by spaces
-    dtstr = dtstr.replace(/\D/g, ' ');
+    dtstr = _.replace(dtstr, /\D/g, ' ');
 
     // trim any hanging white space
-    dtstr = dtstr.replace(/\s+$/, '');
+    dtstr = _.replace(dtstr, /\s+$/, '');
 
     // split on space
-    const dtcomps = dtstr.split(' ');
+    const dtcomps = _.split(dtstr, ' ');
 
     // not all ISO 8601 dates can convert, as is
     // unless month and date specified, invalid
@@ -85,17 +80,17 @@ const HeroCardUtility = {
 
   // function to get date difference
   dateDifference(dateOne, dateTwo) {
-    // Get 1 day in milliseconds
-    let oneDay = 1000 * 60 * 60 * 24,
-      days = 0,
-      hours = 0,
-      minutes = 0,
-      seconds = 0,
-      retString = '';
+    // // Get 1 day in milliseconds
+    // let oneDay = 1000 * 60 * 60 * 24,
+    let days = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+    let retString = '';
 
     // Convert both dates to milliseconds
-    let dateOneMS = dateOne.getTime(),
-      dateTwoMS = dateTwo.getTime();
+    const dateOneMS = dateOne.getTime();
+    const dateTwoMS = dateTwo.getTime();
 
     // Calculate the difference in milliseconds
     let differenceMS = dateTwoMS - dateOneMS;
@@ -143,8 +138,8 @@ const HeroCardUtility = {
     const currentDate = new Date();
 
     // Convert both dates to milliseconds
-    let dateTime = date.getTime(),
-      currentDateTime = currentDate.getTime();
+    const dateTime = date.getTime();
+    const currentDateTime = currentDate.getTime();
 
     // Calculate the difference in milliseconds
     const timeDifference = dateTime - currentDateTime;
@@ -163,20 +158,22 @@ const HeroCardUtility = {
 
   // add css class(s) to an html node element
   addClass(elem, className) {
-    if (elem.classList.length) {
-      elem.classList.add(className);
-    } else if (!HeroCardUtility.hasClass(elem, className)) {
-      elem.className += ` ${className}`;
+    const element = elem;
+    if (element.classList.length) {
+      element.classList.add(className);
+    } else if (!HeroCardUtility.hasClass(element, className)) {
+      element.className += ` ${className}`;
     }
   },
 
   // remove a css class from an html node element
   removeClass(elem, className) {
-    if (elem.classList.length) {
-      elem.classList.remove(className);
-    } else if (HeroCardUtility.hasClass(elem, className)) {
+    const element = elem;
+    if (element.classList.length) {
+      element.classList.remove(className);
+    } else if (HeroCardUtility.hasClass(element, className)) {
       const reg = new RegExp(`(\\s|^)${className}(\\s|$)`);
-      elem.className = elem.className.replace(reg, ' ');
+      element.className = _.replace(element.className, (reg, ' '));
     }
   },
 
@@ -213,11 +210,11 @@ const HeroCardUtility = {
   },
 
   // add ellipsis after multiple-line
-  addEllipsis(elem, lineHeight, truncateClass) {
+  addEllipsis(elemParam, lineHeight, truncateClass) {
     const height = (lineHeight * 2) || 52;
-
+    const elem = elemParam;
     if (elem.offsetHeight > height) {
-      const words = elem.innerHTML.split(/\s+/);
+      const words = _.split(elem.innerHTML, /\s+/);
       words.push('...');
       if (truncateClass) {
         HeroCardUtility.addClass(elem, 'hccf-card-body__field-description--truncated');
@@ -247,9 +244,9 @@ const HeroCardUtility = {
 
     // Convert query string to object
     const searchObject = {};
-    const queries = match[6] && match[6].replace(/^\?/, '').split('&');
-    for (i = 0; i < queries.length; i++) {
-      const split = queries[i].split('=');
+    const queries = match[6] && _.split(_.replace(match[6], /^\?/, ''), '&');
+    for (let i = 0; i < queries.length; i++) {
+      const split = _.split(queries[i], '=');
       const key = split[0];
       const value = decodeURIComponent(split[1]);
       searchObject[key] = value;
@@ -263,7 +260,7 @@ const HeroCardUtility = {
       host: match[2],
       cardtype: match[3],
       port: match[4],
-      cardid: match[5].replace('/', ''),
+      cardid: _.replace(match[5], '/', ''),
       search: match[6],
       searchObject,
       hash: match[7],
@@ -457,7 +454,7 @@ const HeroCardUtility = {
   // function to check radio(s)/checkbox(s) fild value is set or not
   // if set return the first set value or return false
   checkRadioCheckboxValue(field) {
-    if ((typeof field.length === 'undefined') && (field.type == 'radio')) {
+    if ((_.isUndefined(field.length)) && (field.type === 'radio')) {
       if (field.checked) {
         return field.value;
       }
@@ -525,125 +522,18 @@ const HeroCardUtility = {
       return false;
     }
     const composedDate = new Date(matches[1], (matches[2] - 1), matches[3]);
-    const isDate = ((composedDate.getMonth() == (matches[2] - 1)) && (composedDate.getDate() == matches[3]) && (composedDate.getFullYear() == matches[1]));
+    const isDate = ((composedDate.getMonth() === (matches[2] - 1)) &&
+     (composedDate.getDate() === parseInt(matches[3], 10))
+    && (composedDate.getFullYear() === parseInt(matches[1], 10)));
     if (!isDate) {
       return false;
     }
-
-
     return true;
-  },
-
-  /**
-     * Function to store element id, event type and handler name
-     * @param {string} elemID - element id
-     * @param {string} eventName - event name
-     * @param {string} handlerName - event handler
-     */
-  registerEventHandler(elemID, eventName, handlerName) {
-    if (HeroCard.actionableUIElements == null) {
-      HeroCard.actionableUIElements = [];
-    }
-
-    const obj = {
-      elemID,
-      eventName,
-      handlerName };
-
-    HeroCard.actionableUIElements.push(obj);
-  },
-
-  /**
-     * Function to add event listers to the respective elements
-     */
-  attachEventHandlers() {
-    if (HeroCard.actionableUIElements === undefined || !HeroCard.actionableUIElements.length) {
-      return;
-    }
-
-    HeroCard.actionableUIElements.forEach((item) => {
-      const element = document.getElementById(item.elemID);
-      if (element == null) {
-        console.log(`Element not found: ${element}`);
-        return;
-      }
-
-      const handler = HeroCardUtility.listOfRegisteredActions(item.handlerName);
-      if (handler == null) {
-        console.log(`Handler not found${item.handlerName}`);
-        return;
-      }
-
-      element.addEventListener(item.eventName, () => {
-        handler(element);
-      });
-    });
-  },
-
-  /**
-     * Function to get stored event handler
-     * @param {string} elemID - element id
-     * @return {object} - object containing element id, event type and event handler
-     */
-  getEventHandlerByElementId(elemID) {
-    let eventHandlers = HeroCard.actionableUIElements,
-      eventObj;
-
-    for (let i = 0; i < eventHandlers.length; i++) {
-      if (eventHandlers[i].elemID === elemID) {
-        const handler = HeroCardUtility.listOfRegisteredActions(eventHandlers[i].handlerName);
-        if (handler !== null) {
-          eventObj = {
-            elemID: eventHandlers[i].elemID,
-            eventName: eventHandlers[i].eventName,
-            handlerName: handler,
-          };
-          break;
-        }
-      }
-    }
-
-    return eventObj;
-  },
-
-  /**
-     * Function to get registered event handlers
-     * @param {string} funName - event handler name
-     */
-  listOfRegisteredActions(funName) {
-    const listOfActions = {
-      'HeroCardActions.Auth.dismiss(event, element)':
-                function (element) { HeroCardActions.Auth.dismiss(event, element); },
-      'HeroCardActions.Auth.login(element)':
-                function (element) { HeroCardActions.Auth.login(element); },
-      'HeroCardActions.UserInput.hideInputForm(event, this)':
-                function (element) { HeroCardActions.UserInput.hideInputForm(event, element); },
-      'HeroCardActions.UserInput.submitInput(event, this)':
-                function (element) { HeroCardActions.UserInput.submitInput(event, element); },
-      'HeroCardActions.UserInput.checkUserInput(event, this)':
-                function (element) { HeroCardActions.UserInput.checkUserInput(event, element); },
-      'HeroCardActions.Common.validateFieldRules(event, element)':
-                function (element) { HeroCardActions.Common.validateFieldRules(event, element); },
-      'HeroCardUtility.approveJiraTicket(event, element)':
-                function (element) { window.HeroCard.Utility.approveJiraTicket(event, element); },
-      'HeroCardActions.UserInput.showInputForm(event, element)':
-                function (element) { HeroCardActions.UserInput.showInputForm(event, element); },
-      'HeroCardActions.ToggleCardView.viewCardDetails(event, element)':
-                function (element) { HeroCardActions.ToggleCardView.viewCardDetails(event, element); },
-      'HeroCardActions.ToggleCardView.viewCardLess(event, element)':
-                function (element) { HeroCardActions.ToggleCardView.viewCardLess(event, element); },
-      'HeroCardActions.Direct.openUrlLocation(element)':
-                function (element) { HeroCardActions.Direct.openUrlLocation(element); },
-      'javascript:void(0)':
-                function () { void (0); },
-    };
-
-    return listOfActions[funName];
   },
 
   hashcode(obj) {
     let hc = 0;
-    const chars = JSON.stringify(obj).replace(/\{|\"|\}|\:|,/g, '');
+    const chars = _.replace(JSON.stringify(obj), /\{|"|\}|:|,/g, '');
     const len = chars.length;
     for (let i = 0; i < len; i++) {
       // Bump 7 to larger prime number to increase uniqueness
@@ -655,8 +545,7 @@ const HeroCardUtility = {
   createElement(type, attr, text, parent) {
     attr = attr || {};
     text = text || '';
-    let element = document.createElement(type),
-      l = attr.length;
+    const element = document.createElement(type);
 
     for (const key in attr) {
       element.setAttribute(key, attr[key]);
@@ -675,8 +564,9 @@ const HeroCardUtility = {
   },
 
   findAncestor(el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls)) { }
-    return el;
+    let element = el;
+    while ((element = element.parentElement) && !element.classList.contains(cls)) {};
+    return element;
   },
 
   convertTimestamp(isoDate) {
@@ -686,8 +576,8 @@ const HeroCardUtility = {
   },
 
   callbackClasses(cardObj) {
-    let card = cardObj,
-      classNames = '';
+    const card = cardObj;
+    let classNames = '';
 
     // Check if the card to be expanded
     if (card.hasOwnProperty('expand') && card.expand === true) {
@@ -705,7 +595,7 @@ const HeroCardUtility = {
   },
 
   imgPath(fileName) {
-    return hsImgs + fileName;
+    return window.hsImgs + fileName;
   },
 
 };

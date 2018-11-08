@@ -51,6 +51,13 @@ describe('CardActionComponent', () => {
       expect(component.instance().stringifyAction).toHaveBeenCalledWith({});
     });
 
+    it('should render a div with class name primary', () => {
+      component.setProps({ numActions: 1, action: '' });
+      const res = component.instance().stringifyAction(props.action);
+
+      expect(res).toEqual(undefined);
+    });
+
     it('should render a UserInputSection Component', () => {
       const userInputSection = component.find(UserInputSection);
 
