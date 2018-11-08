@@ -80,7 +80,7 @@ export class ActionButtonComponent extends Component {
   render() {
     const { cardID, action } = this.props;
     const buttonClasses = this.getButtonClasses(action);
-    const elemID = `${cardID }__${action.id}`;
+    const elemID = `${cardID}__${action.id}`;
     let actionHandler = this.getActionHandler(action.action_key);
     let innerText = action.label;
 
@@ -110,8 +110,12 @@ export class ActionButtonComponent extends Component {
 }
 
 ActionButtonComponent.propTypes = {
-  cardID: PropTypes.string.isRequired,
+  cardID: PropTypes.string,
   action: PropTypes.object.isRequired,
+};
+
+ActionButtonComponent.defaultProps = {
+  cardID: '',
 };
 
 export default ActionButtonComponent;
