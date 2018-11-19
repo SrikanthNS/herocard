@@ -171,9 +171,6 @@ const HeroCardUtility = {
     const element = elem;
     if (element.classList.length) {
       element.classList.remove(className);
-    } else if (HeroCardUtility.hasClass(element, className)) {
-      const reg = new RegExp(`(\\s|^)${className}(\\s|$)`);
-      element.className = _.replace(element.className, (reg, ' '));
     }
   },
 
@@ -334,141 +331,6 @@ const HeroCardUtility = {
     }
   },
 
-  createFormField(type, field, attrs, handlers, identifier) {
-    let control = '',
-      isFormatPresent = type || 'TEXT',
-      controlType = isFormatPresent.toUpperCase(),
-      controlName = field.id,
-      controlID = `${identifier}__${controlName}`;
-
-    for (const x in handlers) {
-      var funName = handlers[x];
-      if (controlType == 'CHECKBOX' ||
-                    controlType == 'RADIO') {
-        continue;
-      }
-      HeroCardUtility.registerEventHandler(controlID, x, funName);
-    }
-
-    switch (controlType) {
-      case 'DATE':
-      case 'EMAIL':
-      case 'TEL':
-      case 'TEXT':
-        control = `<input autocomplete="off" type="${type}" name="${controlName}" id="${controlID}"${attrs} />`;
-        break;
-
-      case 'NUMBER':
-        var min = '',
-          max = '';
-        if (field.range !== undefined) {
-          min = field.range[0];
-          max = field.range[1];
-        }
-        control = `<input autocomplete="off" type="number" name="${controlName}" id="${controlID}" min="${min}" max="${max}" ${attrs} />`;
-        break;
-
-      case 'RANGE':
-        var min = '0',
-          max = '100',
-          minText = '',
-          maxText = '';
-        if (field.range !== undefined) {
-          min = field.range[0];
-          max = field.range[1];
-        }
-
-        control = `<input autocomplete="off" type="range" name="${controlName}" id="${controlID}" min="${min}" max="${max}" ${attrs} />`;
-        minText = `<small class="hccf-form-field--range__min">${min}</small>`;
-        maxText = `<small class="hccf-form-field--range__max">${max}</small>`;
-        control += minText + maxText;
-        break;
-
-      case 'SELECT':
-        var selectOptions = '',
-          optionsStr = '<option value="">Select</option>';
-
-        if (field.options) {
-          selectOptions = field.options;
-          for (const v in selectOptions) {
-            optionsStr += `<option value="${v}" ${(field.selected && (field.selected === v)) ? 'selected' : ''}>${selectOptions[v]}</option>`;
-          }
-        }
-
-        control = `<select name="${controlName}" id="${controlID}"${attrs}>${optionsStr}</select>`;
-        break;
-
-      case 'RADIO':
-        var radioOptions = '',
-          radioList = '';
-
-        if (field.options) {
-          radioOptions = field.options;
-          for (const v in radioOptions) {
-            controlID += v;
-
-            for (const x in handlers) {
-              var funName = handlers[x];
-              HeroCardUtility.registerEventHandler(controlID, x, funName);
-            }
-
-            radioList += `<label for="${v}"><input type="radio"  name="${controlName}"${attrs} id="${controlID}" value="${v}" ${(field.selected && (field.selected === v)) ? 'checked' : ''}>${radioOptions[v]}</label><br/>`;
-          }
-        }
-
-        control = radioList;
-        break;
-
-      case 'CHECKBOX':
-        var checkboxOptions = '',
-          checkboxList = '';
-
-        if (field.options) {
-          checkboxOptions = field.options;
-          for (const v in checkboxOptions) {
-            controlID = controlName + v;
-
-            for (const x in handlers) {
-              var funName = handlers[x];
-              HeroCardUtility.registerEventHandler(controlID, x, funName);
-            }
-
-            checkboxList += `<label for="${v}"><input type="checkbox"  name="${controlName}"${attrs}" id="${controlID}" value="${v}" ${(field.selected && (field.selected === v)) ? 'checked' : ''}>${checkboxOptions[v]}</label><br/>`;
-          }
-        }
-
-        control = checkboxList;
-        break;
-
-      case 'TEXTAREA':
-        control = `<textarea name="${controlName}" id="${controlID}"${attrs}></textarea>`;
-        break;
-
-      default:
-        control = `<input autocomplete="off" type="text" name="${controlName}" id="${controlID}"${attrs} />`;
-    }
-
-    return control;
-  },
-
-  // function to check radio(s)/checkbox(s) fild value is set or not
-  // if set return the first set value or return false
-  checkRadioCheckboxValue(field) {
-    if ((_.isUndefined(field.length)) && (field.type === 'radio')) {
-      if (field.checked) {
-        return field.value;
-      }
-    } else {
-      for (let i = 0; i < field.length; i++) {
-        if (field[i].checked) {
-          return field[i].value;
-        }
-      }
-    }
-
-    return false;
-  },
-
   // function to check for numeric values
   checkForNumericValue(value) {
     if (!value) {
@@ -529,44 +391,6 @@ const HeroCardUtility = {
       return false;
     }
     return true;
-  },
-
-  hashcode(obj) {
-    let hc = 0;
-    const chars = _.replace(JSON.stringify(obj), /\{|"|\}|:|,/g, '');
-    const len = chars.length;
-    for (let i = 0; i < len; i++) {
-      // Bump 7 to larger prime number to increase uniqueness
-      hc += (chars.charCodeAt(i) * 7);
-    }
-    return hc;
-  },
-
-  createElement(type, attr, text, parent) {
-    attr = attr || {};
-    text = text || '';
-    const element = document.createElement(type);
-
-    for (const key in attr) {
-      element.setAttribute(key, attr[key]);
-    }
-
-    if (text) {
-      const t = document.createTextNode(text);
-      element.appendChild(t);
-    }
-
-    if (parent) {
-      parent.appendChild(element);
-    }
-
-    return element;
-  },
-
-  findAncestor(el, cls) {
-    let element = el;
-    while ((element = element.parentElement) && !element.classList.contains(cls)) {};
-    return element;
   },
 
   convertTimestamp(isoDate) {
