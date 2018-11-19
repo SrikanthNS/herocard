@@ -1,5 +1,4 @@
 import HeroCardResponseManager from './response-manager';
-import HeroCardUtility from './utility';
 
 describe('Response Manager', () => {
   describe('getCardsCount', () => {
