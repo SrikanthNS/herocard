@@ -36,7 +36,7 @@ describe('CardActionComponent', () => {
       expect(divElement.length).toBe(1);
     });
 
-    it('should render a div with class name primary', () => {
+    it('should render a div with class name primary when number of action is one', () => {
       component.setProps({ numActions: 1, action: cardData[0].actions[0] });
       const divElement = component.find('div.hccf-card-actions__item--primary');
 
@@ -51,7 +51,7 @@ describe('CardActionComponent', () => {
       expect(component.instance().stringifyAction).toHaveBeenCalledWith({});
     });
 
-    it('should render a div with class name primary', () => {
+    it('should render a div with class name primary when prop action is null', () => {
       component.setProps({ numActions: 1, action: '' });
       const res = component.instance().stringifyAction(props.action);
 

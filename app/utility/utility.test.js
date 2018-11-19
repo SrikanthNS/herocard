@@ -578,16 +578,4 @@ describe('Utility functions', () => {
       expect(retVal).toEqual(undefined);
     });
   });
-
-  // describe('imgPath', () => {
-  //   const fileName = 'Srikanth.jpg';    
-
-  //   it('return full image path', () => {
-  //     const fileName = 'Srikanth.jpg';
-  //     window.hsImgs = 'http://localhost/';
-  //     const fullImgPath = HeroCardUtility.imgPath(fileName);
-
-  //     expect(fullImgPath).toEqual('http://localhost/Srikanth.jpg');
-  //   });
-  // });
 });

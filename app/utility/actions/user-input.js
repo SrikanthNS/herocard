@@ -24,71 +24,68 @@ import ActionCompletionActions from './action-completion';
  * @method addInputCallback
  */
 const UserInputActions = {
-    showInputForm: function(e, addInputButton) {
-        let formSectionClass = '.hccf-js-input-add-section',
-            actionKey = addInputButton.getAttribute('data-actionkey');
-        return CommonActions.showActionForm(addInputButton, formSectionClass, actionKey);
-    },
+  showInputForm(e, addInputButton) {
+    const formSectionClass = '.hccf-js-input-add-section';
+    const actionKey = addInputButton.getAttribute('data-actionkey');
+    return CommonActions.showActionForm(addInputButton, formSectionClass, actionKey);
+  },
 
-    hideInputForm: function(e, cancelButton) {
-        const formSectionClass = '.hccf-js-input-add-section';
-        CommonActions.hideActionForm(cancelButton, formSectionClass);
-    },
+  hideInputForm(e, cancelButton) {
+    const formSectionClass = '.hccf-js-input-add-section';
+    CommonActions.hideActionForm(cancelButton, formSectionClass);
+  },
 
-    checkUserInput: function(e, text) {
-        let form = HeroCardUtility.getClosest(text, '.hccf-card-action-form'),
-            submitButton = form.querySelector('.hccf-js-input-button-submit');
-        return CommonActions.validateFormFields(form, submitButton);
-    },
+  checkUserInput(e, text) {
+    const form = HeroCardUtility.getClosest(text, '.hccf-card-action-form');
+    const submitButton = form.querySelector('.hccf-js-input-button-submit');
+    return CommonActions.validateFormFields(form, submitButton);
+  },
 
-    submitInput: function(e, button) {
-        let form = HeroCardUtility.getClosest(button, '.hccf-card-action-form'),
-            card = HeroCardUtility.getClosest(button, '.hccf-hero-card'),
-            isValid = CommonActions.validateFormFields(form, button);
+  submitInput(e, button) {
+    const form = HeroCardUtility.getClosest(button, '.hccf-card-action-form');
+    const card = HeroCardUtility.getClosest(button, '.hccf-hero-card');
+    const isValid = CommonActions.validateFormFields(form, button);
 
-        if (!isValid) {
-            return false;
-        }
+    if (!isValid) {
+      return false;
+    }
 
-        let formData = CommonActions.getFormData(form),
-            callback = 'HeroCard.UserInputActions.addInputCallback';
+    const formData = CommonActions.getFormData(form);
+    const callback = 'HeroCard.UserInputActions.addInputCallback';
 
-        CommonActions.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
+    CommonActions.encodeRoswellActionURLAndNavigate(card, form, formData, callback);
 
-        // Disable submit button and change label to "In progress..."
-        CommonActions.disableActionButton(button, 'In progress...');
-        return true;
-    },
+    // Disable submit button and change label to "In progress..."
+    CommonActions.disableActionButton(button, 'In progress...');
+    return true;
+  },
 
-    addInputCallback: function(urlStr, result) {
-        const _self = this;
-        const info = CommonActions.decodeRoswellActionURL(urlStr, '.hccf-js-input-add-section');
-        let actionButton = info.actionButton,
-            submitButton = info.submitButton,
-            cancelButton = info.cancelButton,
-            actionObject = info.actionObject,
-            cardHTML = info.cardHTML,
-            cardID = info.cardID;
+//   addInputCallback(urlStr, result) {
+//     const self = this;
+//     const info = CommonActions.decodeRoswellActionURL(urlStr, '.hccf-js-input-add-section');
+//     const submitButton = info.submitButton;
+//     const cancelButton = info.cancelButton;
+//     const actionObject = info.actionObject;
 
-        const defaultLabel = ActionCompletionActions.getActionPropertyValue(actionObject, 'label');
+//     const defaultLabel = ActionCompletionActions.getActionPropertyValue(actionObject, 'label');
 
-        if (result) {
-            const removeCard = ActionCompletionActions.getActionPropertyValue(actionObject, 'remove_card_on_completion');
-            if (removeCard !== true) {
-                _self.hideInputForm('', cancelButton);
-                // enable submit button
-                CommonActions.enableActionButton(submitButton, defaultLabel, '', '');
-            }
+//     if (result) {
+//       const removeCard = ActionCompletionActions.getActionPropertyValue(actionObject, 'remove_card_on_completion');
+//       if (removeCard !== true) {
+//         self.hideInputForm('', cancelButton);
+//         // enable submit button
+//         CommonActions.enableActionButton(submitButton, defaultLabel, '', '');
+//       }
 
-            ActionCompletionActions.setActionCompleted(actionObject.id);
-            ActionCompletionActions.renderUIForCompletedAction(actionObject.id);
-        } else {
-            // enable submit button
-            CommonActions.enableActionButton(submitButton, defaultLabel, '', '');
-        }
+//       ActionCompletionActions.setActionCompleted(actionObject.id);
+//       ActionCompletionActions.renderUIForCompletedAction(actionObject.id);
+//     } else {
+//       // enable submit button
+//       CommonActions.enableActionButton(submitButton, defaultLabel, '', '');
+//     }
 
-        return JSON.stringify(HeroCard.cardDataJSON);
-    },
+//     return JSON.stringify(HeroCard.cardDataJSON);
+//   },
 };
 
 // Add 'UserInputActions' to 'HeroCard' namespace for native layer to callback
