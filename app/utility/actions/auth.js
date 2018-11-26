@@ -23,8 +23,8 @@ import ActionCompletionActions from './action-completion';
  * @method loginCallback
  */
 const AuthActions = {
-    // No need to call back into the Framework layer for this action.  Simply dismiss.
-    dismiss: function(e, dismissButton) {
+  // No need to call back into the Framework layer for this action.  Simply dismiss.
+  dismiss(e, dismissButton) {
         const cardHtml = HeroCardUtility.getClosest(dismissButton, '.hccf-hero-card');
         if (cardHtml) {
             CommonActions.disableActionButton(dismissButton, 'Dismissed');
@@ -32,7 +32,7 @@ const AuthActions = {
         }
     },
 
-    login: function(elem) {
+  login(elem) {
         let form = HeroCardUtility.getClosest(elem, '.hccf-card-action-form'),
             card = HeroCardUtility.getClosest(elem, '.hccf-hero-card'),
             formData = CommonActions.getFormData(form),
@@ -43,7 +43,7 @@ const AuthActions = {
         return true;
     },
 
-    loginCallback: function(urlStr, result) {
+  loginCallback(urlStr, result) {
         const info = CommonActions.decodeRoswellActionURL(urlStr, '.hccf-card-actions__item');
         let actionButton = info.actionButton,
             actionObject = info.actionObject;

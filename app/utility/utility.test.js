@@ -284,7 +284,7 @@ describe('Utility functions', () => {
       const ele = UiFramework.div(
         'div1',
         'someclass',
-        'This is a bigger innerText for the dive element, So trim it and add ellipsis');
+        'This is a bigger innerText for the div element, So trim it and add ellipsis');
       HeroCardUtility.addEllipsis(ele, 10, 'hccf-card-body__field-description--truncated');
 
       expect(ele.classList.contains('hccf-card-body__field-description--truncated')).toEqual(true);
