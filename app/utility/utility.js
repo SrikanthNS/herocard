@@ -399,6 +399,24 @@ const HeroCardUtility = {
     return HeroCardUtility.dateDifference(convertedDate, new Date());
   },
 
+  // function to check radio(s)/checkbox(s) fild value is set or not
+  // if set return the first set value or return false
+  checkRadioCheckboxValue(field) {
+    if (_.isUndefined(field.length) && (field.type === 'radio')) {
+      if (field.checked) {
+        return field.value;
+      }
+    } else {
+      for (let i = 0; i < field.length; i++) {
+        if (field[i].checked) {
+          return field[i].value;
+        }
+      }
+    }
+
+    return false;
+  },
+
   callbackClasses(cardObj) {
     const card = cardObj;
     let classNames = '';

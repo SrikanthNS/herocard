@@ -1,3 +1,9 @@
+/* eslint-disable no-case-declarations */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-void */
+/* eslint-disable space-unary-ops */
 /*
  * Copyright (c) 2018 VMware, Inc. All rights reserved.
  *
@@ -11,8 +17,10 @@
 /**
  * Imports
  */
+import _ from 'lodash';
 import HeroCardUtility from '../utility';
 import HeroCardEventEmitter from '../event-emitter';
+
 
 HeroCardEventEmitter().initEventEmitter();
 const EventEmitter = HeroCardEventEmitter().EventEmitter();
@@ -32,383 +40,389 @@ const EventEmitter = HeroCardEventEmitter().EventEmitter();
  * @method validateFieldRules
  */
 const CommonActions = {
-    
-    /**
+
+  /**
      * Function to handle mutually exclusive action completion
      * @param {element} actionButton - action button element
      * @param {array} mutexGroupActions - array of mutually exclusive action ids
      */
-    handleMutexActionCompletion: function(actionButton, mutexGroupActions) {
-        HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link__mutex-action-complete');
-        const actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item');
+  handleMutexActionCompletion(actionButton, mutexGroupActions) {
+    HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link__mutex-action-complete');
+    const actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item');
 
-        // make action item full-width
-        HeroCardUtility.addClass(actionItem, 'hccf-card-actions__item--fullwidth');
+    // make action item full-width
+    HeroCardUtility.addClass(actionItem, 'hccf-card-actions__item--fullwidth');
 
-        for (let i = 0; i < mutexGroupActions.length; i++) {
-            const mutexButton = document.getElementById(`${mutexGroupActions[i]}__` + `hccf-card-actions__item-link`);
-            const mutexItem = HeroCardUtility.getClosest(mutexButton, '.hccf-card-actions__item');
+    for (let i = 0; i < mutexGroupActions.length; i++) {
+      const mutexButton = document.getElementById(`${mutexGroupActions[i]}__hccf-card-actions__item-link`);
+      const mutexItem = HeroCardUtility.getClosest(mutexButton, '.hccf-card-actions__item');
 
-            // hide mutex item
-            HeroCardUtility.addClass(mutexItem, 'hccf-card-actions__item--hidden');
-        }
-    },
-        
-    disableActionButton: function(actionButton, disableLabel) {
-        actionButton.removeEventListener('click', void (0));
-        HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--complete');
-        HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--disabled');
+      // hide mutex item
+      HeroCardUtility.addClass(mutexItem, 'hccf-card-actions__item--hidden');
+    }
+  },
 
-        if (disableLabel) {
-            actionButton.innerHTML = disableLabel;
-        }
-    },
-        
-    /**
+  disableActionButton(actionButton, disableLabel) {
+    actionButton.removeEventListener('click', void(0));
+    HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--complete');
+    HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--disabled');
+
+    if (disableLabel) {
+      actionButton.innerHTML = disableLabel;
+    }
+  },
+
+  /**
      * Function to enable action button
      * @param {element} actionButton - action button element
      * @param {string} label - button label to set
      * @param {string} eventName - event type to attach
      * @param {string}  handlerFunction - event handler function
      */
-    enableActionButton: function(actionButton, label, eventName, handlerFunction) {
-        HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--complete');
-        HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--disabled');
+  enableActionButton(actionButton, label, eventName, handlerFunction) {
+    HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--complete');
+    HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--disabled');
 
-        if (label) {
-            actionButton.innerHTML = label;
-        }
+    if (label) {
+      actionButton.innerHTML = label;
+    }
 
-        if (eventName && handlerFunction) {
-            actionButton.addEventListener(eventName, () => {
-                handlerFunction(actionButton);
-            });
-        }
-    },
-        
-    showActionForm: function(actionButton, sectionClass, actionKey) {
-        // return if action button marked as complete/disabled
-        if (HeroCardUtility.hasClass(actionButton, 'hccf-card-actions__item-link--complete')
+    if (eventName && handlerFunction) {
+      actionButton.addEventListener(eventName, () => {
+        handlerFunction(actionButton);
+      });
+    }
+  },
+
+  showActionForm(actionButton, sectionClass) {
+    // return if action button marked as complete/disabled
+    if (HeroCardUtility.hasClass(actionButton, 'hccf-card-actions__item-link--complete')
             || HeroCardUtility.hasClass(actionButton, 'hccf-card-actions__item-link--disabled')) {
-                return false;
-        }
+      return false;
+    }
 
-        let actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item'),
-            actionItemSiblings = actionItem.parentNode.children,
-            formSection = actionButton.parentNode.parentNode.querySelector(sectionClass);
+    const actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item');
+    const actionItemSiblings = actionItem.parentNode.children;
+    const formSection = actionButton.parentNode.parentNode.querySelector(sectionClass);
 
-        // hide other buttons
-        for (let i = 0; i < actionItemSiblings.length; i++) {
-            if (!actionItemSiblings[i].isEqualNode(actionItem)) {
-                HeroCardUtility.addClass(actionItemSiblings[i], 'hccf-card-actions__item--hidden');
-            }
-        }
+    // hide other buttons
+    for (let i = 0; i < actionItemSiblings.length; i++) {
+      if (!actionItemSiblings[i].isEqualNode(actionItem)) {
+        HeroCardUtility.addClass(actionItemSiblings[i], 'hccf-card-actions__item--hidden');
+      }
+    }
 
-        // hide the action button
-        HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--hidden');
+    // hide the action button
+    HeroCardUtility.addClass(actionButton, 'hccf-card-actions__item-link--hidden');
 
-        // make the container full-width
-        HeroCardUtility.addClass(actionItem, 'hccf-card-actions__item--fullwidth');
+    // make the container full-width
+    HeroCardUtility.addClass(actionItem, 'hccf-card-actions__item--fullwidth');
 
-        formSection.style.display = 'block';
+    formSection.style.display = 'block';
 
-        // Emit card rezized event
-        EventEmitter.emit('CARDRESIZED');
-        return true;
-    },
-        
-    /**
+    // Emit card rezized event
+    EventEmitter.emit('CARDRESIZED');
+    return true;
+  },
+
+  /**
      * Function to hide the user input form upon clicking Cancel button
      * @param {element} - the cancel button
      * @param {string} - the user input section class
      */
-    hideActionForm: function(cancelButton, sectionClass) {
-        const _self = this;
-        let formSection = HeroCardUtility.getClosest(cancelButton, sectionClass),
-            form = HeroCardUtility.getClosest(cancelButton, 'form'),
-            actionButton = formSection.nextElementSibling || form.querySelector('.hccf-card-actions__item-link--hidden'),
-            actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item'),
-            actionItemSiblings = actionItem.parentNode.children;
+  hideActionForm(cancelButton, sectionClass) {
+    const self = this;
+    const formSection = HeroCardUtility.getClosest(cancelButton, sectionClass);
+    const form = HeroCardUtility.getClosest(cancelButton, 'form');
+    const actionButton = formSection.nextElementSibling || form.querySelector('.hccf-card-actions__item-link--hidden');
+    const actionItem = HeroCardUtility.getClosest(actionButton, '.hccf-card-actions__item');
+    const actionItemSiblings = actionItem.parentNode.children;
 
-        // clear the form
-        _self.clearActionForm(form);
+    // clear the form
+    self.clearActionForm(form);
 
-        // hide siblings
-        for (let i = 0; i < actionItemSiblings.length; i++) {
-            if (!actionItemSiblings[i].isEqualNode(actionItem)) {
-                HeroCardUtility.removeClass(actionItemSiblings[i], 'hccf-card-actions__item--hidden');
-            }
-        }
+    // hide siblings
+    for (let i = 0; i < actionItemSiblings.length; i++) {
+      if (!actionItemSiblings[i].isEqualNode(actionItem)) {
+        HeroCardUtility.removeClass(actionItemSiblings[i], 'hccf-card-actions__item--hidden');
+      }
+    }
 
-        // show main action button
-        HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--hidden');
+    // show main action button
+    HeroCardUtility.removeClass(actionButton, 'hccf-card-actions__item-link--hidden');
 
-        // make the container normal width
-        HeroCardUtility.removeClass(actionItem, 'hccf-card-actions__item--fullwidth');
+    // make the container normal width
+    HeroCardUtility.removeClass(actionItem, 'hccf-card-actions__item--fullwidth');
 
-        formSection.style.display = 'none';
+    formSection.style.display = 'none';
 
-        // Emit card rezized event
-        EventEmitter.emit('CARDRESIZED');
-    },
-        
-    validateFormFields: function(form, submitButton) {
-        const _self = this;
-        let isValid = true,
-            elements = form.elements,
-            l = elements.length,
-            i = 0,
-            valuesObj = {};
+    // Emit card rezized event
+    EventEmitter.emit('CARDRESIZED');
+  },
 
-        // create name/validation pair objects for form fields
-        for (; i < l; i++) {
-            if ((elements[i].type != 'hidden') && (elements[i].getAttribute('data-validation') !== undefined)) {
-                valuesObj[elements[i].getAttribute('name')] = _self.validateFieldRules(null, elements[i], true);
-            }
-        }
+  validateFormFields(form, submitButton) {
+    const self = this;
+    let isValid = true;
+    const elements = form.elements;
+    const l = elements.length;
+    let i = 0;
+    const valuesObj = {};
 
-        for (const x in valuesObj) {
-            if (!valuesObj[x]) {
-                isValid = false;
-            }
-        }
+    // create name/validation pair objects for form fields
+    for (; i < l; i++) {
+      if ((elements[i].type !== 'hidden') && (elements[i].getAttribute('data-validation') !== undefined)) {
+        valuesObj[elements[i].getAttribute('name')] = self.validateFieldRules(null, elements[i], true);
+      }
+    }
 
-        if (isValid) {
-            // enable submit button
-            HeroCardUtility.removeClass(submitButton, 'hccf-card-actions__item-link--disabled');
-        } else {
-            // disable submit button
-            HeroCardUtility.addClass(submitButton, 'hccf-card-actions__item-link--disabled');
-        }
+    for (const x in valuesObj) {
+      if (!valuesObj[x]) {
+        isValid = false;
+      }
+    }
 
-        return isValid;
-    },
-        
-    /**
+    if (isValid) {
+      // enable submit button
+      HeroCardUtility.removeClass(submitButton, 'hccf-card-actions__item-link--disabled');
+    } else {
+      // disable submit button
+      HeroCardUtility.addClass(submitButton, 'hccf-card-actions__item-link--disabled');
+    }
+
+    return isValid;
+  },
+
+  /**
      * Function to reset and clear the from
      * It also removes validation error styles/messages if any
      * @param {element} - form element
      */
-    clearActionForm: function(form) {
-        // reset form
-        form.reset();
+  clearActionForm(form) {
+    // reset form
+    form.reset();
 
-        // clear validation errors
-        const formFields = form.getElementsByClassName('hccf-form-field');
-        const len = formFields.length;
+    // clear validation errors
+    const formFields = form.getElementsByClassName('hccf-form-field');
+    const len = formFields.length;
 
-        for (let i = 0; i < len; i++) {
-            let field = formFields[i],
-                dotElem = field.getElementsByClassName('hccf-form-field__validation-error-dot'),
-                errorElem = field.getElementsByClassName('hccf-form-field__validation-error'),
-                messageElem = field.getElementsByClassName('hccf-form-field__validation-message');
+    for (let i = 0; i < len; i++) {
+      const field = formFields[i];
+      const dotElem = field.getElementsByClassName('hccf-form-field__validation-error-dot');
+      const errorElem = field.getElementsByClassName('hccf-form-field__validation-error');
+      const messageElem = field.getElementsByClassName('hccf-form-field__validation-message');
 
-            // remove the red dot
-            if (dotElem[0] !== undefined) {
-                HeroCardUtility.removeClass(dotElem[0], 'hccf-form-field__validation-error-dot');
-            }
+      // remove the red dot
+      if (dotElem[0] !== undefined) {
+        HeroCardUtility.removeClass(dotElem[0], 'hccf-form-field__validation-error-dot');
+      }
 
-            // remove the red border
-            if (errorElem[0] !== undefined) {
-                HeroCardUtility.removeClass(errorElem[0], 'hccf-form-field__validation-error');
-            }
+      // remove the red border
+      if (errorElem[0] !== undefined) {
+        HeroCardUtility.removeClass(errorElem[0], 'hccf-form-field__validation-error');
+      }
 
-            // hide error message
-            if (messageElem[0] !== undefined) {
-                messageElem[0].style.display = 'none';
-            }
-        }
-    },
-        
-    getFormData: function(form) {
-        let formData = '',
-            elements = form.elements,
-            l = elements.length,
-            i = 0,
-            valuesObj = {};
+      // hide error message
+      if (messageElem[0] !== undefined) {
+        messageElem[0].style.display = 'none';
+      }
+    }
+  },
 
-        // create name/value pair objects for form fields
-        for (; i < l; i++) {
-            if (elements[i].type != 'hidden') {
-                if (elements[i].type == 'radio') {
-                    if (valuesObj[elements[i].getAttribute('name')] == undefined || valuesObj[elements[i].getAttribute('name')] == '') {
-                        valuesObj[elements[i].getAttribute('name')] = elements[i].checked ? elements[i].value.trim() : '';
-                    }
-                } else if (elements[i].type == 'checkbox') {
-                    if (valuesObj[elements[i].getAttribute('name')] == undefined) {
-                        valuesObj[elements[i].getAttribute('name')] = elements[i].checked ? elements[i].value.trim() : '';
-                    } else if (elements[i].checked && !valuesObj[elements[i].getAttribute('name')]) {
-                        valuesObj[elements[i].getAttribute('name')] = elements[i].value.trim();
-                    } else if (elements[i].checked && valuesObj[elements[i].getAttribute('name')]) {
-                        valuesObj[elements[i].getAttribute('name')] += `,${elements[i].value.trim()}`;
-                    }
-                } else {
-                    valuesObj[elements[i].getAttribute('name')] = elements[i].value.trim();
-                }
-            }
-        }
+  getFormData(form) {
+    let formData = '';
+    const elements = form.elements;
+    const l = elements.length;
+    let i = 0;
+    const valuesObj = {};
 
-        for (const x in valuesObj) {
-            if (formData) {
-                formData += '&';
-            } else {
-                formData = '';
-            }
-            formData += `${x}=${encodeURIComponent(valuesObj[x])}`;
-        }
-
-        return formData;
-    },
-        
-    encodeRoswellActionURLAndNavigate: function(card, form, userData, callback) {
-        // info to construct the URL to RoswellFramework
-        let cardId = card.getAttribute('data-card-id'),
-            cardConnector = card.getAttribute('data-card-connector'),
-            queryParams = [];
-
-        if (userData) { 
-            queryParams.push(userData); 
-        }
-        
-        if (form) { 
-            queryParams.push(`action=${form.getAttribute('data-action-string')}`); 
-        }
-        
-        queryParams.push(`callback=${callback}`);
-
-        const urlStr = `roswellframework://${
-            cardConnector ? `${cardConnector}/` : ''
-            }${cardId || ''
-            }?${
-            queryParams.join('&')}`;
-
-        window.location = urlStr;
-    },
-        
-    decodeRoswellActionURL: function(urlStr, sectionClass) {
-        let url = HeroCardUtility.parseURL(urlStr),
-            cardID = url.cardid,
-            actionObject = url.searchObject.actionObject,
-            actionID = actionObject.id,
-            actionKey = actionObject.action_key;
-
-        if (actionKey === 'USER_INPUT') {
-            var submitButton = document.getElementById(`${cardID}__${actionID}__submit`),
-                cancelButton = document.getElementById(`${cardID}__${actionID}__cancel`),
-                formSection = HeroCardUtility.getClosest(submitButton, sectionClass),
-                actionButton = formSection.nextElementSibling,
-                cardHTML = HeroCardUtility.getClosest(submitButton, '.hccf-hero-card');
+    // create name/value pair objects for form fields
+    for (; i < l; i++) {
+      if (elements[i].type !== 'hidden') {
+        if (elements[i].type === 'radio') {
+          if (valuesObj[elements[i].getAttribute('name')] === undefined ||
+            valuesObj[elements[i].getAttribute('name')] === '') {
+            valuesObj[elements[i].getAttribute('name')] = elements[i].checked ? _.trim(elements[i].value) : '';
+          }
+        } else if (elements[i].type === 'checkbox') {
+          if (valuesObj[elements[i].getAttribute('name')] === undefined) {
+            valuesObj[elements[i].getAttribute('name')] = elements[i].checked ? _.trim(elements[i].value) : '';
+          } else if (elements[i].checked && !valuesObj[elements[i].getAttribute('name')]) {
+            valuesObj[elements[i].getAttribute('name')] = _.trim(elements[i].value);
+          } else if (elements[i].checked && valuesObj[elements[i].getAttribute('name')]) {
+            valuesObj[elements[i].getAttribute('name')] += `, ${_.trim(elements[i].value)}`;
+          }
         } else {
-            var submitButton = '',
-                cancelButton = '',
-                actionButton = document.getElementById(`${actionID}__` + `hccf-card-actions__item-link`),
-                cardHTML = document.getElementById(`${cardID}__${cardID}__card`);
+          valuesObj[elements[i].getAttribute('name')] = _.trim(elements[i].value);
         }
+      }
+    }
 
-        return {
-            cardID,
-            actionButton,
-            submitButton,
-            cancelButton,
-            actionObject,
-            cardHTML,
-        };
-    },
-        
-    validateFieldRules: function(e, field, showError) {
-        if (!field.getAttribute('data-validation')) {
-            return true;
-        }
+    for (const x in valuesObj) {
+      if (formData) {
+        formData += '&';
+      } else {
+        formData = '';
+      }
+      formData += `${x}=${encodeURIComponent(valuesObj[x])}`;
+    }
 
-        var rules = field.getAttribute('data-validation').split(','),
-            showError = showError !== false,
-            value = '',
-            isValid = true,
-            errorMessage = '';
+    return formData;
+  },
 
-        let fieldBlock = HeroCardUtility.getClosest(field, '.hccf-form-field'),
-            messageBlock = fieldBlock.querySelectorAll('.hccf-form-field__validation-message')[0],
-            messageContainer = messageBlock.querySelectorAll('span')[0];
+  encodeRoswellActionURLAndNavigate(card, form, userData, callback) {
+    // info to construct the URL to RoswellFramework
+    const cardId = card.getAttribute('data-card-id');
+    const cardConnector = card.getAttribute('data-card-connector');
+    const queryParams = [];
 
-        if ((field.type == 'radio') || (field.type == 'checkbox')) {
-            let radioField = field.name,
-                form = HeroCardUtility.getClosest(field, '.hccf-card-action-form');
-            value = HeroCardUtility.checkRadioCheckboxValue(form.elements[radioField]);
-        } else {
-            value = field.value.trim();
-        }
+    if (userData) {
+      queryParams.push(userData);
+    }
 
-        for (const x in rules) {
-            switch (rules[x]) {
-                case 'numeric':
-                    var isNumeric = HeroCardUtility.checkForNumericValue(value);
-                    if (!isNumeric) {
-                        isValid = false;
-                        errorMessage = `${field.getAttribute('data-field-label')} must have numeric value only`;
-                    }
+    if (form) {
+      queryParams.push(`action=${form.getAttribute('data-action-string')}`);
+    }
 
-                    var min = field.getAttribute('min'),
-                        max = field.getAttribute('max');
-                    if ((min && max) && (parseInt(value) < parseInt(min) || parseInt(value) > parseInt(max))) {
-                        isValid = false;
-                        errorMessage = `${field.getAttribute('data-field-label')} should be between ${min} and ${max}`;
-                    }
-                    break;
+    queryParams.push(`callback=${callback}`);
 
-                case 'phone':
-                    var isPhoneNumber = HeroCardUtility.checkForPhoneNumber(value);
-                    if (!isPhoneNumber) {
-                        isValid = false;
-                        errorMessage = `${field.getAttribute('data-field-label')} should be 10 digits only`;
-                    }
-                    break;
+    const urlStr = `roswellframework://${
+      cardConnector ? `${cardConnector}/` : ''
+    }${cardId || ''
+    }?${
+      queryParams.join('&')}`;
 
-                case 'email':
-                    var isEmail = HeroCardUtility.checkForEmail(value);
-                    if (!isEmail) {
-                        isValid = false;
-                        errorMessage = 'Please enter a valid e-mail address';
-                    }
-                    break;
+    window.location = urlStr;
+  },
 
-                case 'date':
-                    var isDate = HeroCardUtility.checkForDate(value);
-                    if (!isDate) {
-                        isValid = false;
-                        errorMessage = `${field.getAttribute('data-field-label')} must be a valid date`;
-                    }
-                    break;
+  decodeRoswellActionURL(urlStr, sectionClass) {
+    const url = HeroCardUtility.parseURL(urlStr);
+    const cardID = url.cardid;
+    const actionObject = url.searchObject.actionObject;
+    const actionID = actionObject.id;
+    const actionKey = actionObject.action_key;
+    let submitButton = '';
+    let cancelButton = '';
+    let actionButton = '';
+    let cardHTML = '';
+    let formSection = '';
 
-                default:
-                    if (!value) {
-                        isValid = false;
-                        errorMessage = `${field.getAttribute('data-field-label')} is required`;
-                    }
-                    break;
-            }
+    if (actionKey === 'USER_INPUT') {
+      submitButton = document.getElementById(`${cardID}__${actionID}__submit`);
+      cancelButton = document.getElementById(`${cardID}__${actionID}__cancel`);
+      formSection = HeroCardUtility.getClosest(submitButton, sectionClass);
+      actionButton = formSection.nextElementSibling;
+      cardHTML = HeroCardUtility.getClosest(submitButton, '.hccf-hero-card');
+    } else {
+      submitButton = '';
+      cancelButton = '';
+      actionButton = document.getElementById(`${actionID}__hccf-card-actions__item-link`);
+      cardHTML = document.getElementById(`${cardID}__${cardID}__card`);
+    }
 
-            if (!isValid) {
-                break;
-            }
-        }
+    return {
+      cardID,
+      actionButton,
+      submitButton,
+      cancelButton,
+      actionObject,
+      cardHTML,
+    };
+  },
+
+  validateFieldRules(e, field, showError) {
+    if (!field.getAttribute('data-validation')) {
+      return true;
+    }
+
+    const rules = _.split(field.getAttribute('data-validation'), ',');
+    showError = showError !== false;
+    let value = '';
+    let isValid = true;
+    let errorMessage = '';
+
+    const fieldBlock = HeroCardUtility.getClosest(field, '.hccf-form-field');
+    const messageBlock = fieldBlock.querySelectorAll('.hccf-form-field__validation-message')[0];
+    const messageContainer = messageBlock.querySelectorAll('span')[0];
+
+    if ((field.type === 'radio') || (field.type === 'checkbox')) {
+      const radioField = field.name;
+      const form = HeroCardUtility.getClosest(field, '.hccf-card-action-form');
+      value = HeroCardUtility.checkRadioCheckboxValue(form.elements[radioField]);
+    } else {
+      value = _.trim(field.value);
+    }
+
+    for (const x in rules) {
+      switch (rules[x]) {
+        case 'numeric':
+          const isNumeric = HeroCardUtility.checkForNumericValue(value);
+          if (!isNumeric) {
+            isValid = false;
+            errorMessage = `${field.getAttribute('data-field-label')} must have numeric value only`;
+          }
+
+          const min = field.getAttribute('min');
+          const max = field.getAttribute('max');
+          if ((min && max) && (parseInt(value, 10) < parseInt(min, 10) || parseInt(value, 10) > parseInt(max, 10))) {
+            isValid = false;
+            errorMessage = `${field.getAttribute('data-field-label')} should be between ${min} and ${max}`;
+          }
+          break;
+
+        case 'phone':
+          const isPhoneNumber = HeroCardUtility.checkForPhoneNumber(value);
+          if (!isPhoneNumber) {
+            isValid = false;
+            errorMessage = `${field.getAttribute('data-field-label')} should be 10 digits only`;
+          }
+          break;
+
+        case 'email':
+          const isEmail = HeroCardUtility.checkForEmail(value);
+          if (!isEmail) {
+            isValid = false;
+            errorMessage = 'Please enter a valid e-mail address';
+          }
+          break;
+
+        case 'date':
+          const isDate = HeroCardUtility.checkForDate(value);
+          if (!isDate) {
+            isValid = false;
+            errorMessage = `${field.getAttribute('data-field-label')} must be a valid date`;
+          }
+          break;
+
+        default:
+          if (!value) {
+            isValid = false;
+            errorMessage = `${field.getAttribute('data-field-label')} is required`;
+          }
+          break;
+      }
+
+      if (!isValid) {
+        break;
+      }
+    }
 
 
-        if (isValid) {
-            messageContainer.parentNode.previousSibling.children[0].classList.remove('hccf-form-field__validation-error');
-            messageContainer.parentNode.previousSibling.classList.remove('hccf-form-field__validation-error-dot');
-            messageContainer.textContent = '';
-            messageBlock.style.display = 'none';
-        } else if (showError) {
-            messageContainer.parentNode.previousSibling.children[0].classList.add('hccf-form-field__validation-error');
-            messageContainer.parentNode.previousSibling.classList.add('hccf-form-field__validation-error-dot');
-            messageContainer.textContent = errorMessage;
-            messageBlock.style.display = 'block';
-        }
+    if (isValid) {
+      messageContainer.parentNode.previousSibling.children[0].classList.remove('hccf-form-field__validation-error');
+      messageContainer.parentNode.previousSibling.classList.remove('hccf-form-field__validation-error-dot');
+      messageContainer.textContent = '';
+      messageBlock.style.display = 'none';
+    } else if (showError) {
+      messageContainer.parentNode.previousSibling.children[0].classList.add('hccf-form-field__validation-error');
+      messageContainer.parentNode.previousSibling.classList.add('hccf-form-field__validation-error-dot');
+      messageContainer.textContent = errorMessage;
+      messageBlock.style.display = 'block';
+    }
 
-        // Emit card rezized event
-        EventEmitter.emit('CARDRESIZED');
-        return isValid;
-    },
+    // Emit card rezized event
+    EventEmitter.emit('CARDRESIZED');
+    return isValid;
+  },
 };
 
 // Add 'CommonActions' to 'HeroCard' namespace for native layer to callback
